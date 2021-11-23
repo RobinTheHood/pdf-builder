@@ -23,3 +23,23 @@ We are using:
 We are using:
 - [Semantic Versioning 2.0.0](https://semver.org)
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+
+## TODO
+
+### Config options
+| NAME                            | TYPE       | EXAMPLE VALUE | COMMENT |
+|---------------------------------|------------|---------------|---------|
+| SHOW_DIFF_DELIVERY_ADRESS       | bool       |               ||
+| SHOW_ORDER_ID_ON_BILL           | bool       |               ||
+| SHOW_DOCUMENT_ID                | bool       |               ||
+| HIDE_CUSTOMER_NUMBER            | bool       |               ||
+| HIDE_ATTRIBUTE_MODLE            | bool       |               ||
+| HIDE_PAGES                      | bool       |               ||
+| SHOW_MANUFACTURER_MODEL         | bool       |               ||
+| SHOW_AMAZON_ORDER_ID_AS_CODE128 | bool       |               ||
+| SHOW_GROUPED_VAT_TOTALS         | bool       |               ||
+| CUSTOMER_GROUP_IDS_IN_EU        | array(int) |               | customer group IDs separated by commas |
+| CUSTOMER_GROUP_IDS_OUTSIDE_EU   | array(int) |               | customer group IDs separated by commas |
+| LOGO_X                          | int        | 100           ||
+| LOGO_Y                          | int        | 100           ||
+| LOGO_SCALE                      | int        | 0.75          ||
