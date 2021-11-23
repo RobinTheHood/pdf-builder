@@ -61,4 +61,70 @@ class Config
         }
         return false;
     }
+
+    public static function getProductModelLength(): int
+    {
+        return (int) (defined('RTH_PDF_BUILDER_PRODUCT_MODEL_LENGTH') ? RTH_PDF_BUILDER_PRODUCT_MODEL_LENGTH : 0);
+    }
+
+    public static function getShowManufacturerModel(): bool
+    {
+        if (
+            defined('RTH_PDF_BUILDER_SHOW_MANUFACTURER_MODEL')
+            && RTH_PDF_BUILDER_SHOW_MANUFACTURER_MODEL == 'true'
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function getManufacturerModel(): string
+    {
+        return defined('RTH_PDF_BUILDER_MANUFACTURER_MODEL') ? RTH_PDF_BUILDER_MANUFACTURER_MODEL : '';
+    }
+
+    public static function getCustomerGroupIdsInEu(): array
+    {
+        $customerGroupIdsInEu = [];
+        if (defined('RTH_PDF_BUILDER_CUSTOMER_GROUP_IDS_IN_EU')) {
+            $cleanedString = preg_replace("'[\r\n\s]+'", '', RTH_PDF_BUILDER_CUSTOMER_GROUP_IDS_IN_EU);
+            $customerGroupIdsInEu = explode(',', $cleanedString);
+        }
+        return $customerGroupIdsInEu;
+    }
+
+    public static function getCustomerGroupIdsOutsideEu(): array
+    {
+        $customerGroupIdsOutsideEu = [];
+        if (defined('RTH_PDF_BUILDER_CUSTOMER_GROUP_IDS_OUTSIDE_EU')) {
+            $cleanedString = preg_replace("'[\r\n\s]+'", '', RTH_PDF_BUILDER_CUSTOMER_GROUP_IDS_OUTSIDE_EU);
+            $customerGroupIdsOutsideEu = explode(',', $cleanedString);
+        }
+        return $customerGroupIdsOutsideEu;
+    }
+
+    public static function getEuCustomersGroupId(): array
+    {
+        $euCustomersGroupId = [];
+        if (defined('RTH_PDF_BUILDER_EU_CUSTOMERS_GROUP_ID')) {
+            $cleanedString = preg_replace("'[\r\n\s]+'", '', RTH_PDF_BUILDER_EU_CUSTOMERS_GROUP_ID);
+            $euCustomersGroupId = explode(',', $cleanedString);
+        }
+        return $euCustomersGroupId;
+    }
+
+    public static function getLogoX(): int
+    {
+        return (int) (defined('RTH_PDF_BUILDER_LOGO_X') ? RTH_PDF_BUILDER_LOGO_X : '');
+    }
+
+    public static function getLogoY(): int
+    {
+        return (int) (defined('RTH_PDF_BUILDER_LOGO_Y') ? RTH_PDF_BUILDER_LOGO_Y : '');
+    }
+
+    public static function getLogoScale(): int
+    {
+        return (int) (defined('RTH_PDF_BUILDER_LOGO_SCALE') ? RTH_PDF_BUILDER_LOGO_SCALE : '');
+    }
 }
