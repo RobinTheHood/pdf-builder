@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RobinTheHood\PdfBuilder\Classes\Helper;
 
 class CustomerHelper
