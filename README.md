@@ -1,6 +1,12 @@
 # modified Module: Pdf Builder
+[![dicord](https://img.shields.io/discord/727190419158597683)](https://discord.gg/9NqwJqP)
 
-This module is under development
+🛠 This module is under development
+
+## Installation
+You can install this module with the [Modified Module Loader Client (MMLC)](http://module-loader.de).
+
+Search for: `robinthehood/pdf-builder`
 
 ## Authors
 - Robin Wieschendorf | <mail@robinwieschendorf.de> | [robinwieschendorf.de](https://robinwieschendorf.de)
