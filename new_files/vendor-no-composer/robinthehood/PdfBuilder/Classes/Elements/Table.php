@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace RobinTheHood\PdfBuilder\Classes\Templates;
+namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Pdf\StringSplitter;
+use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
 class Table implements ComponentInterface
 {
@@ -134,13 +135,4 @@ class Table implements ComponentInterface
 
         return $subRows;
     }
-
-
-    // public function render(Pdf $pdf): void
-    // {
-    //     $pdf->SetFont($this->fontFamily, '', 8);
-    //     //$pdf->SetX();
-    //     //$pdf->SetY();
-    //     $pdf->Cell(0, 5, $this->text, PDF::CELL_BORDER_ON, PDF::CELL_NEW_LINE);
-    // }
 }

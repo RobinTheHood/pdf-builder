@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Tests;
 
-use RobinTheHood\PdfBuilder\Classes\PdfBill;
+use RobinTheHood\PdfBuilder\Classes\Old\PdfBill;
 use RobinTheHood\PdfBuilder\Classes\Templates\Letter;
 
 class PdfBuilderTest

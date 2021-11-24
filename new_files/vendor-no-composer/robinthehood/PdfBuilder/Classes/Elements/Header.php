@@ -5,36 +5,42 @@ declare(strict_types=1);
 namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
+use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\HeaderInterface;
 
-class Header
+class Header implements HeaderInterface
 {
-    public function render($pdf)
+    private $fontFamily = 'DejaVu';
+    private $leftMargin = 20;
+    private $posY = 20;
+
+    public function render(Pdf $pdf)
     {
-        $fontFamily = 'DejaVu';
-        $cellWidth = 0;
-        $cellHeight = 4;
+        $pdf->SetFont($this->fontFamily, '', 8);
+        $left = $this->renderInfoBlock($pdf, 0, 'Header1', $this->posY);
+        $left = $this->renderInfoBlock($pdf, $left, 'Header2', $this->posY);
+        $left = $this->renderInfoBlock($pdf, $left, 'Header3', $this->posY);
+        $left = $this->renderInfoBlock($pdf, $left, 'Header4', $this->posY);
+    }
 
-        $pdf->SetFont($fontFamily, '', 9);
+    private function renderInfoBlock(Pdf $pdf, $left, $body, $y)
+    {
+        $pdf->SetFont($this->fontFamily, '', 8);
+        $pdf->SetY($y);
+        $body_arr = explode("\n", $body);
+        $maxlen = $this->maxlen($pdf, $body_arr);
+        $pdf->SetX($left + $this->leftMargin);
+        $pdf->MultiCell($maxlen, 4, $body, 0);
+        return $left + $maxlen;
+    }
 
-        // Headertext
-        $pdf->Cell($cellWidth, $cellHeight, RTH_PDF_BUILDER_HEADER, Pdf::CELL_BORDER_NONE, Pdf::CELL_NEW_LINE);
-
-        if (defined('RTH_PDF_BUILDER_SHOW_DOCUMENT_ID') && RTH_PDF_BUILDER_SHOW_DOCUMENT_ID == 'true') {
-            $text = 'PLATZHALTER-DOCUMENT-ID';
-            $pdf->Cell($cellWidth, $cellHeight, $text, Pdf::CELL_BORDER_NONE, Pdf::CELL_NEW_LINE, Pdf::CELL_ALIGN_LEFT);
+    private function maxlen($pdf, $strings)
+    {
+        $max = 0;
+        for ($i = 0; $i < count($strings); $i++) {
+            if ($pdf->GetStringWidth($strings[$i]) > $max) {
+                $max = $pdf->GetStringWidth($strings[$i]);
+            }
         }
-
-        // Seitenzahl
-        if (defined('RTH_PDF_BUILDER_HIDE_PAGES') && RTH_PDF_BUILDER_HIDE_PAGES != 'true') {
-            $text = RTH_PDF_BUILDER_PAGE . ' ' . $pdf->PageNo() . ' ' . RTH_PDF_BUILDER_PAGE_FROM . ' {nb}';
-            $pdf->Cell(
-                $cellWidth,
-                $cellHeight,
-                $text,
-                Pdf::CELL_BORDER_NONE,
-                Pdf::CELL_NEW_LINE_OFF,
-                Pdf::CELL_ALIGN_RIGHT
-            );
-        }
+        return $max + 6;
     }
 }

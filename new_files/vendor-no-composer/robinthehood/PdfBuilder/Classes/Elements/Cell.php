@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace RobinTheHood\PdfBuilder\Classes\Templates;
+namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
+use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
 class Cell implements ComponentInterface
 {
     private $text = '';
-
     private $fontFamily = 'DejaVu';
 
     public function setText(string $text): void

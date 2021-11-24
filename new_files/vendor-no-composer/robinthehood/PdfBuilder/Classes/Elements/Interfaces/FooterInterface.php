@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RobinTheHood\PdfBuilder\Classes\Templates;
+namespace RobinTheHood\PdfBuilder\Classes\Elements\Interfaces;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 

@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace RobinTheHood\PdfBuilder\Classes\Templates;
+namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
+use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\HeaderInterface;
+use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\FooterInterface;
+use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
 class Section
 {
@@ -45,7 +48,7 @@ class Section
         $pdf->setFooterFunction([$lastFooterSection, 'renderFooter']);
         $pdf->addPage();
         $pdf->setFooterFunction([$this, 'renderFooter']);
-        $this->renderContent($pdf);
+        $this->renderComponents($pdf);
     }
 
     public function renderHeader(Pdf $pdf): void
@@ -78,21 +81,10 @@ class Section
         }
     }
 
-    private function renderContent(Pdf $pdf): void
+    private function renderComponents(Pdf $pdf): void
     {
         foreach ($this->components as $component) {
             $component->render($pdf);
-        }
-        //$this->renderTestContent($pdf);
-    }
-
-    private function renderTestContent(Pdf $pdf): void
-    {
-        $pdf->SetX(20);
-        $pdf->SetY(25);
-        $pdf->SetFont($this->fontFamily, '', 12);
-        for ($i = 0; $i < 60; $i++) {
-            $pdf->MultiCell(50, 5, "Max Mustermann $i");
         }
     }
 }

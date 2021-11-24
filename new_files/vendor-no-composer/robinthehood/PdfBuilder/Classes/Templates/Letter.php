@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace RobinTheHood\PdfBuilder\Classes\Templates;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
+use RobinTheHood\PdfBuilder\Classes\Elements\Section;
+use RobinTheHood\PdfBuilder\Classes\Elements\Header;
+use RobinTheHood\PdfBuilder\Classes\Elements\Footer;
+use RobinTheHood\PdfBuilder\Classes\Elements\Table;
 
 class Letter
 {
