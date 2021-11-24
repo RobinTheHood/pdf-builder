@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RobinTheHood\PdfBuilder\Classes;
+namespace RobinTheHood\PdfBuilder\Classes\Old;
 
 class Config
 {
