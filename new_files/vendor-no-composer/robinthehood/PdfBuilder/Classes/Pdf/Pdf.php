@@ -18,6 +18,7 @@ class Pdf extends Tfpdf
     public const CELL_ALIGN_RIGHT = 'R';
 
     public const CELL_BORDER_NONE = 0;
+    public const CELL_BORDER_ON = 1;
     public const CELL_BORDER_TOP = 'T';
 
     private $headerFunction;
