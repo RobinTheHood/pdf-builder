@@ -20,6 +20,8 @@ class Section
     private $headerDrawCount = 0;
     private $footerDrawCount = 0;
 
+    private $components = [];
+
     protected $fontFamily = 'DejaVu';
 
     public function setHeader(HeaderInterface $header): void
@@ -30,6 +32,11 @@ class Section
     public function setFooter(FooterInterface $footer): void
     {
         $this->footer = $footer;
+    }
+
+    public function addComponent(ComponentInterface $component): void
+    {
+        $this->components[] = $component;
     }
 
     public function render(Pdf $pdf, Section $lastFooterSection): void
@@ -73,7 +80,10 @@ class Section
 
     private function renderContent(Pdf $pdf): void
     {
-        $this->renderTestContent($pdf);
+        foreach ($this->components as $component) {
+            $component->render($pdf);
+        }
+        //$this->renderTestContent($pdf);
     }
 
     private function renderTestContent(Pdf $pdf): void
