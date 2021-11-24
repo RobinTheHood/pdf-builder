@@ -12,14 +12,30 @@ class Footer implements FooterInterface
     private $leftMargin = 20;
     private $posY = -35;
 
-    public function render(Pdf $pdf)
+    private $components = [];
+
+    public function addComponent(ComponentInterface $component): void
     {
-        $pdf->SetFont($this->fontFamily, '', 8);
-        $left = $this->renderInfoBlock($pdf, 0, 'Footer1', $this->posY);
-        $left = $this->renderInfoBlock($pdf, $left, 'Footer2', $this->posY);
-        $left = $this->renderInfoBlock($pdf, $left, 'Footer3', $this->posY);
-        $left = $this->renderInfoBlock($pdf, $left, 'Footer4', $this->posY);
+        $this->components[] = $component;
     }
+
+    public function render(Pdf $pdf): void
+    {
+        $pdf->SetY($this->posY);
+        foreach ($this->components as $component) {
+            $component->render($pdf);
+        }
+    }
+
+
+    // public function render(Pdf $pdf)
+    // {
+    //     $pdf->SetFont($this->fontFamily, '', 8);
+    //     $left = $this->renderInfoBlock($pdf, 0, 'Footer1', $this->posY);
+    //     $left = $this->renderInfoBlock($pdf, $left, 'Footer2', $this->posY);
+    //     $left = $this->renderInfoBlock($pdf, $left, 'Footer3', $this->posY);
+    //     $left = $this->renderInfoBlock($pdf, $left, 'Footer4', $this->posY);
+    // }
 
     private function renderInfoBlock(Pdf $pdf, $left, $body, $y)
     {
