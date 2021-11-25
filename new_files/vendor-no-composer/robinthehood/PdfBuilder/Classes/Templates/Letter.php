@@ -97,7 +97,12 @@ class Letter
 
         $footer->addComponent($tableFooter);
 
-        $section->addComponent(new Image());
+        $image = new Image();
+        $image->setPositionX(170);
+        $image->setPositionY(20);
+        $image->setWidth(30);
+        $section->addComponent($image);
+
         $section->addComponent($table);
 
         $pageDecorator = new PageDecorator();
