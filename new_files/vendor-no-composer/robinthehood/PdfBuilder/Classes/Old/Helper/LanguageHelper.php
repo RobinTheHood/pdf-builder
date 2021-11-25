@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RobinTheHood\PdfBuilder\Classes\Helper;
+namespace RobinTheHood\PdfBuilder\Classes\Old\Helper;
 
 class LanguageHelper
 {
