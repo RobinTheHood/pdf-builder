@@ -13,9 +13,12 @@ class Image implements ComponentInterface
     private $posisitonX = 0;
     private $posistionY = 0;
     private $width = 0;
+    private $imagePath = '';
 
-
-    private $imagePath = DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rth_logo.png';
+    public function __construct(string $path)
+    {
+        $this->imagePath = $path;
+    }
 
     public function setPositionX(float $positionX): void
     {

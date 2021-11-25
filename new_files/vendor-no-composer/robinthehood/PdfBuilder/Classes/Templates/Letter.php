@@ -97,7 +97,13 @@ class Letter
 
         $footer->addComponent($tableFooter);
 
-        $image = new Image();
+        $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
+        $dinImage->setPositionX(0);
+        $dinImage->setPositionY(0);
+        $dinImage->setWidth(210);
+        //$section->addComponent($dinImage);
+
+        $image = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rth_logo.png');
         $image->setPositionX(170);
         $image->setPositionY(20);
         $image->setWidth(30);
@@ -106,6 +112,7 @@ class Letter
         $section->addComponent($table);
 
         $pageDecorator = new PageDecorator();
+        $pageDecorator->addComponent($dinImage);
         $pageDecorator->addComponent(new FoldMark());
 
         $section->setPageDecorator($pageDecorator);
