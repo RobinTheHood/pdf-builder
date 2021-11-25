@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Templates;
 
+use RobinTheHood\PdfBuilder\Classes\Components\FoldMark;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Section;
-use RobinTheHood\PdfBuilder\Classes\Elements\Header;
-use RobinTheHood\PdfBuilder\Classes\Elements\Footer;
 use RobinTheHood\PdfBuilder\Classes\Elements\Table;
 use RobinTheHood\PdfBuilder\Classes\Elements\Document;
+use RobinTheHood\PdfBuilder\Classes\Elements\FooterDecorator;
+use RobinTheHood\PdfBuilder\Classes\Elements\HeaderDecorator;
 use RobinTheHood\PdfBuilder\Classes\Elements\Image;
+use RobinTheHood\PdfBuilder\Classes\Elements\PageDecorator;
 
 class Letter
 {
@@ -21,16 +23,16 @@ class Letter
         $this->document = new Document();
 
         $section = new Section();
-        $header = new Header();
-        $footer = new Footer();
-        $section->setHeader($header);
-        $section->setFooter($footer);
+        $header = new HeaderDecorator();
+        $footer = new FooterDecorator();
+        $section->setHeaderDecorator($header);
+        $section->setFooterDecorator($footer);
 
         $section2 = new Section();
-        $section2->setHeader($header);
+        $section2->setHeaderDecorator($header);
 
         $section3 = new Section();
-        $section3->setFooter($footer);
+        $section3->setFooterDecorator($footer);
 
         $this->document->addSection($section); //Section with footer and header
         $this->document->addSection(new Section()); // Section without footer and header
@@ -97,6 +99,11 @@ class Letter
 
         $section->addComponent(new Image());
         $section->addComponent($table);
+
+        $pageDecorator = new PageDecorator();
+        $pageDecorator->addComponent(new FoldMark());
+
+        $section->setPageDecorator($pageDecorator);
     }
 
     public function render(): void

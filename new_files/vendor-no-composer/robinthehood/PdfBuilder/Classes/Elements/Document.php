@@ -12,7 +12,6 @@ class Document
 
     private $leftMargin = 20;
     private $footerY = -35;
-    
     private $fontFamily = 'DejaVu';
 
     public function addSection(Section $section): void
