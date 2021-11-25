@@ -9,21 +9,16 @@ use RobinTheHood\PdfBuilder\Classes\Elements\Section;
 use RobinTheHood\PdfBuilder\Classes\Elements\Header;
 use RobinTheHood\PdfBuilder\Classes\Elements\Footer;
 use RobinTheHood\PdfBuilder\Classes\Elements\Table;
+use RobinTheHood\PdfBuilder\Classes\Elements\Document;
 
 class Letter
 {
-    private $sections;
-
-    // margins
-    protected $leftMargin = 20;
-    //protected $topMargin = 10;
-    protected $footerY = -35;
-
-    // Font-Type of Bill
-    protected $fontFamily = 'DejaVu';
+    private $document;
 
     public function __construct()
     {
+        $this->document = new Document();
+
         $section = new Section();
         $header = new Header();
         $footer = new Footer();
@@ -36,18 +31,10 @@ class Letter
         $section3 = new Section();
         $section3->setFooter($footer);
 
-        $this->addSection($section); //Section with footer and header
-        $this->addSection(new Section()); // Section without footer and header
-        $this->addSection($section2); //Section only header
-        $this->addSection($section3); //Section only footer
-
-
-        // $cell = new Cell();
-        // $cell->setText('Das ist ein Test');
-        // $section->addComponent($cell);
-
-        // $section2->addComponent($cell);
-        // $section2->addComponent($cell);
+        $this->document->addSection($section); //Section with footer and header
+        $this->document->addSection(new Section()); // Section without footer and header
+        $this->document->addSection($section2); //Section only header
+        $this->document->addSection($section3); //Section only footer
 
         $table = new Table();
 
@@ -99,46 +86,18 @@ class Letter
             $width,
         ]);
 
-
         $tableFooter->addRow([
             ['content' => "MAX MUSTERFIRMA\nMustermann Straße 1\n12345 Musterstadt", 'alignment' => Pdf::CELL_ALIGN_LEFT],
             ['content' => "www.musterfirma.de\ninfo@musterfirma.de\n+49 1234 1111-0", 'alignment' => Pdf::CELL_ALIGN_LEFT],
             ['content' => "BLZ: 123456789\nIBAN: DE123456789123456789\nUSt-ID: DE123456789", 'alignment' => Pdf::CELL_ALIGN_LEFT],
         ], ['fontWeight' => Table::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
 
-
-
         $footer->addComponent($tableFooter);
         $section->addComponent($table);
     }
 
-
-    public function addSection(Section $section): void
-    {
-        $this->sections[] = $section;
-    }
-
     public function render(): void
     {
-        $pdf = new Pdf();
-        $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
-        $pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
-
-        $pdf->SetAutoPageBreak(true, abs($this->footerY) + 10);
-        $pdf->SetCreator("PdfBuilder (c) 2021 Robin Wieschendorf");
-        //$pdf->AliasNbPages();
-
-        $pdf->SetFillColor(255, 255, 255);
-        $pdf->SetDisplayMode('fullwidth');
-        $pdf->SetTitle('Pdf Builder Test');
-        $pdf->SetLeftMargin($this->leftMargin);
-
-        //$pdf->page = 1;
-        $prevSection = $this->sections[0] ?? null;
-        foreach ($this->sections as $section) {
-            $section->render($pdf, $prevSection);
-            $prevSection = $section;
-        }
-        $pdf->Output();
+        $this->document->render();
     }
 }
