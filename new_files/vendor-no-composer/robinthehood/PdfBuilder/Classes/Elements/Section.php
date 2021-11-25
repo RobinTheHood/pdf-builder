@@ -44,11 +44,17 @@ class Section
 
     public function render(Pdf $pdf, Section $lastFooterSection): void
     {
+        $pdf->setNewPageFunction([$this, 'renderNewPage']);
         $pdf->setHeaderFunction([$this, 'renderHeader']);
         $pdf->setFooterFunction([$lastFooterSection, 'renderFooter']);
         $pdf->addPage();
         $pdf->setFooterFunction([$this, 'renderFooter']);
         $this->renderComponents($pdf);
+    }
+
+    public function renderNewPage(Pdf $pdf): void
+    {
+        $pdf->Line(5, 297.0 / 2.0, 8, 297.0 / 2.0);
     }
 
     public function renderHeader(Pdf $pdf): void

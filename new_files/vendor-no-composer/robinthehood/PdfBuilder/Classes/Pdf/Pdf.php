@@ -24,6 +24,11 @@ class Pdf extends Tfpdf
     private $headerFunction;
     private $footerFunction;
 
+    public function setNewPageFunction($callable)
+    {
+        $this->newPageFunction = $callable;
+    }
+
     public function setHeaderFunction($callable)
     {
         $this->headerFunction = $callable;
@@ -32,6 +37,15 @@ class Pdf extends Tfpdf
     public function setFooterFunction($callable)
     {
         $this->footerFunction = $callable;
+    }
+
+    public function addPage($orientation = '', $size = ''): void
+    {
+        parent::addPage($orientation, $size);
+
+        if (\is_callable($this->newPageFunction)) {
+            call_user_func($this->newPageFunction, $this);
+        }
     }
 
     public function Header()

@@ -70,14 +70,16 @@ class Letter
             ['content' => 'Spalte 6', 'alignment' => Pdf::CELL_ALIGN_RIGHT]
         ], ['fontWeight' => Table::FONT_WEIGHT_BOLD, 'border' => Table::ROW_BORDER_BOTTOM]);
 
-        $table->addRow([
-            ['content' => 'Inhalt 1', 'alignment' => Pdf::CELL_ALIGN_LEFT],
-            ['content' => 'Inhalt 2'],
-            ['content' => 'Inhalt 3'],
-            ['content' => 'Inhalt 4', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
-            ['content' => 'Inhalt 5', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
-            ['content' => 'Inhalt 6', 'alignment' => Pdf::CELL_ALIGN_RIGHT]
-        ], ['fontWeight' => Table::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_BOTTOM]);
+        for ($i = 0; $i < 60; $i++) {
+            $table->addRow([
+                ['content' => 'Inhalt 1', 'alignment' => Pdf::CELL_ALIGN_LEFT],
+                ['content' => 'Inhalt 2'],
+                ['content' => 'Inhalt 3'],
+                ['content' => 'Inhalt 4', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
+                ['content' => 'Inhalt 5', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
+                ['content' => 'Inhalt 6', 'alignment' => Pdf::CELL_ALIGN_RIGHT]
+            ], ['fontWeight' => Table::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_BOTTOM]);
+        }
 
         $table->addRow([
             ['content' => 'Inhalt 1', 'alignment' => Pdf::CELL_ALIGN_LEFT],
