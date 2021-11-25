@@ -10,6 +10,7 @@ use RobinTheHood\PdfBuilder\Classes\Elements\Header;
 use RobinTheHood\PdfBuilder\Classes\Elements\Footer;
 use RobinTheHood\PdfBuilder\Classes\Elements\Table;
 use RobinTheHood\PdfBuilder\Classes\Elements\Document;
+use RobinTheHood\PdfBuilder\Classes\Elements\Image;
 
 class Letter
 {
@@ -93,6 +94,8 @@ class Letter
         ], ['fontWeight' => Table::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
 
         $footer->addComponent($tableFooter);
+
+        $section->addComponent(new Image());
         $section->addComponent($table);
     }
 
