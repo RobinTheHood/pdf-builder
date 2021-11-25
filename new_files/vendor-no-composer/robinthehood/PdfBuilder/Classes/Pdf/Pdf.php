@@ -21,12 +21,13 @@ class Pdf extends Tfpdf
     public const CELL_BORDER_ON = 1;
     public const CELL_BORDER_TOP = 'T';
 
+    private $pageFunction;
     private $headerFunction;
     private $footerFunction;
 
-    public function setNewPageFunction($callable)
+    public function setPageFunction($callable)
     {
-        $this->newPageFunction = $callable;
+        $this->pageFunction = $callable;
     }
 
     public function setHeaderFunction($callable)
@@ -43,19 +44,19 @@ class Pdf extends Tfpdf
     {
         parent::addPage($orientation, $size);
 
-        if (\is_callable($this->newPageFunction)) {
-            call_user_func($this->newPageFunction, $this);
+        if (\is_callable($this->pageFunction)) {
+            call_user_func($this->pageFunction, $this);
         }
     }
 
-    public function Header()
+    public function header()
     {
         if (\is_callable($this->headerFunction)) {
             call_user_func($this->headerFunction, $this);
         }
     }
 
-    public function Footer()
+    public function footer()
     {
         if (\is_callable($this->footerFunction)) {
             call_user_func($this->footerFunction, $this);
