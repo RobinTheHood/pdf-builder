@@ -6,7 +6,7 @@ namespace RobinTheHood\PdfBuilder\Classes\Pdf;
 
 class StringSplitter
 {
-    public static function splitByLength(Pdf $pdf, string $string, int $maxLength): array
+    public static function splitByLength(Pdf $pdf, string $string, float $maxLength): array
     {
         preg_match_all("/[\S]+|\n/", $string, $words);
         $words = $words[0];
