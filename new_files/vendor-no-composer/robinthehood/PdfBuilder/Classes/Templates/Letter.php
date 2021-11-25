@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Templates;
 
-use RobinTheHood\PdfBuilder\Classes\Components\FoldMark;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Section;
 use RobinTheHood\PdfBuilder\Classes\Elements\Table;
@@ -13,6 +12,8 @@ use RobinTheHood\PdfBuilder\Classes\Elements\FooterDecorator;
 use RobinTheHood\PdfBuilder\Classes\Elements\HeaderDecorator;
 use RobinTheHood\PdfBuilder\Classes\Elements\Image;
 use RobinTheHood\PdfBuilder\Classes\Elements\PageDecorator;
+use RobinTheHood\PdfBuilder\Classes\Components\FoldMark;
+use RobinTheHood\PdfBuilder\Classes\Components\Address;
 
 class Letter
 {
@@ -95,7 +96,7 @@ class Letter
             ['content' => "BLZ: 123456789\nIBAN: DE123456789123456789\nUSt-ID: DE123456789", 'alignment' => Pdf::CELL_ALIGN_LEFT],
         ], ['fontWeight' => Table::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
 
-        $footer->addComponent($tableFooter);
+        //$footer->addComponent($tableFooter);
 
         $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
         $dinImage->setPositionX(0);
@@ -109,10 +110,15 @@ class Letter
         $image->setWidth(30);
         $section->addComponent($image);
 
-        $section->addComponent($table);
+        //$section->addComponent($table);
+
+        //Address
+        $address = new Address();
+        $address->setAddress("Musterfirma GmbH\nz.H Max Mustermann\nHauptstraße 999\n12345 Neustadt\nDeutschland");
+        $section->addComponent($address);
 
         $pageDecorator = new PageDecorator();
-        $pageDecorator->addComponent($dinImage);
+        //$pageDecorator->addComponent($dinImage);
         $pageDecorator->addComponent(new FoldMark());
 
         $section->setPageDecorator($pageDecorator);
