@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
-use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\HeaderInterface;
+use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
 
-class Header implements HeaderInterface
+class HeaderDecorator implements DecoratorInterface
 {
     private $fontFamily = 'DejaVu';
     private $leftMargin = 20;
