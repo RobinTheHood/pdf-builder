@@ -10,10 +10,14 @@ use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
 class TextArea implements ComponentInterface
 {
+    public const VERTICAL_ALIGN_TOP = 0;
+    public const VERTICAL_ALIGN_BOTTOM = 2;
+
     private $positionX = 0;
     private $positionY = 0;
     private $dimensionWidth = 0;
     private $dimensionHeight = 0;
+    private $verticalAlign = self::VERTICAL_ALIGN_TOP;
 
     // Text and Font Propertys
     private $text = '';
@@ -56,13 +60,31 @@ class TextArea implements ComponentInterface
         $this->fontSize = $fontSize;
     }
 
+    public function setVerticalAlign(int $verticalAlign): void
+    {
+        $this->verticalAlign = $verticalAlign;
+    }
+
     public function render(Pdf $pdf): void
     {
-        $pdf->SetFont($this->fontFamily, '', $this->fontSize);
-        $pdf->SetXY($this->positionX, $this->positionY);
-        $lines = StringSplitter::splitByLength($pdf, $this->text, $this->dimensionWidth);
-        foreach ($lines as $line) {
-            $pdf->Cell($this->dimensionWidth, $this->lineHeight, $line, PDF::CELL_BORDER_NONE, PDF::CELL_NEW_LINE_BELOW);
+        if ($this->verticalAlign == self::VERTICAL_ALIGN_TOP) {
+            $pdf->SetFont($this->fontFamily, '', $this->fontSize);
+            $pdf->SetXY($this->positionX, $this->positionY);
+            $lines = StringSplitter::splitByLength($pdf, $this->text, $this->dimensionWidth);
+            foreach ($lines as $line) {
+                $pdf->Cell($this->dimensionWidth, $this->lineHeight, $line, PDF::CELL_BORDER_NONE, PDF::CELL_NEW_LINE_BELOW);
+            }
+        } elseif ($this->verticalAlign == self::VERTICAL_ALIGN_BOTTOM) {
+            $pdf->SetFont($this->fontFamily, '', $this->fontSize);
+            $lines = StringSplitter::splitByLength($pdf, $this->text, $this->dimensionWidth);
+            $lines = array_reverse($lines);
+            $lineNumber = 0;
+            foreach ($lines as $line) {
+                $lineNumber++;
+                $y = $this->positionY + $this->dimensionHeight - ($this->lineHeight * $lineNumber);
+                $pdf->SetXY($this->positionX, $y);
+                $pdf->Cell($this->dimensionWidth, $this->lineHeight, $line, PDF::CELL_BORDER_NONE, PDF::CELL_NEW_LINE_OFF);
+            }
         }
     }
 }
