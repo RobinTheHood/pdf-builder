@@ -5,20 +5,19 @@ declare(strict_types=1);
 namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
-use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\HeaderInterface;
+use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\FooterInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
 class Section
 {
-    public const DECORATION_MODE_NEVER = 0;
-    public const DECORATION_MODE_ALWAYS = 1;
-    public const DECORATION_MODE_NOT_FIRST = 2;
+    private $pageDecorator;
+    private $headerDecorator;
+    private $footerDecorator;
 
-    private $header;
-    private $footer;
-    private $headerMode = self::DECORATION_MODE_ALWAYS;
-    private $footerMode = self::DECORATION_MODE_ALWAYS;
+    private $pageMode = DecoratorInterface::DECORATION_MODE_ALWAYS;
+    private $headerMode = DecoratorInterface::DECORATION_MODE_ALWAYS;
+    private $footerMode = DecoratorInterface::DECORATION_MODE_ALWAYS;
 
     private $headerDrawCount = 0;
     private $footerDrawCount = 0;
@@ -27,14 +26,19 @@ class Section
 
     protected $fontFamily = 'DejaVu';
 
-    public function setHeader(HeaderInterface $header): void
+    public function setPageDecorator(DecoratorInterface $pageDecorator)
     {
-        $this->header = $header;
+        $this->pageDecorator = $pageDecorator;
     }
 
-    public function setFooter(FooterInterface $footer): void
+    public function setHeaderDecorator(DecoratorInterface $headerDecorator): void
     {
-        $this->footer = $footer;
+        $this->headerDecorator = $headerDecorator;
+    }
+
+    public function setFooterDecorator(DecoratorInterface $footerDecorator): void
+    {
+        $this->footerDecorator = $footerDecorator;
     }
 
     public function addComponent(ComponentInterface $component): void
@@ -44,46 +48,56 @@ class Section
 
     public function render(Pdf $pdf, Section $lastFooterSection): void
     {
-        $pdf->setNewPageFunction([$this, 'renderNewPage']);
-        $pdf->setHeaderFunction([$this, 'renderHeader']);
-        $pdf->setFooterFunction([$lastFooterSection, 'renderFooter']);
+        $pdf->setPageFunction([$this, 'renderPageDecorator']);
+        $pdf->setHeaderFunction([$this, 'renderHeaderDecorator']);
+        $pdf->setFooterFunction([$lastFooterSection, 'renderFooterDecorator']);
         $pdf->addPage();
-        $pdf->setFooterFunction([$this, 'renderFooter']);
+        $pdf->setFooterFunction([$this, 'renderFooterDecorator']);
         $this->renderComponents($pdf);
     }
 
-    public function renderNewPage(Pdf $pdf): void
+    public function renderPageDecorator(Pdf $pdf): void
     {
-        $pdf->Line(5, 297.0 / 2.0, 8, 297.0 / 2.0);
+        $this->pageDrawCount++;
+
+        if ($this->pageMode == DecoratorInterface::DECORATION_MODE_NEVER) {
+            return;
+        } elseif ($this->pageMode == DecoratorInterface::DECORATION_MODE_NOT_FIRST && $this->pageDrawCount <= 1) {
+            return;
+        }
+
+        if ($this->pageDecorator) {
+            $this->pageDecorator->render($pdf);
+        }
     }
 
-    public function renderHeader(Pdf $pdf): void
+    public function renderHeaderDecorator(Pdf $pdf): void
     {
         $this->headerDrawCount++;
 
-        if ($this->headerMode == self::DECORATION_MODE_NEVER) {
+        if ($this->headerMode == DecoratorInterface::DECORATION_MODE_NEVER) {
             return;
-        } elseif ($this->headerMode == self::DECORATION_MODE_NOT_FIRST && $this->headerDrawCount <= 1) {
+        } elseif ($this->headerMode == DecoratorInterface::DECORATION_MODE_NOT_FIRST && $this->headerDrawCount <= 1) {
             return;
         }
 
-        if ($this->header) {
-            $this->header->render($pdf);
+        if ($this->headerDecorator) {
+            $this->headerDecorator->render($pdf);
         }
     }
 
-    public function renderFooter(Pdf $pdf): void
+    public function renderFooterDecorator(Pdf $pdf): void
     {
         $this->footerDrawCount++;
 
-        if ($this->footerMode == self::DECORATION_MODE_NEVER) {
+        if ($this->footerMode == DecoratorInterface::DECORATION_MODE_NEVER) {
             return;
-        } elseif ($this->footerMode == self::DECORATION_MODE_NOT_FIRST && $this->footerMode <= 1) {
+        } elseif ($this->footerMode == DecoratorInterface::DECORATION_MODE_NOT_FIRST && $this->footerDrawCount <= 1) {
             return;
         }
 
-        if ($this->footer) {
-            $this->footer->render($pdf);
+        if ($this->footerDecorator) {
+            $this->footerDecorator->render($pdf);
         }
     }
 
