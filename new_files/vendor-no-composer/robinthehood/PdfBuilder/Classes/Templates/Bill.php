@@ -37,6 +37,10 @@ class Bill
         $infoblock = new Infoblock();
         $section->addComponent($infoblock);
 
+        // OrderTable
+        $orderTable = new OrderTable();
+        $section->addComponent($orderTable);
+
         $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
         //$dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rechnung_demo_1.png');
         $dinImage->setPositionX(0);
