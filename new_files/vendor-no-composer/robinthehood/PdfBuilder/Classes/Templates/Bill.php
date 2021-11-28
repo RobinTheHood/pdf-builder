@@ -10,6 +10,7 @@ use RobinTheHood\PdfBuilder\Classes\Elements\Image;
 use RobinTheHood\PdfBuilder\Classes\Elements\PageDecorator;
 use RobinTheHood\PdfBuilder\Classes\Components\FoldMark;
 use RobinTheHood\PdfBuilder\Classes\Components\Address;
+use RobinTheHood\PdfBuilder\Classes\Components\Infoblock;
 
 class Bill
 {
@@ -30,6 +31,10 @@ class Bill
         $address->setAddress("Musterfirma GmbH\nz.H Max Mustermann\nHauptstraße 999\n12345 Neustadt\nDeutschland");
         $address->setSender("Max Mustermann - 12345 Neustadt 1\n");
         $section->addComponent($address);
+
+        // Infoblock
+        $infoblock = new Infoblock();
+        $section->addComponent($infoblock);
 
         $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
         //$dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rechnung_demo_1.png');
