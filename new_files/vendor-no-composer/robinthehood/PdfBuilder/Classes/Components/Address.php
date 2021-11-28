@@ -48,7 +48,7 @@ class Address implements ComponentInterface
 
         // Hole Component Area
         $pdf->SetXY($this->basePositionX, $this->basePositionY); // Unit: mm
-        //$pdf->Cell(85, 45, '', 1);
+        $pdf->Cell(85, 45, '', 1);
 
         // Sender Zone
         $pdf->SetXY($this->basePositionX, $this->basePositionY); // Unit: mm

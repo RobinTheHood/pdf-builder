@@ -11,6 +11,7 @@ use RobinTheHood\PdfBuilder\Classes\Elements\PageDecorator;
 use RobinTheHood\PdfBuilder\Classes\Components\FoldMark;
 use RobinTheHood\PdfBuilder\Classes\Components\Address;
 use RobinTheHood\PdfBuilder\Classes\Components\Infoblock;
+use RobinTheHood\PdfBuilder\Classes\Components\OrderTable;
 
 class Bill
 {
