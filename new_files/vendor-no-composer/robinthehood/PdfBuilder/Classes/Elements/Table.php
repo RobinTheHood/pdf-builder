@@ -70,6 +70,7 @@ class Table implements ComponentInterface
         $fontWeight = $rowOptions['fontWeight'] ?? '';
         $fontSize = $rowOptions['fontSize'] ?? '10';
 
+        $x = $pdf->GetX();
         foreach ($subRow as $index => $cell) {
             $cell['width'] = $cell['width'] ?? $this->columnWidths[$index];
             $cell['style'] = $cell['style'] ?? 'B';
@@ -91,6 +92,7 @@ class Table implements ComponentInterface
             }
         }
         $pdf->Ln();
+        $pdf->SetX($x);
     }
 
     private function splitRowInMultibleSubRows(Pdf $pdf, $row, $rowOptions)
