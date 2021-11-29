@@ -19,6 +19,6 @@ class Infoblock implements ComponentInterface
 
         // Hole Component Area
         $pdf->SetXY($this->basePositionX, $this->basePositionY);
-        $pdf->Cell(75, 103.46 - 32 - 8.46, '', 1);
+        $pdf->Cell(75, 103.46 - 32 - 8.46, '', PDF::CELL_BORDER_ON);
     }
 }

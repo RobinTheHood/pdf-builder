@@ -52,12 +52,12 @@ class Address implements ComponentInterface
 
         // Sender Zone
         $pdf->SetXY($this->basePositionX, $this->basePositionY); // Unit: mm
-        //$pdf->Cell(85, 17.7, '', 1);
+        //$pdf->Cell(85, 17.7, '', PDF::CELL_BORDER_ON);
         $this->sender->render($pdf);
 
         // Address Zone
         $pdf->SetXY($this->basePositionX, $this->basePositionY + 17.7); // Unit: mm
-        //$pdf->Cell(85, 27.3, '', 1);
+        //$pdf->Cell(85, 27.3, '', PDF::CELL_BORDER_ON);
         $this->address->render($pdf);
     }
 }

@@ -29,7 +29,7 @@ class OrderTable implements ComponentInterface
         // Hole Component Area
         $pdf->SetDrawColor(0, 255, 0);
         $pdf->SetXY($this->basePositionX, $this->basePositionY);
-        $pdf->Cell(175, 157, '', 1);
+        $pdf->Cell(175, 157, '', PDF::CELL_BORDER_ON);
     }
 
     public function addItem(array $item): void
