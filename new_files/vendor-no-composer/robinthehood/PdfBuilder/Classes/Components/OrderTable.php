@@ -34,12 +34,12 @@ class OrderTable implements ComponentInterface
 
     private function createHeading(): void
     {
-        $widthSum = 175; //mm
-        $widthQuantity = 14; //mm
-        $widthProductModel = 30; //mm
-        $widthProductPrice = 28; //mm
-        $widthProductTotalPrice = 28; //mm
-        $widthProductVat = 14; //mm
+        $widthSum = 175; // Unit: mm
+        $widthQuantity = 14; // Unit: mm
+        $widthProductModel = 30; // Unit: mm
+        $widthProductPrice = 28; // Unit: mm
+        $widthProductTotalPrice = 28; // Unit: mm
+        $widthProductVat = 14; // Unit: mm
 
         $widthProductName = $widthSum - $widthQuantity - $widthProductModel - $widthProductPrice - $widthProductTotalPrice - $widthProductVat;
 
