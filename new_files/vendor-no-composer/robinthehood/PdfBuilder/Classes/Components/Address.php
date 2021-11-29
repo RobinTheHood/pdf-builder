@@ -44,11 +44,7 @@ class Address implements ComponentInterface
 
     public function render(Pdf $pdf): void
     {
-        $pdf->SetDrawColor(255, 0, 0);
-
-        // Hole Component Area
-        $pdf->SetXY($this->basePositionX, $this->basePositionY); // Unit: mm
-        $pdf->Cell(85, 45, '', 1);
+        $this->renderBounds($pdf);
 
         // Sender Zone
         $pdf->SetXY($this->basePositionX, $this->basePositionY); // Unit: mm
@@ -59,5 +55,16 @@ class Address implements ComponentInterface
         $pdf->SetXY($this->basePositionX, $this->basePositionY + 17.7); // Unit: mm
         //$pdf->Cell(85, 27.3, '', PDF::CELL_BORDER_ON);
         $this->address->render($pdf);
+    }
+
+    private function renderBounds(PDF $pdf): void
+    {
+        // Hole Component Area
+        $width = 85; // Unit: mm
+        $height = 45; // Unit: mm
+        
+        $pdf->SetDrawColor(255, 0, 0);
+        $pdf->SetXY($this->basePositionX, $this->basePositionY); // Unit: mm
+        $pdf->Cell($width, $height, '', PDF::CELL_BORDER_ON);
     }
 }
