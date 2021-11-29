@@ -32,6 +32,18 @@ class OrderTable implements ComponentInterface
         $pdf->Cell(175, 157, '', 1);
     }
 
+    public function addItem(array $item): void
+    {
+        $this->table->addRow([
+            ['content' => $item['quantity'], 'alignment' => Pdf::CELL_ALIGN_LEFT],
+            ['content' => $item['name']],
+            ['content' => $item['model']],
+            ['content' => $item['price'], 'alignment' => Pdf::CELL_ALIGN_RIGHT],
+            ['content' => $item['vat'], 'alignment' => Pdf::CELL_ALIGN_RIGHT],
+            ['content' => $item['priceTotal'], 'alignment' => Pdf::CELL_ALIGN_RIGHT]
+        ], ['fontWeight' => Table::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_BOTTOM, 'fontSize' => 8]);
+    }
+
     private function createHeading(): void
     {
         $widthSum = 175; // Unit: mm
@@ -52,15 +64,13 @@ class OrderTable implements ComponentInterface
             $widthProductTotalPrice,
         ]);
 
-        for ($i = 0; $i < 50; $i++) {
-            $this->table->addRow([
-                ['content' => 'Menge', 'alignment' => Pdf::CELL_ALIGN_LEFT],
-                ['content' => 'Artikel'],
-                ['content' => 'Artikel-Nr.'],
-                ['content' => 'Einzelpreis', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
-                ['content' => 'MwSt.', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
-                ['content' => 'Gesamtpreis', 'alignment' => Pdf::CELL_ALIGN_RIGHT]
-            ], ['fontWeight' => Table::FONT_WEIGHT_BOLD, 'border' => Table::ROW_BORDER_BOTTOM, 'fontSize' => 8]);
-        }
+        $this->table->addRow([
+            ['content' => 'Menge', 'alignment' => Pdf::CELL_ALIGN_LEFT],
+            ['content' => 'Artikel'],
+            ['content' => 'Artikel-Nr.'],
+            ['content' => 'Einzelpreis', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
+            ['content' => 'MwSt.', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
+            ['content' => 'Gesamtpreis', 'alignment' => Pdf::CELL_ALIGN_RIGHT]
+        ], ['fontWeight' => Table::FONT_WEIGHT_BOLD, 'border' => Table::ROW_BORDER_BOTTOM, 'fontSize' => 8]);
     }
 }

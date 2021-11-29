@@ -40,6 +40,17 @@ class Bill
 
         // OrderTable
         $orderTable = new OrderTable();
+        for ($i = 0; $i < 50; $i++) {
+            $orderTable->addItem([
+                'quantity' => '19',
+                'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
+                'model' => 'ts001r',
+                'price' => '12.99',
+                'vat' => '19%',
+                'priceTotal' => ((string) (12.99 * 19)) . ' €'
+            ]);
+        }
+
         $section->addComponent($orderTable);
 
         $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
