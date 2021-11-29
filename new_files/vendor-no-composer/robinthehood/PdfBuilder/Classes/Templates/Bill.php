@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Templates;
 
+use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Section;
 use RobinTheHood\PdfBuilder\Classes\Elements\Document;
 use RobinTheHood\PdfBuilder\Classes\Elements\Image;

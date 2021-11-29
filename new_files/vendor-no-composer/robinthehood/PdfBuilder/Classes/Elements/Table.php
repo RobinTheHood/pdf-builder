@@ -10,8 +10,6 @@ use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
 class Table implements ComponentInterface
 {
-    public const FONT_WEIGHT_NORMAL = '';
-    public const FONT_WEIGHT_BOLD = 'B';
     public const ROW_BORDER_BOTTOM = 'B';
     public const ROW_BORDER_NONE = '';
 

@@ -21,6 +21,9 @@ class Pdf extends Tfpdf
     public const CELL_BORDER_ON = 1;
     public const CELL_BORDER_TOP = 'T';
 
+    public const FONT_WEIGHT_NORMAL = '';
+    public const FONT_WEIGHT_BOLD = 'B';
+    
     private $pageFunction;
     private $headerFunction;
     private $footerFunction;
