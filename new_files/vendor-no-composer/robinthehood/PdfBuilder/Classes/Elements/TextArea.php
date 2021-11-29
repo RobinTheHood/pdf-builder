@@ -24,6 +24,7 @@ class TextArea implements ComponentInterface
     private $fontFamily = 'DejaVu';
     private $fontSize = 8;
     private $lineHeight = 8;
+    private $fontWeight = PDF::FONT_WEIGHT_NORMAL;
 
     public function setPosition(float $x, float $y): void
     {
@@ -60,6 +61,11 @@ class TextArea implements ComponentInterface
         $this->fontSize = $fontSize;
     }
 
+    public function setFontWeight(string $fontWeight): void
+    {
+        $this->fontWeight = $fontWeight;
+    }
+
     public function setVerticalAlign(int $verticalAlign): void
     {
         $this->verticalAlign = $verticalAlign;
@@ -70,14 +76,14 @@ class TextArea implements ComponentInterface
         $this->renderBounds($pdf);
 
         if ($this->verticalAlign == self::VERTICAL_ALIGN_TOP) {
-            $pdf->SetFont($this->fontFamily, '', $this->fontSize);
+            $pdf->SetFont($this->fontFamily, $this->fontWeight, $this->fontSize);
             $pdf->SetXY($this->positionX, $this->positionY);
             $lines = StringSplitter::splitByLength($pdf, $this->text, $this->dimensionWidth);
             foreach ($lines as $line) {
                 $pdf->Cell($this->dimensionWidth, $this->lineHeight, $line, PDF::CELL_BORDER_NONE, PDF::CELL_NEW_LINE_BELOW);
             }
         } elseif ($this->verticalAlign == self::VERTICAL_ALIGN_BOTTOM) {
-            $pdf->SetFont($this->fontFamily, '', $this->fontSize);
+            $pdf->SetFont($this->fontFamily, $this->fontWeight, $this->fontSize);
             $lines = StringSplitter::splitByLength($pdf, $this->text, $this->dimensionWidth);
             $lines = array_reverse($lines);
             $lineNumber = 0;
