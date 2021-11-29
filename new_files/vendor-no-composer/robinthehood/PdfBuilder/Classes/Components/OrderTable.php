@@ -11,7 +11,7 @@ use RobinTheHood\PdfBuilder\Classes\Elements\Table;
 class OrderTable implements ComponentInterface
 {
     private $basePositionX = 25; // Unit: mm
-    private $basePositionY = 103.46; // Unit: mm
+    private $basePositionY = 103.46 + 30; // Unit: mm
 
     private $table;
 

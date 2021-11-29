@@ -9,6 +9,7 @@ use RobinTheHood\PdfBuilder\Classes\Elements\Section;
 use RobinTheHood\PdfBuilder\Classes\Elements\Document;
 use RobinTheHood\PdfBuilder\Classes\Elements\Image;
 use RobinTheHood\PdfBuilder\Classes\Elements\PageDecorator;
+use RobinTheHood\PdfBuilder\Classes\Elements\TextArea;
 use RobinTheHood\PdfBuilder\Classes\Components\FoldMark;
 use RobinTheHood\PdfBuilder\Classes\Components\Address;
 use RobinTheHood\PdfBuilder\Classes\Components\Infoblock;
@@ -38,6 +39,23 @@ class Bill
         // Infoblock
         $infoblock = new Infoblock();
         $section->addComponent($infoblock);
+
+        // Heading
+        $contentHeading = new TextArea();
+        $contentHeading->setBounds(25, 103.46, 175, 10);
+        $contentHeading->setFontSize(18);
+        $contentHeading->setFontWeight(PDF::FONT_WEIGHT_BOLD);
+        $contentHeading->setText('Rechnung');
+        $section->addComponent($contentHeading);
+
+        // Content Intro Text
+        $contentIntroText = new TextArea();
+        $contentIntroText->setBounds(25, 103.46 + 10, 175, 10);
+        $contentIntroText->setFontSize(10);
+        $contentIntroText->setLineHeight(5); // Unit: mm
+        $contentIntroText->setFontWeight(PDF::FONT_WEIGHT_NORMAL);
+        $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.");
+        $section->addComponent($contentIntroText);
 
         // OrderTable
         $orderTable = new OrderTable();
