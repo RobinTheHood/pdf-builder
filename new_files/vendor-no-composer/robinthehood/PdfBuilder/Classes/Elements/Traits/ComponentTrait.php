@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RobinTheHood\PdfBuilder\Classes\Elements;
+namespace RobinTheHood\PdfBuilder\Classes\Elements\Traits;
 
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
@@ -11,12 +11,26 @@ trait ComponentTrait
 {
     private $positionX = 0;
     private $positionY = 0;
+    private $calcedPositionX = 0;
+    private $calcedPositionY = 0;
     private $dimensionWidth = 0;
     private $dimensionHeight = 0;
 
     private $positionMode = ComponentInterface::POSITION_MODE_RELATIVE;
     private $positionSetX = false;
     private $positionSetY = false;
+
+    private $components = [];
+
+    public function getPositionX(): float
+    {
+        return $this->positionX;
+    }
+
+    public function getPositionY(): float
+    {
+        return $this->positionY;
+    }
 
     public function setPositionMode(int $positionMode): void
     {
@@ -27,6 +41,16 @@ trait ComponentTrait
     {
         $this->positionX = $x;
         $this->positionSetX = true;
+    }
+
+    public function setCalcedPositionX(float $x): void
+    {
+        $this->calcedPositionX = $x;
+    }
+
+    public function setCalcedPositionY(float $y): void
+    {
+        $this->calcedPositionY = $y;
     }
 
     public function setPositionY(float $y): void
@@ -68,5 +92,11 @@ trait ComponentTrait
         } elseif ($this->positionSetY) {
             $pdf->SetY($this->positionY);
         }
+    }
+
+
+    public function addComponent(ComponentInterface $component): void
+    {
+        $this->components[] = $component;
     }
 }

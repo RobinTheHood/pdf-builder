@@ -41,7 +41,7 @@ class Table implements ComponentInterface
 
     private function renderRows(Pdf $pdf, array $rows, array $rowsOptions): void
     {
-        $pdf->SetFont($this->fontFamily, 'B', 10);
+        $pdf->SetFont($this->fontFamily, Pdf::FONT_WEIGHT_BOLD, 10);
         foreach ($rows as $index => $row) {
             $this->renderRow($pdf, $row, $rowsOptions[$index]);
         }
