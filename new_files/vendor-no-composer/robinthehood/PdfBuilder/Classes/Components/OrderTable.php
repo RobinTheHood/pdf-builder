@@ -24,13 +24,18 @@ class OrderTable implements ComponentInterface
     public function render(Pdf $pdf): void
     {
         $pdf->SetXY($this->basePositionX, $this->basePositionY);
+        $startPosition = $pdf->getPosition();
         $this->table->render($pdf);
+        $endPosition = $pdf->getPosition();
 
         // Hole Component Area
-        $pdf->SetDrawColor(0, 255, 0);
-        $pdf->SetXY($this->basePositionX, $this->basePositionY);
-        $pdf->Cell(175, 157, '', PDF::CELL_BORDER_ON);
+        $pdf->SetDrawColor(0, 0, 255);
+        $pdf->Rect($startPosition['x'], $startPosition['y'], 175, $endPosition['y'] - $startPosition['y']);
+
+        //var_dump($endPosition);
+        //$pdf->setPosition($endPosition);
     }
+
 
     public function addItem(array $item): void
     {
