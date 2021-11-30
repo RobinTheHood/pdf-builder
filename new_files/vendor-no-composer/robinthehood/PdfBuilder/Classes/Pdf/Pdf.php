@@ -23,10 +23,13 @@ class Pdf extends Tfpdf
 
     public const FONT_WEIGHT_NORMAL = '';
     public const FONT_WEIGHT_BOLD = 'B';
-    
+
     private $pageFunction;
     private $headerFunction;
     private $footerFunction;
+
+    private $storedPositionX = 0;
+    private $storedPositionY = 0;
 
     public function setPageFunction($callable)
     {
@@ -64,5 +67,18 @@ class Pdf extends Tfpdf
         if (\is_callable($this->footerFunction)) {
             call_user_func($this->footerFunction, $this);
         }
+    }
+
+    public function getPosition(): array
+    {
+        return [
+            'x' => $this->GetX(),
+            'y' => $this->GetY()
+        ];
+    }
+
+    public function setPosition(array $position): void
+    {
+        $this->SetXY($position['x'], $position['y']);
     }
 }
