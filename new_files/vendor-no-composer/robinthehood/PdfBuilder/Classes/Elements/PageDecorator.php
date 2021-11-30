@@ -6,19 +6,16 @@ namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
-use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
+use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentChildTrait;
 
 class PageDecorator implements DecoratorInterface
 {
-    public function addComponent(ComponentInterface $component): void
-    {
-        $this->components[] = $component;
-    }
+    use ComponentChildTrait;
 
     public function render(Pdf $pdf): void
     {
-        foreach ($this->components as $component) {
-            $component->render($pdf);
+        foreach ($this->childComponents as $childComponent) {
+            $childComponent->render($pdf);
         }
     }
 }

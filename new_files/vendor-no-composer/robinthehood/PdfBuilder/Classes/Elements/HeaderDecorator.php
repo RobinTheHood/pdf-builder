@@ -6,9 +6,12 @@ namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
+use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentChildTrait;
 
 class HeaderDecorator implements DecoratorInterface
 {
+    use ComponentChildTrait;
+
     private $fontFamily = 'DejaVu';
     private $leftMargin = 20;
     private $posY = 20;

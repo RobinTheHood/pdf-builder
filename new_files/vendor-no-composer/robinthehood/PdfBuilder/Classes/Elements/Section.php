@@ -6,11 +6,12 @@ namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
-use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\FooterInterface;
-use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
+use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentChildTrait;
 
 class Section
 {
+    use ComponentChildTrait;
+
     private $pageDecorator;
     private $headerDecorator;
     private $footerDecorator;
@@ -21,8 +22,6 @@ class Section
 
     private $headerDrawCount = 0;
     private $footerDrawCount = 0;
-
-    private $components = [];
 
     protected $fontFamily = 'DejaVu';
 
@@ -41,9 +40,16 @@ class Section
         $this->footerDecorator = $footerDecorator;
     }
 
-    public function addComponent(ComponentInterface $component): void
+    public function calcComponents()
     {
-        $this->components[] = $component;
+        foreach ($this->components as $component) {
+            $component->setCalcedPositionX(0 + $component->getPositionX());
+            $component->setCalcedPositionY(0 + $component->getPositionY());
+        }
+
+        foreach ($this->components as $component) {
+            $component->calcComponents();
+        }
     }
 
     public function render(Pdf $pdf, Section $lastFooterSection): void
@@ -103,8 +109,8 @@ class Section
 
     private function renderComponents(Pdf $pdf): void
     {
-        foreach ($this->components as $component) {
-            $component->render($pdf);
+        foreach ($this->childComponents as $childComponent) {
+            $childComponent->render($pdf);
         }
     }
 }

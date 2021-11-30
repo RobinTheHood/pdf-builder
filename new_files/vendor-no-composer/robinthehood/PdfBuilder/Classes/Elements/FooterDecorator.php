@@ -6,23 +6,19 @@ namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
-use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
+use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentChildTrait;
 
 class FooterDecorator implements DecoratorInterface
 {
-    private $posY = -35;
-    private $components = [];
+    use ComponentChildTrait;
 
-    public function addComponent(ComponentInterface $component): void
-    {
-        $this->components[] = $component;
-    }
+    private $posY = -35;
 
     public function render(Pdf $pdf): void
     {
         $pdf->SetY($this->posY);
-        foreach ($this->components as $component) {
-            $component->render($pdf);
+        foreach ($this->childComponents as $childComponent) {
+            $childComponent->render($pdf);
         }
     }
 }
