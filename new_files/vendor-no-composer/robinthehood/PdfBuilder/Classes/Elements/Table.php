@@ -75,7 +75,7 @@ class Table implements ComponentInterface
         $x = $pdf->GetX();
         foreach ($subRow as $index => $cell) {
             $cell['width'] = $cell['width'] ?? $this->columnWidths[$index];
-            $cell['style'] = $cell['style'] ?? 'B';
+            $cell['style'] = $cell['style'] ?? Pdf::FONT_WEIGHT_BOLD;
             $cell['alignment'] = $cell['alignment'] ?? 'L';
 
             $pdf->SetFont($this->fontFamily, $fontWeight, $fontSize);
