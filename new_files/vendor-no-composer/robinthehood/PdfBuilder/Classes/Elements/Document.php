@@ -14,12 +14,32 @@ class Document
     private $footerY = -25;
     private $fontFamily = 'DejaVu';
 
+    private $pdf = null;
+
     public function addSection(Section $section): void
     {
         $this->sections[] = $section;
     }
 
+    public function calcComponents()
+    {
+        foreach ($this->sections as $section) {
+            $section->calcComponents();
+        }
+    }
+
     public function render(): void
+    {
+        $this->initPdf();
+        $prevSection = $this->sections[0] ?? null;
+        foreach ($this->sections as $section) {
+            $section->render($this->pdf, $prevSection);
+            $prevSection = $section;
+        }
+        $this->pdf->Output();
+    }
+
+    private function initPdf()
     {
         $pdf = new Pdf();
         $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
@@ -34,11 +54,6 @@ class Document
         $pdf->SetTitle('Pdf Builder Test');
         $pdf->SetLeftMargin($this->leftMargin);
 
-        $prevSection = $this->sections[0] ?? null;
-        foreach ($this->sections as $section) {
-            $section->render($pdf, $prevSection);
-            $prevSection = $section;
-        }
-        $pdf->Output();
+        $this->pdf = $pdf;
     }
 }

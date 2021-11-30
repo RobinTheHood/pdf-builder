@@ -7,6 +7,7 @@ namespace RobinTheHood\PdfBuilder\Classes\Tests;
 use RobinTheHood\PdfBuilder\Classes\Old\PdfBill;
 use RobinTheHood\PdfBuilder\Classes\Templates\Letter;
 use RobinTheHood\PdfBuilder\Classes\Templates\Bill;
+use RobinTheHood\PdfBuilder\Classes\Templates\ComponentTest;
 
 class PdfBuilderTest
 {
@@ -28,6 +29,12 @@ class PdfBuilderTest
     public function test3(): void
     {
         $letter = new Bill();
+        $letter->render();
+    }
+
+    public function test4(): void
+    {
+        $letter = new ComponentTest();
         $letter->render();
     }
 }

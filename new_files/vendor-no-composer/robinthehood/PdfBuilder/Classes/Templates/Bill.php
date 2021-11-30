@@ -10,6 +10,8 @@ use RobinTheHood\PdfBuilder\Classes\Elements\Document;
 use RobinTheHood\PdfBuilder\Classes\Elements\Image;
 use RobinTheHood\PdfBuilder\Classes\Elements\PageDecorator;
 use RobinTheHood\PdfBuilder\Classes\Elements\TextArea;
+use RobinTheHood\PdfBuilder\Classes\Elements\Table;
+use RobinTheHood\PdfBuilder\Classes\Elements\FooterDecorator;
 use RobinTheHood\PdfBuilder\Classes\Components\FoldMark;
 use RobinTheHood\PdfBuilder\Classes\Components\Address;
 use RobinTheHood\PdfBuilder\Classes\Components\Infoblock;
@@ -29,17 +31,17 @@ class Bill
         $logo->setPositionX(145);
         $logo->setPositionY(9);
         $logo->setWidth(40);
-        $section->addComponent($logo);
+        $section->addChildComponent($logo);
 
         // Address
         $address = new Address();
         $address->setAddress("Musterfirma GmbH\nz.H. Max Mustermann\nHauptstraße 999\n12345 Neustadt\nDeutschland");
         $address->setSender("Max Mustermann - 12345 Neustadt 1\n");
-        $section->addComponent($address);
+        $section->addChildComponent($address);
 
         // Infoblock
         $infoblock = new Infoblock();
-        $section->addComponent($infoblock);
+        $section->addChildComponent($infoblock);
 
         // Heading
         $contentHeading = new TextArea();
@@ -47,7 +49,7 @@ class Bill
         $contentHeading->setFontSize(18);
         $contentHeading->setFontWeight(PDF::FONT_WEIGHT_BOLD);
         $contentHeading->setText('Rechnung');
-        $section->addComponent($contentHeading);
+        $section->addChildComponent($contentHeading);
 
         // Content Intro Text
         $contentIntroText = new TextArea();
@@ -56,11 +58,11 @@ class Bill
         $contentIntroText->setLineHeight(5); // Unit: mm
         $contentIntroText->setFontWeight(PDF::FONT_WEIGHT_NORMAL);
         $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.\nDiese Zeile ist zuviel.");
-        $section->addComponent($contentIntroText);
+        $section->addChildComponent($contentIntroText);
 
         // OrderTable
         $orderTable = new OrderTable();
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $orderTable->addItem([
                 'quantity' => '19',
                 'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
@@ -70,11 +72,11 @@ class Bill
                 'priceTotal' => ((string) (12.99 * 19)) . ' €'
             ]);
         }
-        $section->addComponent($orderTable);
+        $section->addChildComponent($orderTable);
 
         // OrderTotalTable
         $orderTotalTable = new OrderTotalTable();
-        $section->addComponent($orderTotalTable);
+        $section->addChildComponent($orderTotalTable);
 
         // Content Outro Text
         $contentOutoText = new TextArea();
@@ -85,7 +87,7 @@ class Bill
         $contentOutoText->setLineHeight(5); // Unit: mm
         $contentOutoText->setFontWeight(PDF::FONT_WEIGHT_NORMAL);
         $contentOutoText->setText("Vielen Dank für Ihren Auftrag. Besuchen Sie uns wieder unter online-shop.de. Leistungsdatum entspricht Rechnungsdatum. Es gelten unsere Allgemeinen Geschäftsbedingungen.");
-        $section->addComponent($contentOutoText);
+        $section->addChildComponent($contentOutoText);
 
         $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
         //$dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rechnung_demo_1.png');
@@ -94,10 +96,30 @@ class Bill
         $dinImage->setWidth(210);
 
         $pageDecorator = new PageDecorator();
-        //$pageDecorator->addComponent($dinImage);
-        $pageDecorator->addComponent(new FoldMark());
+        //$pageDecorator->addChildComponent($dinImage);
+        $pageDecorator->addChildComponent(new FoldMark());
+
+        $tableFooter = new Table();
+
+        $width = 60;
+        $tableFooter->setColumnWidths([
+            $width,
+            $width,
+            $width,
+        ]);
+
+        $tableFooter->addRow([
+            ['content' => "MAX MUSTERFIRMA\nMustermann Straße 1\n12345 Musterstadt", 'alignment' => Pdf::CELL_ALIGN_LEFT],
+            ['content' => "www.musterfirma.de\ninfo@musterfirma.de\n+49 1234 1111-0", 'alignment' => Pdf::CELL_ALIGN_LEFT],
+            ['content' => "BLZ: 123456789\nIBAN: DE123456789123456789\nUSt-ID: DE123456789", 'alignment' => Pdf::CELL_ALIGN_LEFT],
+        ], ['fontWeight' => Pdf::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
+
+        $footer = new FooterDecorator();
+        $footer->addChildComponent($tableFooter);
 
         $section->setPageDecorator($pageDecorator);
+        $section->setFooterDecorator($footer);
+
         $this->document = new Document();
         $this->document->addSection($section);
         $this->document->addSection($section);
