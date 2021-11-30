@@ -7,6 +7,7 @@ namespace RobinTheHood\PdfBuilder\Classes\Elements;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Pdf\StringSplitter;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
+use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentTrait;
 
 class TextArea implements ComponentInterface
 {
@@ -17,10 +18,6 @@ class TextArea implements ComponentInterface
     public const OVERFLOW_Y_VISIBLE = 1;
     public const OVERFLOW_Y_HIDDEN = 0;
 
-    // private $positionX = 0;
-    // private $positionY = 0;
-    // private $dimensionWidth = 0;
-    // private $dimensionHeight = 0;
     private $verticalAlign = self::VERTICAL_ALIGN_TOP;
 
     private $overflowY = self::OVERFLOW_Y_VISIBLE;
@@ -32,25 +29,6 @@ class TextArea implements ComponentInterface
     private $lineHeight = 8;
     private $fontWeight = PDF::FONT_WEIGHT_NORMAL;
 
-    // public function setPosition(float $x, float $y): void
-    // {
-    //     $this->positionX = $x;
-    //     $this->positionY = $y;
-    // }
-
-    // public function setDimention(float $width, float $height): void
-    // {
-    //     $this->dimensionWidth = $width;
-    //     $this->dimensionHeight = $height;
-    // }
-
-    // public function setBounds(float $x, float $y, float $width, float $height): void
-    // {
-    //     $this->positionX = $x;
-    //     $this->positionY = $y;
-    //     $this->dimensionWidth = $width;
-    //     $this->dimensionHeight = $height;
-    // }
 
     public function setText(string $text): void
     {

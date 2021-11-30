@@ -6,7 +6,7 @@ namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Pdf\StringSplitter;
-use RobinTheHood\PdfBuilder\Classes\Elements\ComponentTrait;
+use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentTrait;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
 class Table implements ComponentInterface
