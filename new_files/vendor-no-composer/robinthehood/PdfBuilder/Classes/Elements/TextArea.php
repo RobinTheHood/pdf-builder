@@ -8,10 +8,12 @@ use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Pdf\StringSplitter;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentTrait;
+use RobinTheHood\PdfBuilder\Classes\Elements\Traits\TextTrait;
 
 class TextArea implements ComponentInterface
 {
     use ComponentTrait;
+    use TextTrait;
 
     public const VERTICAL_ALIGN_TOP = 0;
     public const VERTICAL_ALIGN_BOTTOM = 2;
@@ -21,34 +23,6 @@ class TextArea implements ComponentInterface
     private $verticalAlign = self::VERTICAL_ALIGN_TOP;
 
     private $overflowY = self::OVERFLOW_Y_VISIBLE;
-
-    // Text and Font Propertys
-    private $text = '';
-    private $fontFamily = 'DejaVu';
-    private $fontSize = 8;
-    private $lineHeight = 8;
-    private $fontWeight = PDF::FONT_WEIGHT_NORMAL;
-
-
-    public function setText(string $text): void
-    {
-        $this->text = $text;
-    }
-
-    public function setLineHeight(float $lineHeight): void
-    {
-        $this->lineHeight = $lineHeight;
-    }
-
-    public function setFontSize(float $fontSize): void
-    {
-        $this->fontSize = $fontSize;
-    }
-
-    public function setFontWeight(string $fontWeight): void
-    {
-        $this->fontWeight = $fontWeight;
-    }
 
     public function setVerticalAlign(int $verticalAlign): void
     {
