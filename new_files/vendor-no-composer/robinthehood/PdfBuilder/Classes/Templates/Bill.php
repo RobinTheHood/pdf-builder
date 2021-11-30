@@ -14,6 +14,7 @@ use RobinTheHood\PdfBuilder\Classes\Components\FoldMark;
 use RobinTheHood\PdfBuilder\Classes\Components\Address;
 use RobinTheHood\PdfBuilder\Classes\Components\Infoblock;
 use RobinTheHood\PdfBuilder\Classes\Components\OrderTable;
+use RobinTheHood\PdfBuilder\Classes\Components\OrderTotalTable;
 
 class Bill
 {
@@ -54,12 +55,12 @@ class Bill
         $contentIntroText->setFontSize(10);
         $contentIntroText->setLineHeight(5); // Unit: mm
         $contentIntroText->setFontWeight(PDF::FONT_WEIGHT_NORMAL);
-        $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.");
+        $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.\nDiese Zeile ist zuviel.");
         $section->addComponent($contentIntroText);
 
         // OrderTable
         $orderTable = new OrderTable();
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 2; $i++) {
             $orderTable->addItem([
                 'quantity' => '19',
                 'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
@@ -69,8 +70,22 @@ class Bill
                 'priceTotal' => ((string) (12.99 * 19)) . ' €'
             ]);
         }
-
         $section->addComponent($orderTable);
+
+        // OrderTotalTable
+        $orderTotalTable = new OrderTotalTable();
+        $section->addComponent($orderTotalTable);
+
+        // Content Outro Text
+        $contentOutoText = new TextArea();
+        //$contentOutoText->setBounds(25, 103.46 + 10, 175, 10);
+        $contentOutoText->setPositionX(25);
+        $contentOutoText->setDimention(175, 10);
+        $contentOutoText->setFontSize(10);
+        $contentOutoText->setLineHeight(5); // Unit: mm
+        $contentOutoText->setFontWeight(PDF::FONT_WEIGHT_NORMAL);
+        $contentOutoText->setText("Vielen Dank für Ihren Auftrag. Besuchen Sie uns wieder unter online-shop.de. Leistungsdatum entspricht Rechnungsdatum. Es gelten unsere Allgemeinen Geschäftsbedingungen.");
+        $section->addComponent($contentOutoText);
 
         $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
         //$dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rechnung_demo_1.png');
