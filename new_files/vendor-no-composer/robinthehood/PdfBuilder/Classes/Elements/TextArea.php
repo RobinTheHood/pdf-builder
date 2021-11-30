@@ -12,12 +12,16 @@ class TextArea implements ComponentInterface
 {
     public const VERTICAL_ALIGN_TOP = 0;
     public const VERTICAL_ALIGN_BOTTOM = 2;
+    public const OVERFLOW_Y_VISIBLE = 1;
+    public const OVERFLOW_Y_HIDDEN = 0;
 
     private $positionX = 0;
     private $positionY = 0;
     private $dimensionWidth = 0;
     private $dimensionHeight = 0;
     private $verticalAlign = self::VERTICAL_ALIGN_TOP;
+
+    private $overflowY = self::OVERFLOW_Y_VISIBLE;
 
     // Text and Font Propertys
     private $text = '';
@@ -71,15 +75,26 @@ class TextArea implements ComponentInterface
         $this->verticalAlign = $verticalAlign;
     }
 
+    public function setOverflowY(int $value): void
+    {
+        $this->overflowY = $value;
+    }
+
     public function render(Pdf $pdf): void
     {
         $this->renderBounds($pdf);
 
         if ($this->verticalAlign == self::VERTICAL_ALIGN_TOP) {
+            $maxPosY = $this->positionY + $this->dimensionHeight;
+
             $pdf->SetFont($this->fontFamily, $this->fontWeight, $this->fontSize);
             $pdf->SetXY($this->positionX, $this->positionY);
             $lines = StringSplitter::splitByLength($pdf, $this->text, $this->dimensionWidth);
             foreach ($lines as $line) {
+                // Do not draw next text line if overflow
+                if ($this->overflowY == self::OVERFLOW_Y_HIDDEN && $pdf->GetY() >= $maxPosY) {
+                    break;
+                }
                 $pdf->Cell($this->dimensionWidth, $this->lineHeight, $line, PDF::CELL_BORDER_NONE, PDF::CELL_NEW_LINE_BELOW);
             }
         } elseif ($this->verticalAlign == self::VERTICAL_ALIGN_BOTTOM) {
