@@ -6,10 +6,13 @@ namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Pdf\StringSplitter;
+use RobinTheHood\PdfBuilder\Classes\Elements\ComponentTrait;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
 class Table implements ComponentInterface
 {
+    use ComponentTrait;
+
     public const ROW_BORDER_BOTTOM = 'B';
     public const ROW_BORDER_NONE = '';
 
@@ -32,6 +35,7 @@ class Table implements ComponentInterface
 
     public function render(Pdf $pdf): void
     {
+        $this->calcRenderPosition($pdf);
         $this->renderRows($pdf, $this->rows, $this->rowsOptions);
     }
 
