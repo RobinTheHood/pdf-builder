@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Container\Traits;
 
+use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerInterface;
 
 trait ContainerCalculationTrait
@@ -20,12 +21,12 @@ trait ContainerCalculationTrait
 
     public function calcAll()
     {
-        $this->calcBeforeAll($this);
-        $this->calcBetweenAll($this);
-        $this->calcAfterAll($this);
+        $this->calcBeforeAll(null);
+        $this->calcBetweenAll(null);
+        $this->calcAfterAll(null);
     }
 
-    public function calcBeforeAll(ContainerInterface $parentContainer)
+    public function calcBeforeAll(?ContainerInterface $parentContainer)
     {
         $this->calcBefore($parentContainer);
         foreach ($this->childContainers as $childContainers) {
@@ -33,36 +34,37 @@ trait ContainerCalculationTrait
         }
     }
 
-    public function calcBetweenAll(ContainerInterface $parentContainer)
+    public function calcBetweenAll(?ContainerInterface $parentContainer)
     {
-        $this->calcBetween($parentContainer);
+        //$this->calcBetween($parentContainer);
         foreach ($this->childContainers as $childContainers) {
             $childContainers->calcBetweenAll($this);
         }
         $this->calcBetweenAfter($parentContainer);
     }
 
-    public function calcAfterAll()
+    public function calcAfterAll(?ContainerInterface $parentContainer)
     {
-        $this->calcAfter();
+        $this->calcAfter($parentContainer);
         foreach ($this->childContainers as $childContainers) {
-            $childContainers->calcAfterAll();
+            $childContainers->calcAfterAll($this);
         }
+        $this->calcAfterAfter($parentContainer);
     }
 
-    public function calcBefore(ContainerInterface $parentContainer)
+    public function calcBefore(?ContainerInterface $parentContainer)
     {
     }
 
-    public function calcBetween(ContainerInterface $parentContainer)
+    public function calcBetween(?ContainerInterface $parentContainer)
     {
     }
 
-    public function calcAfter()
+    public function calcBetweenAfter(?ContainerInterface $parentContainer)
     {
     }
 
-    public function calcBetweenAfter(ContainerInterface $parentContainer)
+    public function calcAfterAfter(?ContainerInterface $parentContainer)
     {
     }
 }
