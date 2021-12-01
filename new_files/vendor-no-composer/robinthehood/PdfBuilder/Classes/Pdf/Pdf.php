@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Pdf;
 
+use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerRendererCanvasInterface;
 use RobinTheHood\Tfpdf\Tfpdf;
 
-class Pdf extends Tfpdf
+class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
 {
     public const CELL_NEW_LINE_OFF = 0;
     public const CELL_NEW_LINE = 1;
@@ -80,5 +81,17 @@ class Pdf extends Tfpdf
     public function setPosition(array $position): void
     {
         $this->SetXY($position['x'], $position['y']);
+    }
+
+    public function setColor(float $r, float $g, float $b, float $alpha = 1): void
+    {
+        $this->SetDrawColor((int) $r, (int) $g, (int) $b);
+    }
+
+    public function drawLine(float $x1, float $y1, float $x2, float $y2): void
+    {
+        $this->Line($x1, $y1, $x2, $y2);
+        //$this->SetDrawColor(255, 0, 0);
+        //$this->Line(10, 10, 30, 30);
     }
 }
