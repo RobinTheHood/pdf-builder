@@ -11,9 +11,9 @@ class ContainerValue
     public const UNIT_PERCENT = 2;
     public const UNIT_AUTO = 3;
 
-    private $value;
-    private $isSet;
-    private $unit;
+    private $value = 0;
+    private $isSet = false;
+    private $unit = self::UNIT_PIXEL;
 
     public function getValue(): float
     {
