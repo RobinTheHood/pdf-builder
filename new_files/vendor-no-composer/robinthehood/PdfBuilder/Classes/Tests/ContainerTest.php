@@ -46,15 +46,27 @@ class ContainerTest
         $baseContainer->containerBox->height->setValue(self:: DEFAULT_HEIGHT - 20);
 
         $container1 = new Container();
-        $container1->containerBox->width->setValue(180);
+        //$container1->containerBox->width->setValue(20);
         $container1->containerBox->height->setValue(20);
+        $container1->containerBox->marginLeft->setValue(5);
+        $container1->containerBox->marginRight->setValue(20);
+        $container1->containerBox->marginTop->setValue(5);
+        $container1->containerBox->marginBottom->setValue(3);
+        $container1->containerBox->borderLeft->setValue(5);
+        $container1->containerBox->borderRight->setValue(20);
+        $container1->containerBox->borderTop->setValue(5);
+        $container1->containerBox->borderBottom->setValue(3);
+
         $container11 = new Container();
         $container11->containerBox->width->setValue(80);
         $container11->containerBox->height->setValue(20);
+        $container11->containerBox->marginTop->setValue(5);
+        $container11->containerBox->marginBottom->setValue(5);
         $container12 = new Container();
-        $container12->containerBox->width->setValue(60);
+        //$container12->containerBox->width->setValue(60);
         $container12->containerBox->height->setValue(20);
         $container12->containerBox->marginLeft->setValue(10);
+        $container12->containerBox->marginTop->setValue(10);
         $container1->addChildContainer($container11);
         $container1->addChildContainer($container12);
 
