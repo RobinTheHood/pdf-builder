@@ -15,8 +15,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_WARNING);
 
-// $pdfBuilderTest = new PdfBuilderTest();
-// $pdfBuilderTest->test3();
+$pdfBuilderTest = new PdfBuilderTest();
+$pdfBuilderTest->test3();
 
-$containerTest = new ContainerTest();
-$containerTest->test1();
+// $containerTest = new ContainerTest();
+// $containerTest->test1();

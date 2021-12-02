@@ -40,6 +40,7 @@ class ContainerTest
     public function test1(): void
     {
         $baseContainer = new Container();
+        $baseContainer->position = Container::POSITION_ABSOLUT;
         $baseContainer->containerBox->positionX->setValue(10);
         $baseContainer->containerBox->positionY->setValue(10);
         $baseContainer->containerBox->width->setValue(self::DEFAULT_WIDTH - 20);
@@ -47,7 +48,7 @@ class ContainerTest
 
         $container1 = new Container();
         //$container1->containerBox->width->setValue(20);
-        $container1->containerBox->height->setValue(20);
+        //$container1->containerBox->height->setValue(20);
         $container1->containerBox->marginLeft->setValue(5);
         $container1->containerBox->marginRight->setValue(20);
         $container1->containerBox->marginTop->setValue(5);
@@ -75,8 +76,11 @@ class ContainerTest
         $container2->containerBox->height->setValue(20);
 
         $container3 = new Container();
+        $container3->position = Container::POSITION_ABSOLUT;
+        $container3->containerBox->positionX->setValue(10);
+        $container3->containerBox->positionY->setValue(150);
         $container3->containerBox->width->setValue(140);
-        $container3->containerBox->height->setValue(20);
+        //$container3->containerBox->height->setValue(20);
         $container31 = new Container();
         $container31->containerBox->width->setValue(120);
         $container31->containerBox->height->setValue(20);
