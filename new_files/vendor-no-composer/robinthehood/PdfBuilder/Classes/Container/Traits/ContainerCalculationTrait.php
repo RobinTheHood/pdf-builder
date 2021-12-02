@@ -28,15 +28,16 @@ trait ContainerCalculationTrait
 
     public function calcBeforeAll(?ContainerInterface $parentContainer)
     {
-        $this->calcBefore($parentContainer);
+        $this->calcBeforeBefore($parentContainer);
         foreach ($this->childContainers as $childContainers) {
             $childContainers->calcBeforeAll($this);
         }
+        $this->calcBeforeAfter($parentContainer);
     }
 
     public function calcBetweenAll(?ContainerInterface $parentContainer)
     {
-        //$this->calcBetween($parentContainer);
+        $this->calcBetweenBefore($parentContainer);
         foreach ($this->childContainers as $childContainers) {
             $childContainers->calcBetweenAll($this);
         }
@@ -45,22 +46,30 @@ trait ContainerCalculationTrait
 
     public function calcAfterAll(?ContainerInterface $parentContainer)
     {
-        $this->calcAfter($parentContainer);
+        $this->calcAfterBefore($parentContainer);
         foreach ($this->childContainers as $childContainers) {
             $childContainers->calcAfterAll($this);
         }
         $this->calcAfterAfter($parentContainer);
     }
 
-    public function calcBefore(?ContainerInterface $parentContainer)
+    public function calcBeforeBefore(?ContainerInterface $parentContainer)
     {
     }
 
-    public function calcBetween(?ContainerInterface $parentContainer)
+    public function calcBeforeAfter(?ContainerInterface $parentContainer)
+    {
+    }
+
+    public function calcBetweenBefore(?ContainerInterface $parentContainer)
     {
     }
 
     public function calcBetweenAfter(?ContainerInterface $parentContainer)
+    {
+    }
+
+    public function calcAfterBefore(?ContainerInterface $parentContainer)
     {
     }
 
