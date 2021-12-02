@@ -25,7 +25,7 @@ class Container implements ContainerInterface
      */
     public $containerBox;
 
-    private $containerRenderer;
+    private $containerRenderer = null;
 
     public function __construct()
     {
@@ -33,7 +33,7 @@ class Container implements ContainerInterface
         $this->containerRenderer = new ContainerPdfRenderer();
     }
 
-    public function getContainerRenderer(): ContainerRendererInterface
+    public function getContainerRenderer(): ?ContainerRendererInterface
     {
         return $this->containerRenderer;
     }

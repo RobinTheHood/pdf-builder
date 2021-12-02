@@ -8,7 +8,7 @@ interface ContainerInterface
 {
     public function getChildContainers(): array;
 
-    public function getContainerRenderer(): ContainerRendererInterface;
+    public function getContainerRenderer(): ?ContainerRendererInterface;
 
     public function getCalcedContainer(): ContainerInterface;
 }
