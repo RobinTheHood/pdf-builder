@@ -64,17 +64,17 @@ class ContainerBox
 
         $containerBox->marginTop = $this->marginTop->copy();
         $containerBox->marginRight = $this->marginRight->copy();
-        $containerBox->marginBottom = $this->marginRight->copy();
+        $containerBox->marginBottom = $this->marginBottom->copy();
         $containerBox->marginLeft = $this->marginLeft->copy();
 
         $containerBox->borderTop = $this->borderTop->copy();
         $containerBox->borderRight = $this->borderRight->copy();
-        $containerBox->borderBottom = $this->borderRight->copy();
+        $containerBox->borderBottom = $this->borderBottom->copy();
         $containerBox->borderLeft = $this->borderLeft->copy();
 
         $containerBox->paddingTop = $this->paddingTop->copy();
         $containerBox->paddingRight = $this->paddingRight->copy();
-        $containerBox->paddingBottom = $this->paddingRight->copy();
+        $containerBox->paddingBottom = $this->paddingBottom->copy();
         $containerBox->paddingLeft = $this->paddingLeft->copy();
 
         return $containerBox;
