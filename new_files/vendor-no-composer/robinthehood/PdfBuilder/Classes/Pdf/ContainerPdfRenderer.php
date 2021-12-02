@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RobinTheHood\PdfBuilder\Classes\Container;
+namespace RobinTheHood\PdfBuilder\Classes\Pdf;
 
 use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerInterface;
 use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerRendererCanvasInterface;
@@ -42,9 +42,18 @@ class ContainerPdfRenderer implements ContainerRendererInterface
     private function renderChilds(ContainerRendererCanvasInterface $canvas, ContainerInterface $container)
     {
         foreach ($container->getChildContainers() as $childContainer) {
-            $containerRenderer = $childContainer->getContainerRenderer();
+            $containerRenderer = $this->getContainerRenderer($childContainer);
             $containerRenderer->render($canvas, $childContainer);
         }
+    }
+
+    private function getContainerRenderer(ContainerInterface $container): ContainerRendererInterface
+    {
+        $containerRenderer = $container->getContainerRenderer();
+        if ($containerRenderer) {
+            return $containerRenderer;
+        }
+        return $this;
     }
 
     private function drawBox(ContainerRendererCanvasInterface $canvas, array $box, $color)

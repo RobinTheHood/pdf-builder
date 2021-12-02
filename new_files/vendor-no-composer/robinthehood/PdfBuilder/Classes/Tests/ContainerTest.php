@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RobinTheHood\PdfBuilder\Classes\Tests;
 
 use RobinTheHood\PdfBuilder\Classes\Container\Container;
+use RobinTheHood\PdfBuilder\Classes\Pdf\ContainerPdfRenderer;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 
 class ContainerTest
@@ -81,8 +82,8 @@ class ContainerTest
         $baseContainer->calcAll();
 
         // Render
-        $containerRenderer = $baseContainer->getContainerRenderer();
-        $containerRenderer->render($this->canvas, $baseContainer);
+        $containerPdfRenderer = new ContainerPdfRenderer();
+        $containerPdfRenderer->render($this->canvas, $baseContainer);
 
         // Output Image
         $this->canvas->Output();

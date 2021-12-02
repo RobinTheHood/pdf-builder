@@ -28,7 +28,6 @@ class Container implements ContainerInterface
     public function __construct()
     {
         $this->containerBox = new ContainerBox();
-        $this->containerRenderer = new ContainerPdfRenderer();
     }
 
     public function getContainerRenderer(): ?ContainerRendererInterface
