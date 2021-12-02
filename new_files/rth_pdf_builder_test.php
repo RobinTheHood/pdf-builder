@@ -1,6 +1,7 @@
 <?php
 
 use RobinTheHood\PdfBuilder\Classes\Tests\PdfBuilderTest;
+use RobinTheHood\PdfBuilder\Classes\Tests\ContainerTest;
 
 require_once 'includes/application_top.php';
 require_once DIR_WS_CLASSES . 'order.php';
@@ -16,3 +17,6 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_WARNING);
 
 $pdfBuilderTest = new PdfBuilderTest();
 $pdfBuilderTest->test3();
+
+//$containerTest = new ContainerTest();
+//$containerTest->test1();
