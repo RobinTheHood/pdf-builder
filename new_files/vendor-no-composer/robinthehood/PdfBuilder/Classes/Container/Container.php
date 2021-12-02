@@ -28,9 +28,10 @@ class Container implements ContainerInterface
     public function __construct()
     {
         $this->containerBox = new ContainerBox();
+        $this->containerRenderer = new ContainerRenderer();
     }
 
-    public function getContainerRenderer(): ?ContainerRendererInterface
+    public function getContainerRenderer(): ContainerRendererInterface
     {
         return $this->containerRenderer;
     }

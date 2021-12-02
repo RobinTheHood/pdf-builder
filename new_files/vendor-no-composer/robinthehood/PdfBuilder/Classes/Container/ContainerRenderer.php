@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace RobinTheHood\PdfBuilder\Classes\Pdf;
+namespace RobinTheHood\PdfBuilder\Classes\Container;
 
 use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerInterface;
 use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerRendererCanvasInterface;
 use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerRendererInterface;
 
-class ContainerPdfRenderer implements ContainerRendererInterface
+class ContainerRenderer implements ContainerRendererInterface
 {
     public function render(ContainerRendererCanvasInterface $canvas, ContainerInterface $container): void
     {
@@ -42,19 +42,19 @@ class ContainerPdfRenderer implements ContainerRendererInterface
     private function renderChilds(ContainerRendererCanvasInterface $canvas, ContainerInterface $container)
     {
         foreach ($container->getChildContainers() as $childContainer) {
-            $containerRenderer = $this->getContainerRenderer($childContainer);
+            $containerRenderer = $container->getContainerRenderer();
             $containerRenderer->render($canvas, $childContainer);
         }
     }
 
-    private function getContainerRenderer(ContainerInterface $container): ContainerRendererInterface
-    {
-        $containerRenderer = $container->getContainerRenderer();
-        if ($containerRenderer) {
-            return $containerRenderer;
-        }
-        return $this;
-    }
+    // private function getContainerRenderer(ContainerInterface $container): ContainerRendererInterface
+    // {
+    //     $containerRenderer = $container->getContainerRenderer();
+    //     if ($containerRenderer) {
+    //         return $containerRenderer;
+    //     }
+    //     return $this;
+    // }
 
     private function drawBox(ContainerRendererCanvasInterface $canvas, array $box, $color)
     {
