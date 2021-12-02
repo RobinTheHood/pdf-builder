@@ -34,23 +34,34 @@ class TextArea implements ComponentInterface
         $this->overflowY = $value;
     }
 
+    public function calcComponents()
+    {
+        foreach ($this->childComponents as $childComponent) {
+            $childComponent->setCalcedPositionX($this->calcedPositionX + $childComponent->getPositionX());
+            $childComponent->setCalcedPositionY($this->calcedPositionX + $childComponent->getPositionY());
+        }
+
+        foreach ($this->childComponents as $childComponent) {
+            $childComponent->calcComponents();
+        }
+    }
+
     public function render(Pdf $pdf): void
     {
         if ($this->verticalAlign == self::VERTICAL_ALIGN_TOP) {
             $maxPosY = $this->positionY + $this->dimensionHeight;
 
             $pdf->SetFont($this->fontFamily, $this->fontWeight, $this->fontSize);
-            $this->calcRenderPosition($pdf);
+            //$this->calcRenderPosition($pdf);
+            $pdf->SetXY($this->calcedPositionX, $this->calcedPositionY);
             $startPosition = $pdf->getPosition();
-
-            //$pdf->SetXY($this->positionX, $this->positionY);
-            $lines = StringSplitter::splitByLength($pdf, $this->text, $this->dimensionWidth);
+            $lines = StringSplitter::splitByLength($pdf, $this->text, $this->calcedDimensionWidth);
             foreach ($lines as $line) {
                 // Do not draw next text line if overflow
                 if ($this->overflowY == self::OVERFLOW_Y_HIDDEN && $pdf->GetY() >= $maxPosY) {
                     break;
                 }
-                $pdf->Cell($this->dimensionWidth, $this->lineHeight, $line, PDF::CELL_BORDER_NONE, PDF::CELL_NEW_LINE_BELOW);
+                $pdf->Cell($this->calcedDimensionWidth, $this->lineHeight, $line, PDF::CELL_BORDER_NONE, PDF::CELL_NEW_LINE_BELOW);
             }
         } elseif ($this->verticalAlign == self::VERTICAL_ALIGN_BOTTOM) {
             $pdf->SetFont($this->fontFamily, $this->fontWeight, $this->fontSize);
@@ -72,7 +83,15 @@ class TextArea implements ComponentInterface
 
         // Hole Component Area
         $pdf->SetDrawColor(0, 255, 0);
-        $pdf->Rect($startPosition['x'], $startPosition['y'], $this->dimensionWidth, $this->dimensionHeight);
+        $pdf->Rect($startPosition['x'], $startPosition['y'], $this->calcedDimensionWidth, $this->calcedDimensionHeight);
+    }
+
+    public function calcBefore(Pdf $pdf): void
+    {
+        $lines = StringSplitter::splitByLength($pdf, $this->text, $this->dimensionWidth);
+        $height = count($lines) * $this->lineHeight;
+        $this->setCalcedDimensionHeight($height);
+        $this->setCalcedDimensionWidth($this->dimensionWidth);
     }
 
     private function renderBounds(Pdf $pdf): void
