@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Container\Traits;
 
-use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerInterface;
 
 trait ContainerCalculationTrait

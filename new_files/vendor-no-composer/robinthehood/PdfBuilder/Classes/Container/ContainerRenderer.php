@@ -47,15 +47,6 @@ class ContainerRenderer implements ContainerRendererInterface
         }
     }
 
-    // private function getContainerRenderer(ContainerInterface $container): ContainerRendererInterface
-    // {
-    //     $containerRenderer = $container->getContainerRenderer();
-    //     if ($containerRenderer) {
-    //         return $containerRenderer;
-    //     }
-    //     return $this;
-    // }
-
     private function drawBox(ContainerRendererCanvasInterface $canvas, array $box, $color)
     {
         $canvas->setColor($color['r'], $color['g'], $color['b']);

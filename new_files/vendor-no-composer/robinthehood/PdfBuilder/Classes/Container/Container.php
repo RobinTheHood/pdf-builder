@@ -10,7 +10,6 @@ use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerRendererInterf
 use RobinTheHood\PdfBuilder\Classes\Container\Traits\ContainerCalculationTrait;
 use RobinTheHood\PdfBuilder\Classes\Container\Traits\ContainerChildTrait;
 use RobinTheHood\PdfBuilder\Classes\Container\Traits\ContainerCopyTrait;
-use RobinTheHood\PdfBuilder\Classes\Container\Traits\ContainerLayoutTrait;
 
 class Container implements ContainerInterface
 {
@@ -119,19 +118,6 @@ class Container implements ContainerInterface
         }
         return $height;
     }
-
-    // private function calcStackChildContainers(): void
-    // {
-    //     $calcContainter = $this->getCalcedContainer();
-    //     $positionX = $calcContainter->containerBox->getContenBox()['x'];
-    //     $positionY = $calcContainter->containerBox->getContenBox()['y'];
-    //     foreach ($this->getChildContainers() as $childContainer) {
-    //         $childCalcContainer = $childContainer->getCalcedContainer();
-    //         $childCalcContainer->containerBox->positionX->setValue($positionX);
-    //         $childCalcContainer->containerBox->positionY->setValue($positionY);
-    //         $positionY += $childCalcContainer->containerBox->getMarginBox()['height'];
-    //     }
-    // }
 
     private function calcStackChildContainersRelativ(): void
     {

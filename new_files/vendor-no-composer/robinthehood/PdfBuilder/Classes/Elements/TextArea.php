@@ -94,15 +94,4 @@ class TextArea extends Container implements ComponentInterface
         $this->setCalcedDimensionHeight($height);
         $this->setCalcedDimensionWidth($this->dimensionWidth);
     }
-
-    private function renderBounds(Pdf $pdf): void
-    {
-        // Hole Component Area
-        // $pdf->SetDrawColor(0, 0, 255);
-        // $pdf->Rect($startPosition['x'], $startPosition['y'], $this->dimensionWidth, $endPosition['y'] - $startPosition['y']);
-
-        // $pdf->SetDrawColor(0, 255, 0);
-        // $pdf->SetXY($this->positionX, $this->positionY);
-        // $pdf->Cell($this->dimensionWidth, $this->dimensionHeight, '', PDF::CELL_BORDER_ON);
-    }
 }
