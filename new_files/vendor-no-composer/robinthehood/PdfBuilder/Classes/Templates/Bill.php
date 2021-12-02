@@ -147,6 +147,7 @@ class Bill
         $address->setAddress("Musterfirma GmbH\nz.H. Max Mustermann\nHauptstraße 999\n12345 Neustadt\nDeutschland");
         $address->setSender("Max Mustermann - 12345 Neustadt 1\n");
         $section->addChildComponent($address);
+        $section->addChildContainer($address);
 
         // Infoblock
         $infoblock = new Infoblock();

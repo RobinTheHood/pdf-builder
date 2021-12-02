@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
+use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentChildTrait;
+use RobinTheHood\PdfBuilder\Classes\Pdf\ContainerPdfRenderer;
 
-class Section
+class Section extends Container
 {
     use ComponentChildTrait;
 
@@ -109,6 +111,15 @@ class Section
 
     private function renderComponents(Pdf $pdf): void
     {
+        // New Render Container
+        $this->calcAll();
+        $canvas = $pdf;
+
+        $renderer = $this->getContainerRenderer();
+        $renderer->render($canvas, $this);
+        //return;
+
+        // Render Old
         foreach ($this->childComponents as $childComponent) {
             $childComponent->render($pdf);
         }
