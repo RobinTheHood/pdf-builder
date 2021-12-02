@@ -22,7 +22,7 @@ class ContainerPdfRenderer implements ContainerRendererInterface
         if (true) {
             // Draw Border Box
             $box = $renderContainer->containerBox->getBorderBox();
-            $color = $this->createColor(0, 255, 255);
+            $color = $this->createColor(0, 255, 0);
             $this->drawBox($canvas, $box, $color);
 
             // Draw Padding Box
