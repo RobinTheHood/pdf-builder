@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
+use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Pdf\StringSplitter;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentTrait;
 use RobinTheHood\PdfBuilder\Classes\Elements\Traits\TextTrait;
 
-class TextArea implements ComponentInterface
+class TextArea extends Container implements ComponentInterface
 {
     use ComponentTrait;
     use TextTrait;
