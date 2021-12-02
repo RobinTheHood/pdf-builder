@@ -18,8 +18,6 @@ class Container implements ContainerInterface
     use ContainerChildTrait;
     use ContainerCalculationTrait;
 
-    //use ContainerLayoutTrait;
-
     /**
      * @var ContainerBox
      */
@@ -43,19 +41,6 @@ class Container implements ContainerInterface
         $this->containerRenderer = $containerRenderer;
     }
 
-    public function calcBeforeBefore(?ContainerInterface $parentContainer)
-    {
-        // $containerBox = $this->getCalcedContainer()->containerBox;
-        // if ($containerBox->width->getIsSet()) {
-
-        // }
-
-        // if ($this->width == 0 && $this->height == 0) {
-        //     $containerBox = $this->getCalcedContainer()->containerBox;
-        //     $containerBox->height->setValue(20, ContainerValue::UNIT_PIXEL);
-        // }
-    }
-
     public function calcBetweenAfter(?ContainerInterface $parentContainer)
     {
         // if leaf container then
@@ -71,12 +56,10 @@ class Container implements ContainerInterface
             return;
         }
 
-        //$positionY = $parentContainer->getCalcedContainer()->containerBox->positionY->getValue();
         $positionY = $parentContainer->getCalcedContainer()->containerBox->getContentBox()['y'];
         $positionY += $this->getCalcedContainer()->containerBox->positionY->getValue();
         $this->getCalcedContainer()->containerBox->positionY->setValue($positionY);
 
-        //$positionX = $parentContainer->getCalcedContainer()->containerBox->positionX->getValue();
         $positionX = $parentContainer->getCalcedContainer()->containerBox->getContentBox()['x'];
         $positionX += $this->getCalcedContainer()->containerBox->positionX->getValue();
         $this->getCalcedContainer()->containerBox->positionX->setValue($positionX);
@@ -117,8 +100,6 @@ class Container implements ContainerInterface
     private function calcStackChildContainers(): void
     {
         $calcContainter = $this->getCalcedContainer();
-        // $positionX = $calcContainter->containerBox->positionX->getValue();
-        // $positionY = $calcContainter->containerBox->positionY->getValue();
         $positionX = $calcContainter->containerBox->getContenBox()['x'];
         $positionY = $calcContainter->containerBox->getContenBox()['y'];
         foreach ($this->getChildContainers() as $childContainer) {
@@ -136,22 +117,6 @@ class Container implements ContainerInterface
             $childCalcContainer = $childContainer->getCalcedContainer();
             $childCalcContainer->containerBox->positionY->setValue($positionY);
             $positionY += $childCalcContainer->containerBox->getMarginBox()['height'];
-        }
-    }
-
-    private function calcSetWidthOfChildContainers(): void
-    {
-        $calcContainter = $this->getCalcedContainer();
-        foreach ($this->getChildContainers() as $childContainer) {
-            $childCalcContainer = $childContainer->getCalcedContainer();
-            if ($childCalcContainer->containerBox->width->isSet()) {
-                continue;
-            }
-
-            $width = $calcContainter->containerBox->width->getValue()
-                - $childCalcContainer->containerBox->borderRight->getValue()
-                - $childCalcContainer->containerBox->borderLeft->getValue();
-            $childCalcContainer->containerBox->width->setValue($width);
         }
     }
 }
