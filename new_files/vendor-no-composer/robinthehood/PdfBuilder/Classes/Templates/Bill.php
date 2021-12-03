@@ -171,8 +171,8 @@ class Bill
         $contentHeading = new TextArea();
         //$contentHeading->setBounds(25, 103.46, 175, 10);
         //$contentHeading->setDimention(175, 10);
-        $contentHeading->setFontSize(18);
-        $contentHeading->setFontWeight(PDF::FONT_WEIGHT_BOLD);
+        $contentHeading->setFontSize(30);
+        $contentHeading->setFontWeight(Pdf::FONT_WEIGHT_BOLD);
         $contentHeading->setText('Rechnung');
         $contentArea->addChildComponent($contentHeading);
 
@@ -185,8 +185,8 @@ class Bill
         //$contentIntroText->setBounds(25, 103.46 + 10, 175, 10);
         $contentIntroText->setDimention(175, 10);
         $contentIntroText->setFontSize(10);
-        $contentIntroText->setLineHeight(5); // Unit: mm
-        $contentIntroText->setFontWeight(PDF::FONT_WEIGHT_NORMAL);
+        //$contentIntroText->setLineHeight(5); // Unit: mm
+        $contentIntroText->setFontWeight(Pdf::FONT_WEIGHT_NORMAL);
         $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.\nDiese Zeile ist zuviel.");
         $contentArea->addChildComponent($contentIntroText);
 

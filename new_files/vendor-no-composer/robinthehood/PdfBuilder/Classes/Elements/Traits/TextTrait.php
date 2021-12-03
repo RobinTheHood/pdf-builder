@@ -12,7 +12,7 @@ trait TextTrait
     private $fontFamily = 'DejaVu';
     private $fontSize = 8;
     private $lineHeight = 8;
-    private $fontWeight = PDF::FONT_WEIGHT_NORMAL;
+    private $fontWeight = Pdf::FONT_WEIGHT_NORMAL;
 
     public function setText(string $text): void
     {

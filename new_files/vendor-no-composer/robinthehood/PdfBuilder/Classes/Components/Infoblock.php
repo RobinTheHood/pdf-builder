@@ -13,7 +13,7 @@ class Infoblock extends Container implements ComponentInterface
     private $basePositionX = 125; // Unit: mm
     private $basePositionY = 32; // Unit: mm
     private $baseWidth = 75; // Unit: mm
-    private $baseHeight = 103.46 - 32 - 8.46;  // Unit: mm
+    private $baseHeight = 103.46 - 32 - 8.46; // Unit: mm
 
     public function __construct()
     {
