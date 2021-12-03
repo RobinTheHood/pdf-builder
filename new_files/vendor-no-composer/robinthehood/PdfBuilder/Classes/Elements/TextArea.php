@@ -25,6 +25,12 @@ class TextArea extends Container implements ComponentInterface
 
     private $overflowY = self::OVERFLOW_Y_VISIBLE;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setContainerRenderer(new TextAreaRenderer());
+    }
+
     public function setVerticalAlign(int $verticalAlign): void
     {
         $this->verticalAlign = $verticalAlign;
@@ -33,6 +39,18 @@ class TextArea extends Container implements ComponentInterface
     public function setOverflowY(int $value): void
     {
         $this->overflowY = $value;
+    }
+
+    protected function calcSetHeight(): void
+    {
+        if ($this->containerBox->height->isSet()) {
+            return;
+        }
+
+        $contentWidth = $this->getCalcedContainer()->containerBox->getContentBox()['width'];
+        $lines = $this->splitTextInLines($contentWidth);
+        $height = $this->getFontHeight() * count($lines);
+        $this->getCalcedContainer()->containerBox->height->setValue($height);
     }
 
     public function calcComponents()
