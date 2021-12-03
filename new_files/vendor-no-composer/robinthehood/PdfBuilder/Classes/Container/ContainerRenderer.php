@@ -42,7 +42,7 @@ class ContainerRenderer implements ContainerRendererInterface
     private function renderChilds(ContainerRendererCanvasInterface $canvas, ContainerInterface $container)
     {
         foreach ($container->getChildContainers() as $childContainer) {
-            $containerRenderer = $container->getContainerRenderer();
+            $containerRenderer = $childContainer->getContainerRenderer();
             $containerRenderer->render($canvas, $childContainer);
         }
     }
