@@ -49,11 +49,10 @@ class Container implements ContainerInterface
 
     public function calcBetweenAfter(?ContainerInterface $parentContainer)
     {
-        // if not leaf container then
-        if ($this->getChildContainers()) {
-            $this->calcSetHeight();
-            $this->calcStackChildContainersRelativ();
-        }
+        $this->calcSetWidth($parentContainer);
+        $this->calcSetHeight();
+
+        $this->calcStackChildContainersRelativ();
 
         if ($this->position == self::POSITION_STATIC) {
             $this->getCalcedContainer()->containerBox->positionX->setValue(0);
@@ -76,6 +75,13 @@ class Container implements ContainerInterface
             $positionX += $this->getCalcedContainer()->containerBox->positionX->getValue();
             $this->getCalcedContainer()->containerBox->positionX->setValue($positionX);
         }
+    }
+
+    private function calcSetWidth(?ContainerInterface $parentContainer): void
+    {
+        if (!$parentContainer) {
+            return;
+        }
 
         if (!$this->getCalcedContainer()->containerBox->width->isSet()) {
             $width = $parentContainer->getCalcedContainer()->containerBox->width->getValue()
@@ -90,7 +96,7 @@ class Container implements ContainerInterface
         }
     }
 
-    private function calcSetHeight(): void
+    protected function calcSetHeight(): void
     {
         if (!$this->getChildContainers()) {
             return;
