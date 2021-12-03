@@ -14,6 +14,36 @@ trait TextTrait
     private $lineHeight = 8;
     private $fontWeight = Pdf::FONT_WEIGHT_NORMAL;
 
+    public function getText(): string
+    {
+        return $this->text;
+    }
+
+    public function getLineHeight(): float
+    {
+        return $this->lineHeight;
+    }
+
+    public function getFontSize(): float
+    {
+        return $this->fontSize;
+    }
+
+    public function getFontWeight(): string
+    {
+        return $this->fontWeight;
+    }
+
+    public function getFontFamily(): string
+    {
+        return $this->fontFamily;
+    }
+
+    public function getFontHeight(): float
+    {
+        return $this->getFontSize() / Pdf::POINTS_PER_MM;
+    }
+
     public function setText(string $text): void
     {
         $this->text = $text;
