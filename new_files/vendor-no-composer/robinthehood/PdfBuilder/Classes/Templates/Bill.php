@@ -18,6 +18,7 @@ use RobinTheHood\PdfBuilder\Classes\Components\ContentArea;
 use RobinTheHood\PdfBuilder\Classes\Components\Infoblock;
 use RobinTheHood\PdfBuilder\Classes\Components\OrderTable;
 use RobinTheHood\PdfBuilder\Classes\Components\OrderTotalTable;
+use RobinTheHood\PdfBuilder\Classes\Container\Container;
 
 class Bill
 {
@@ -142,6 +143,14 @@ class Bill
         $logo->setWidth(40);
         $section->addChildComponent($logo);
 
+        // use new container
+        $logo->position = Container::POSITION_ABSOLUT;
+        $logo->containerBox->positionX->setValue(145);
+        $logo->containerBox->positionY->setValue(9);
+        $logo->containerBox->width->setValue(40);
+        $logo->containerBox->height->setValue(13); // only needed for tests
+        $section->addChildContainer($logo);
+
         // Address
         $address = new Address();
         $address->setAddress("Musterfirma GmbH\nz.H. Max Mustermann\nHauptstraße 999\n12345 Neustadt\nDeutschland");
@@ -152,6 +161,7 @@ class Bill
         // Infoblock
         $infoblock = new Infoblock();
         $section->addChildComponent($infoblock);
+        $section->addChildContainer($infoblock);
 
         // Content Area
         $contentArea = new ContentArea();
@@ -166,6 +176,10 @@ class Bill
         $contentHeading->setText('Rechnung');
         $contentArea->addChildComponent($contentHeading);
 
+        // use new container
+        $contentHeading->containerBox->height->setValue(8); // only needed for tests
+        $contentArea->addChildContainer($contentHeading);
+
         // Content Intro Text
         $contentIntroText = new TextArea();
         //$contentIntroText->setBounds(25, 103.46 + 10, 175, 10);
@@ -176,7 +190,12 @@ class Bill
         $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.\nDiese Zeile ist zuviel.");
         $contentArea->addChildComponent($contentIntroText);
 
+        // use new container
+        $contentIntroText->containerBox->height->setValue(15); // only needed for tests
+        $contentArea->addChildContainer($contentIntroText);
+
         $section->addChildComponent($contentArea);
+        $section->addChildContainer($contentArea);
 
 
 

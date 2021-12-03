@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
+use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
-class Image implements ComponentInterface
+class Image extends Container implements ComponentInterface
 {
     private const SIZE_X = 0;
     private $posisitonX = 0;
@@ -18,6 +19,9 @@ class Image implements ComponentInterface
     public function __construct(string $path)
     {
         $this->imagePath = $path;
+
+        // Use new Container
+        parent::__construct();
     }
 
     public function setPositionX(float $positionX): void
