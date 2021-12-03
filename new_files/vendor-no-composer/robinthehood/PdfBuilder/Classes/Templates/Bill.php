@@ -141,7 +141,7 @@ class Bill
         $logo->setPositionX(145);
         $logo->setPositionY(9);
         $logo->setWidth(40);
-        $section->addChildComponent($logo);
+        //$section->addChildComponent($logo);
 
         // use new container
         $logo->position = Container::POSITION_ABSOLUT;
@@ -155,12 +155,12 @@ class Bill
         $address = new Address();
         $address->setAddress("Musterfirma GmbH\nz.H. Max Mustermann\nHauptstraße 999\n12345 Neustadt\nDeutschland");
         $address->setSender("Max Mustermann - 12345 Neustadt 1\n");
-        $section->addChildComponent($address);
+        //$section->addChildComponent($address);
         $section->addChildContainer($address);
 
         // Infoblock
         $infoblock = new Infoblock();
-        $section->addChildComponent($infoblock);
+        //$section->addChildComponent($infoblock);
         $section->addChildContainer($infoblock);
 
         // Content Area
@@ -177,7 +177,7 @@ class Bill
         $contentArea->addChildComponent($contentHeading);
 
         // use new container
-        $contentHeading->containerBox->height->setValue(8); // only needed for tests
+        //$contentHeading->containerBox->height->setValue(30 / (72 / 25.4)); // only needed for tests
         $contentArea->addChildContainer($contentHeading);
 
         // Content Intro Text
@@ -191,10 +191,10 @@ class Bill
         $contentArea->addChildComponent($contentIntroText);
 
         // use new container
-        $contentIntroText->containerBox->height->setValue(15); // only needed for tests
+        //$contentIntroText->containerBox->height->setValue(15); // only needed for tests
         $contentArea->addChildContainer($contentIntroText);
 
-        $section->addChildComponent($contentArea);
+        //$section->addChildComponent($contentArea);
         $section->addChildContainer($contentArea);
 
 
