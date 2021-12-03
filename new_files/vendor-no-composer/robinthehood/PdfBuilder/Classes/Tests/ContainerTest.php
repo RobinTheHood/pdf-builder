@@ -98,7 +98,7 @@ class ContainerTest
         $baseContainer->calcAll();
 
         // Render
-        $containerPdfRenderer = new ContainerPdfRenderer();
+        $containerPdfRenderer = $baseContainer->getContainerRenderer();
         $containerPdfRenderer->render($this->canvas, $baseContainer);
 
         // Output Image
