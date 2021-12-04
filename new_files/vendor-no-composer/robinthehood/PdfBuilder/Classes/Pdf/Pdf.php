@@ -102,6 +102,24 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
 
     public function drawLine(float $x1, float $y1, float $x2, float $y2): void
     {
+        $pageLineSplitter = new PageLineSplitter();
+        $lines = $pageLineSplitter->cutLineNew($x1, $y1, $x2, $y2, $this->pageMapper);
+        foreach ($lines as $line) {
+            $y1OnPage = $this->pageMapper->yOnPage($line['y1'], $line['page']);
+            $y2OnPage = $this->pageMapper->yOnPage($line['y2'], $line['page']);
+            $this->drawBuffer->addDrawLine($line['page'], $line['x1'], $y1OnPage, $line['x2'], $y2OnPage);
+        }
+
+        return;
+
+        // foreach ($lines as $line) {
+        //     $this->SetDrawColor(0, 255 * ($line['page'] % 2), 255 * (($line['page'] + 1) % 2));
+        //     $this->Line($line['x1'], $line['y1'] + ($line['page'] - 2) * 20, $line['x1'], $line['y2'] + ($line['page'] - 2) * 20);
+        // }
+
+        // $this->Line($x1, $y1, $x2, $y2);
+
+        // return;
         $height = $y2 - $y1;
         $newY1 = $this->pageMapper->mapYOnPage($y1);
 
