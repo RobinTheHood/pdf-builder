@@ -90,8 +90,92 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
         $this->SetDrawColor((int) $r, (int) $g, (int) $b);
     }
 
+    private function cutLine(float $x1, float $y1, float $x2, float $y2, float $pageSize): array
+    {
+        $lines = [];
+
+        $pageStart = (int) ($y1 / $pageSize);
+        $pageEnd = (int) ($y2 / $pageSize);
+        $pages = $pageEnd - $pageStart + 1;
+
+        $deltaX = $x2 - $x1;
+        $deltaY = $y2 - $y1;
+
+        $cutLinePrevY = $y1;
+        $yy2 = $y1;
+        $xx2 = $x1;
+
+        if ($y1 == $y2) {
+            return [[
+                'x1' => $x1,
+                'y1' => $y1,
+                'x2' => $x2,
+                'y2' => $y2,
+                'page' => $pageStart + 1,
+            ]];
+        }
+
+        for ($deltaPage = 1; $deltaPage <= $pages; $deltaPage++) {
+            $page = $pageStart + $deltaPage;
+            if ($deltaPage < $pages) {
+                $cutLineY = $pageSize * $page;
+            } else {
+                $cutLineY = $y2;
+            }
+            $dY = $cutLineY - $cutLinePrevY;
+            $cutLinePrevY = $cutLineY;
+
+            $yy1 = $yy2;
+            $yy2 = $yy2 + $dY;
+
+            $dX = $dY * ($deltaX / $deltaY);
+            $xx1 = $xx2;
+            $xx2 = $xx2 + $dX;
+
+            $lines[] = [
+                'x1' => $xx1,
+                'y1' => $yy1,
+                'x2' => $xx2,
+                'y2' => $yy2,
+                'page' => $page,
+            ];
+        }
+
+        return $lines;
+    }
+
+    private $missedLines = [];
+
     public function drawLine(float $x1, float $y1, float $x2, float $y2): void
     {
+        $y1 = $this->getYPositionOnPage($y1);
+        $y2 = $this->getYPositionOnPage($y2);
+        $this->Line($x1, $y1, $x2, $y2);
+    }
+
+    public function drawLineNew(float $x1, float $y1, float $x2, float $y2): void
+    {
+        $drawSize = 297 - 35;
+        $pageSize = $drawSize;
+        $lines = $this->cutLine($x1, $y1, $x2, $y2, $pageSize);
+        $lines = array_merge($this->missedLines, $lines);
+        $this->missedLines = [];
+        foreach ($lines as $line) {
+            if ($line['page'] != $this->PageNo()) {
+                $this->missedLines[] = $line;
+                continue;
+            }
+            // $newY1 = $line['y1'] % ($drawSize+1);
+            // $newY2 = $line['y2'] % ($drawSize+1);
+
+            $newY1 = $this->getYPositionOnPage($line['y1']);
+            $newY2 = $this->getYPositionOnPage($line['y2']);
+
+            $this->SetDrawColor(0, 255 * ($line['page'] % 2), 255 * (($line['page'] + 1) % 2));
+            $this->Line($line['x1'], $newY1, $line['x2'], $newY2);
+        }
+        return;
+
         $y1 = $this->getYPositionOnPage($y1);
         $y2 = $this->getYPositionOnPage($y2);
         $this->Line($x1, $y1, $x2, $y2);
@@ -102,7 +186,7 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
     public function getYPositionOnPage(float $y): float
     {
         $drawSize = 297 - 35;
-        if ($y - $this->lastOffset > $drawSize && $this->lastPageNo < $this->PageNo()) {
+        if ($this->lastPageNo < $this->PageNo()) {
             $this->lastOffset = $y - $this->GetY();
             $this->lastPageNo = $this->PageNo();
         }
