@@ -34,11 +34,13 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
     private $footerFunction;
 
     public $pageMapper = null;
+    public $drawBuffer = null;
 
     public function __construct()
     {
         parent::__construct('P', 'mm', 'A4');
         $this->pageMapper = new PageMapper($this);
+        $this->drawBuffer = new DrawBuffer($this);
     }
 
     public function setPageFunction($callable)
@@ -86,6 +88,11 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
 
     public function drawText(string $text, float $x, float $y, float $width, float $height): void
     {
+        $newY = $this->pageMapper->mapYOnPage($y, $height);
+        $relativePageNo = $newY['relativPageNo'];
+        $this->drawBuffer->addDrawText($relativePageNo, $text, $x, $newY['yOnPage'], $width, $height);
+        return;
+
         $newY = $this->pageMapper->mapYOnPage($y, $height);
         $this->pageMapper->doPageBreak($newY);
 

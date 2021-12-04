@@ -114,11 +114,13 @@ class Section extends Container
         // New Render Container
         $this->calcAll();
         $canvas = $pdf;
-        $canvas->resetOffset();
+        $canvas->pageMapper->resetOffset();
 
         $renderer = $this->getContainerRenderer();
         $renderer->render($canvas, $this);
-        //return;
+
+        $canvas->drawBuffer->renderBuffer();
+        return;
 
         // Render Old
         foreach ($this->childComponents as $childComponent) {
