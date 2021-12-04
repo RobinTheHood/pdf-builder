@@ -32,13 +32,13 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
     private function renderTable(Pdf $pdf, Table $table): void
     {
         $x = $table->getCalcedContainer()->containerBox->getContentBox()['x'];
-        $y = $table->getCalcedContainer()->containerBox->getContentBox()['y'];
-        $y = $pdf->getYPositionOnPage($y);
+        $this->renderY = $table->getCalcedContainer()->containerBox->getContentBox()['y'];
+        //$y = $pdf->getYPositionOnPage($y);
 
         //var_dump($y);
         //$y %= (297 - 34);
         //var_dump($y);
-        $pdf->setXY($x, $y);
+        //$pdf->setXY($x, $y);
 
         $pdf->SetFont($this->fontFamily, Pdf::FONT_WEIGHT_BOLD, 10);
         foreach ($table->getRows() as $index => $row) {
@@ -55,26 +55,31 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
             $lastBorder = Table::ROW_BORDER_BOTTOM;
         }
 
+        $fontSize = $rowOptions['fontSize'] ?? '10';
+
         $count = 0;
+        //$y = $table->getCalcedContainer()->containerBox->getContentBox()['y'];
+        $height = $this->rowOptions['height'] ?? $fontSize / Pdf::POINTS_PER_MM;
         foreach ($subRows as $subRow) {
             if (++$count == count($subRows)) {
                 $rowOptions['border'] = $lastBorder;
             }
-            $this->renderSubRow($pdf, $table, $subRow, $rowOptions);
+            $this->renderSubRow($pdf, $table, $subRow, $rowOptions, $this->renderY, $height);
+            $this->renderY += $height;
         }
     }
 
-    private function renderSubRow(Pdf $pdf, Table $table, array $subRow, array $rowOptions): void
+    private function renderSubRow(Pdf $pdf, Table $table, array $subRow, array $rowOptions, float $y, float $height): void
     {
         $border = $rowOptions['border'] ?? 0;
         $fontWeight = $rowOptions['fontWeight'] ?? '';
         $fontSize = $rowOptions['fontSize'] ?? '10';
 
         //$height = $rowOptions['height'] ?? 5;
-        $height = $this->rowOptions['height'] ?? $fontSize / Pdf::POINTS_PER_MM;
+        //$height = $this->rowOptions['height'] ?? $fontSize / Pdf::POINTS_PER_MM;
 
         $x = $table->getCalcedContainer()->containerBox->getContentBox()['x'];
-        $pdf->setX($x);
+        //$pdf->setX($x);
         foreach ($subRow as $index => $cell) {
             $cell['width'] = $cell['width'] ?? $table->getColumnWidths()[$index];
             $cell['style'] = $cell['style'] ?? Pdf::FONT_WEIGHT_BOLD;
@@ -82,20 +87,22 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
 
             $pdf->SetFont($table->fontFamily, $fontWeight, $fontSize);
 
-            $pdf->Cell(
-                $cell['width'],
-                $height,
-                $cell['content'],
-                $border,
-                Pdf::CELL_NEW_LINE_OFF,
-                $cell['alignment']
-            );
+            $pdf->drawText($cell['content'] ?? '', $x, $y, $cell['width'], $height);
+
+            // $pdf->Cell(
+            //     $cell['width'],
+            //     $height,
+            //     $cell['content'],
+            //     $border,
+            //     Pdf::CELL_NEW_LINE_OFF,
+            //     $cell['alignment']
+            // );
 
             if ($index == $table->columns - 1) {
                 break;
             }
+
+            $x += $cell['width'];
         }
-        $pdf->Ln();
-        $pdf->SetX($x);
     }
 }
