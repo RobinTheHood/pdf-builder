@@ -47,6 +47,11 @@ class Container implements ContainerInterface
         $this->containerRenderer = $containerRenderer;
     }
 
+    public function calcBetweenBefore(?ContainerInterface $parentContainer)
+    {
+        $this->calcSetWidth($parentContainer);
+    }
+
     public function calcBetweenAfter(?ContainerInterface $parentContainer)
     {
         $this->calcSetWidth($parentContainer);
