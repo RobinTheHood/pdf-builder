@@ -45,7 +45,8 @@ class Document
         $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
         $pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
 
-        $pdf->SetAutoPageBreak(true, $this->footerY);
+        //$pdf->SetAutoPageBreak(true, $this->footerY);
+        $pdf->SetAutoPageBreak(false, 0);
         $pdf->SetCreator("PdfBuilder (c) 2021 Robin Wieschendorf");
         //$pdf->AliasNbPages();
 
