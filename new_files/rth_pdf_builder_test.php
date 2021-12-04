@@ -20,3 +20,6 @@ $pdfBuilderTest->test3();
 
 // $containerTest = new ContainerTest();
 // $containerTest->test1();
+
+// $containerTest = new ContainerTest();
+// $containerTest->drawSplitLineTest();

@@ -171,9 +171,10 @@ class Bill
         $contentHeading = new TextArea();
         //$contentHeading->setBounds(25, 103.46, 175, 10);
         //$contentHeading->setDimention(175, 10);
-        $contentHeading->setFontSize(30);
+        $contentHeading->setFontSize(18);
         $contentHeading->setFontWeight(Pdf::FONT_WEIGHT_BOLD);
         $contentHeading->setText('Rechnung');
+        $contentHeading->containerBox->marginBottom->setValue(2);
         $contentArea->addChildComponent($contentHeading);
 
         // use new container
@@ -185,16 +186,120 @@ class Bill
         //$contentIntroText->setBounds(25, 103.46 + 10, 175, 10);
         $contentIntroText->setDimention(175, 10);
         $contentIntroText->setFontSize(10);
-        //$contentIntroText->setLineHeight(5); // Unit: mm
+        $contentIntroText->setLineHeight(5); // Unit: mm
         $contentIntroText->setFontWeight(Pdf::FONT_WEIGHT_NORMAL);
-        $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.\nDiese Zeile ist zuviel.");
+        $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.");
         $contentArea->addChildComponent($contentIntroText);
 
         // use new container
         //$contentIntroText->containerBox->height->setValue(15); // only needed for tests
         $contentArea->addChildContainer($contentIntroText);
 
-        //$section->addChildComponent($contentArea);
+        // OrderTable
+        $orderTable = new OrderTable();
+        for ($i = 0; $i < 20; $i++) {
+            $orderTable->addItem([
+                'quantity' => '19',
+                'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
+                'model' => 'ts001r',
+                'price' => '12.99',
+                'vat' => '19%',
+                'priceTotal' => ((string) (12.99 * 19)) . ' €'
+            ]);
+        }
+        //$section->addChildComponent($orderTable);
+        $contentArea->addChildContainer($orderTable);
+
+        // OrderTable
+        $orderTable = new OrderTable();
+        for ($i = 0; $i < 20; $i++) {
+            $orderTable->addItem([
+                'quantity' => '19',
+                'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
+                'model' => 'ts001r',
+                'price' => '12.99',
+                'vat' => '19%',
+                'priceTotal' => ((string) (12.99 * 19)) . ' €'
+            ]);
+        }
+        //$section->addChildComponent($orderTable);
+        $contentArea->addChildContainer($orderTable);
+
+        // // OrderTable
+        // $orderTable = new OrderTable();
+        // for ($i = 0; $i < 20; $i++) {
+        //     $orderTable->addItem([
+        //         'quantity' => '19',
+        //         'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
+        //         'model' => 'ts001r',
+        //         'price' => '12.99',
+        //         'vat' => '19%',
+        //         'priceTotal' => ((string) (12.99 * 19)) . ' €'
+        //     ]);
+        // }
+        // //$section->addChildComponent($orderTable);
+        // $contentArea->addChildContainer($orderTable);
+
+        // // OrderTable
+        // $orderTable = new OrderTable();
+        // for ($i = 0; $i < 20; $i++) {
+        //     $orderTable->addItem([
+        //         'quantity' => '19',
+        //         'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
+        //         'model' => 'ts001r',
+        //         'price' => '12.99',
+        //         'vat' => '19%',
+        //         'priceTotal' => ((string) (12.99 * 19)) . ' €'
+        //     ]);
+        // }
+        // //$section->addChildComponent($orderTable);
+        // $contentArea->addChildContainer($orderTable);
+
+        // // OrderTable
+        // $orderTable = new OrderTable();
+        // for ($i = 0; $i < 20; $i++) {
+        //     $orderTable->addItem([
+        //         'quantity' => '19',
+        //         'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
+        //         'model' => 'ts001r',
+        //         'price' => '12.99',
+        //         'vat' => '19%',
+        //         'priceTotal' => ((string) (12.99 * 19)) . ' €'
+        //     ]);
+        // }
+        // //$section->addChildComponent($orderTable);
+        // $contentArea->addChildContainer($orderTable);
+
+        // // OrderTable
+        // $orderTable = new OrderTable();
+        // for ($i = 0; $i < 20; $i++) {
+        //     $orderTable->addItem([
+        //         'quantity' => '19',
+        //         'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
+        //         'model' => 'ts001r',
+        //         'price' => '12.99',
+        //         'vat' => '19%',
+        //         'priceTotal' => ((string) (12.99 * 19)) . ' €'
+        //     ]);
+        // }
+        // //$section->addChildComponent($orderTable);
+        // $contentArea->addChildContainer($orderTable);
+
+        // // OrderTable
+        // $orderTable = new OrderTable();
+        // for ($i = 0; $i < 20; $i++) {
+        //     $orderTable->addItem([
+        //         'quantity' => '19',
+        //         'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
+        //         'model' => 'ts001r',
+        //         'price' => '12.99',
+        //         'vat' => '19%',
+        //         'priceTotal' => ((string) (12.99 * 19)) . ' €'
+        //     ]);
+        // }
+        // //$section->addChildComponent($orderTable);
+        // $contentArea->addChildContainer($orderTable);
+        // //$section->addChildComponent($contentArea);
         $section->addChildContainer($contentArea);
 
 
