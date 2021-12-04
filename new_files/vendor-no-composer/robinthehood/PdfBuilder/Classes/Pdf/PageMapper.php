@@ -23,8 +23,14 @@ class PageMapper
     {
         $y = $this->mapY($globalY, $height);
         $pageMargin = $this->getPageMargin($y['relativPageNo']);
-        $y['yOnPage'] = $y['y'] + $pageMargin['top'];
+        $y['yOnPage'] = $this->yOnPage($y['y'], $y['relativPageNo']);
         return $y;
+    }
+
+    public function yOnPage(float $y, int $page): float
+    {
+        $pageMargin = $this->getPageMargin($page);
+        return $y + $pageMargin['top'];
     }
 
     public function doPageBreak(array $y): void
@@ -52,13 +58,13 @@ class PageMapper
         return $marginDefault;
     }
 
-    private function getPageContentHeight(int $relativPageNo): float
+    public function getPageContentHeight(int $relativPageNo): float
     {
         $pageMargin = $this->getPageMargin($relativPageNo);
         return Pdf::PAGE_DIN_A4_HEIGHT - $pageMargin['top'] - $pageMargin['bottom'];
     }
 
-    private function mapY(float $globalY, float $height = 0): array
+    public function mapY(float $globalY, float $height = 0): array
     {
         $globalYCutBefor = 0;
         $globalYCut = 0;
