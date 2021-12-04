@@ -11,7 +11,7 @@ class Document
     private $sections = [];
 
     private $leftMargin = 20;
-    private $footerY = -25;
+    private $footerY = 35;
     private $fontFamily = 'DejaVu';
 
     private $pdf = null;
@@ -45,7 +45,7 @@ class Document
         $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
         $pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
 
-        $pdf->SetAutoPageBreak(true, abs($this->footerY) + 10);
+        $pdf->SetAutoPageBreak(true, $this->footerY);
         $pdf->SetCreator("PdfBuilder (c) 2021 Robin Wieschendorf");
         //$pdf->AliasNbPages();
 

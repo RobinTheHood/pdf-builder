@@ -47,9 +47,14 @@ class TextArea extends Container implements ComponentInterface
             return;
         }
 
+        $lineHeight = $this->getLineHeight();
+        if ($lineHeight === null) {
+            $lineHeight = $this->getFontHeight();
+        }
+
         $contentWidth = $this->getCalcedContainer()->containerBox->getContentBox()['width'];
         $lines = $this->splitTextInLines($contentWidth);
-        $height = $this->getFontHeight() * count($lines);
+        $height = $lineHeight * count($lines);
         $this->getCalcedContainer()->containerBox->height->setValue($height);
     }
 

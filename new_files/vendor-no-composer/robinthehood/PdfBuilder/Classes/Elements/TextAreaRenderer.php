@@ -35,7 +35,11 @@ class TextAreaRenderer extends ContainerRenderer implements ContainerRendererInt
         $lines = $textArea->splitTextInLines($contentBox['width']);
         $x = $contentBox['x'];
         $y = $contentBox['y'];
-        $lineHeight = $textArea->getFontHeight();
+
+        $lineHeight = $textArea->getLineHeight();
+        if ($lineHeight === null) {
+            $lineHeight = $textArea->getFontHeight();
+        }
 
         $pdf->SetFont($textArea->getFontFamily(), $textArea->getFontWeight(), $textArea->getFontSize());
         foreach ($lines as $line) {

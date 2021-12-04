@@ -27,7 +27,7 @@ class ContentArea extends Container implements ComponentInterface
         $this->containerBox->positionX->setValue($this->basePositionX);
         $this->containerBox->positionY->setValue($this->basePositionY);
         $this->containerBox->width->setValue($this->baseWidth);
-        $this->containerBox->height->setValue($this->baseHeight); // (only needed for tests)
+        //$this->containerBox->height->setValue($this->baseHeight); // (only needed for tests)
     }
 
     public function render(Pdf $pdf): void
