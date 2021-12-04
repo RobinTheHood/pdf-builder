@@ -92,6 +92,26 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
 
     public function drawLine(float $x1, float $y1, float $x2, float $y2): void
     {
+        $y1 = $this->getYPositionOnPage($y1);
+        $y2 = $this->getYPositionOnPage($y2);
         $this->Line($x1, $y1, $x2, $y2);
+    }
+
+    private $lastOffset = 0;
+    private $lastPageNo = 1;
+    public function getYPositionOnPage(float $y): float
+    {
+        $drawSize = 297 - 35;
+        if ($y - $this->lastOffset > $drawSize && $this->lastPageNo < $this->PageNo()) {
+            $this->lastOffset = $y - $this->GetY();
+            $this->lastPageNo = $this->PageNo();
+        }
+        return $y - $this->lastOffset;
+    }
+
+    public function resetOffset()
+    {
+        $this->lastOffset = 0;
+        $this->lastPageNo = $this->PageNo();
     }
 }
