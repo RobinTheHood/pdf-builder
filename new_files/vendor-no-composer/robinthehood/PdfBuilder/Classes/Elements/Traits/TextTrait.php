@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Elements\Traits;
 
+use RobinTheHood\PdfBuilder\Classes\Container\ContainerValue;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Pdf\StringSplitter;
 
@@ -12,7 +13,7 @@ trait TextTrait
     private $text = '';
     private $fontFamily = 'DejaVu';
     private $fontSize = 8;
-    private $lineHeight = 8;
+    private $lineHeight = null;
     private $fontWeight = Pdf::FONT_WEIGHT_NORMAL;
 
     public function getText(): string
@@ -20,7 +21,7 @@ trait TextTrait
         return $this->text;
     }
 
-    public function getLineHeight(): float
+    public function getLineHeight(): ?float
     {
         return $this->lineHeight;
     }
@@ -50,7 +51,7 @@ trait TextTrait
         $this->text = $text;
     }
 
-    public function setLineHeight(float $lineHeight): void
+    public function setLineHeight(?float $lineHeight): void
     {
         $this->lineHeight = $lineHeight;
     }

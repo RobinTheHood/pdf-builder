@@ -4,23 +4,45 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
+use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Pdf\StringSplitter;
 use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentTrait;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
-class Table implements ComponentInterface
+class Table extends Container implements ComponentInterface
 {
     use ComponentTrait;
 
     public const ROW_BORDER_BOTTOM = 'B';
     public const ROW_BORDER_NONE = '';
 
-    private $fontFamily = 'DejaVu';
+    public $fontFamily = 'DejaVu';
 
     private $columnWidths = [];
     private $rows = [];
     private $rowsOptions = [];
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setContainerRenderer(new TableRenderer());
+    }
+
+    public function getRows(): array
+    {
+        return $this->rows;
+    }
+
+    public function getRowsOptions(): array
+    {
+        return $this->rowsOptions;
+    }
+
+    public function getColumnWidths(): array
+    {
+        return $this->columnWidths;
+    }
 
     public function setColumnWidths($columnWidths)
     {
@@ -31,6 +53,30 @@ class Table implements ComponentInterface
     {
         $this->rows[] = $row;
         $this->rowsOptions[] = $options;
+    }
+
+    protected function calcSetHeight(): void
+    {
+        if ($this->containerBox->height->isSet()) {
+            return;
+        }
+
+        $pdf = new Pdf();
+        $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
+        $pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
+        $pdf->SetFont($this->fontFamily);
+
+        $height = 0;
+        foreach ($this->rows as $index => $row) {
+            $rowOptions = $this->rowsOptions[$index];
+            $fontSize = $rowOptions['fontSize'] ?? 10;
+            $subRows = $this->splitRowInMultibleSubRows($pdf, $row, $rowOptions);
+            foreach ($subRows as $subRow) {
+                $lineHeight = $this->rowOptions['height'] ?? $fontSize / Pdf::POINTS_PER_MM;
+                $height += $lineHeight;
+            }
+        }
+        $this->getCalcedContainer()->containerBox->height->setValue($height);
     }
 
     public function render(Pdf $pdf): void
@@ -97,7 +143,7 @@ class Table implements ComponentInterface
         $pdf->SetX($x);
     }
 
-    private function splitRowInMultibleSubRows(Pdf $pdf, $row, $rowOptions)
+    public function splitRowInMultibleSubRows(Pdf $pdf, $row, $rowOptions)
     {
         $maxLines = 0;
         foreach ($row as $index => $cell) {
