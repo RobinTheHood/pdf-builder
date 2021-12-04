@@ -9,6 +9,7 @@ use RobinTheHood\Tfpdf\Tfpdf;
 
 class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
 {
+    public const PAGE_DIN_A4_HEIGHT = 297; // Unit: mm;
     public const POINTS_PER_MM = 72 / 25.4;
 
     public const CELL_NEW_LINE_OFF = 0;
