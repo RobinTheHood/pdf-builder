@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Components;
 
+use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\Table;
 
-class OrderTable implements ComponentInterface
+class OrderTable extends Container implements ComponentInterface
 {
     private $basePositionX = 25; // Unit: mm
     private $basePositionY = 103.46 + 30; // Unit: mm
@@ -19,6 +20,20 @@ class OrderTable implements ComponentInterface
     {
         $this->table = new Table();
         $this->createHeading();
+
+        // Use new Container
+        parent::__construct();
+        //$this->containerBox->positionX->setValue($this->basePositionX);
+        //$this->containerBox->positionY->setValue($this->basePositionY);
+        //$this->containerBox->width->setValue(20);
+        //$this->containerBox->height->setValue(20);
+
+        //$this->table->containerBox->height->setValue(10);
+        $this->table->containerBox->marginTop->setValue(5);
+        // $this->table->containerBox->marginRight->setValue(5);
+        // $this->table->containerBox->marginBottom->setValue(5);
+        // $this->table->containerBox->marginLeft->setValue(5);
+        $this->addChildContainer($this->table);
     }
 
     public function render(Pdf $pdf): void
