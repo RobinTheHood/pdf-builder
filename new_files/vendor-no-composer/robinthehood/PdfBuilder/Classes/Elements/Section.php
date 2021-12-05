@@ -7,13 +7,10 @@ namespace RobinTheHood\PdfBuilder\Classes\Elements;
 use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
-use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentChildTrait;
 use RobinTheHood\PdfBuilder\Classes\Pdf\DecoratorCanvas;
 
 class Section extends Container
 {
-    use ComponentChildTrait;
-
     private $pageDecorator;
     private $headerDecorator;
     private $footerDecorator;
