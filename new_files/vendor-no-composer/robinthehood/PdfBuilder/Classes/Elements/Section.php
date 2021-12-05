@@ -114,7 +114,7 @@ class Section extends Container
         // New Render Container
         $this->calcAll();
         $canvas = $pdf;
-        $canvas->pageMapper->resetOffset();
+        $canvas->pageMapper->reset();
         $canvas->drawBuffer->reset();
 
         $renderer = $this->getContainerRenderer();

@@ -14,7 +14,7 @@ class PageMapper
         $this->pdf = $pdf;
     }
 
-    public function resetOffset()
+    public function reset()
     {
         $this->lastResetPageNo = $this->pdf->PageNo() - 1;
     }
