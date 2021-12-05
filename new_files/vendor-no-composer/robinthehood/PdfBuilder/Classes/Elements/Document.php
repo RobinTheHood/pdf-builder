@@ -10,8 +10,8 @@ class Document
 {
     private $sections = [];
 
+    //private $footerY = 35;
     private $leftMargin = 20;
-    private $footerY = 35;
     private $fontFamily = 'DejaVu';
 
     private $pdf = null;
