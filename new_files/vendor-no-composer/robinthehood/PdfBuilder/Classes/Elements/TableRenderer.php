@@ -23,15 +23,15 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
          */
         $table = $container;
 
-        /**
-         * @var Pdf $pdf
-         */
+        // /**
+        //  * @var Pdf $pdf
+        //  */
         $pdf = $canvas;
 
         $this->renderTable($pdf, $table);
     }
 
-    private function renderTable(Pdf $pdf, Table $table): void
+    private function renderTable(ContainerRendererCanvasInterface $pdf, Table $table): void
     {
         //$x = $table->getCalcedContainer()->containerBox->getContentBox()['x'];
         $this->renderY = $table->getCalcedContainer()->containerBox->getContentBox()['y'];
@@ -41,7 +41,7 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         }
     }
 
-    private function renderRow(Pdf $pdf, Table $table, array $row, array $rowOptions): void
+    private function renderRow(ContainerRendererCanvasInterface $pdf, Table $table, array $row, array $rowOptions): void
     {
         $subRows = $table->splitRowInMultibleSubRows($row, $rowOptions);
 
@@ -63,7 +63,7 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         }
     }
 
-    private function renderSubRow(Pdf $pdf, Table $table, array $subRow, array $rowOptions, float $y, float $height): void
+    private function renderSubRow(ContainerRendererCanvasInterface $pdf, Table $table, array $subRow, array $rowOptions, float $y, float $height): void
     {
         $border = $rowOptions['border'] ?? 0;
         $fontWeight = $rowOptions['fontWeight'] ?? '';
