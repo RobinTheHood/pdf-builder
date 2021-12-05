@@ -13,7 +13,9 @@ class Table extends Container
     public const ROW_BORDER_BOTTOM = 'B';
     public const ROW_BORDER_NONE = '';
 
-    public $fontFamily = 'DejaVu';
+    public $defaultFontFamily = 'DejaVu';
+    public $defualtFontStyle = Pdf::FONT_STYLE_NORMAL;
+    public $defualtFontSize = 10;
 
     private $columnWidths = [];
     private $rows = [];
@@ -57,29 +59,31 @@ class Table extends Container
             return;
         }
 
-        $height = 0;
+        $tableHeight = 0;
         foreach ($this->rows as $index => $row) {
             $rowOptions = $this->rowsOptions[$index];
-            $fontSize = $rowOptions['fontSize'] ?? 10;
+            $fontSize = $rowOptions['fontSize'] ?? $this->defualtFontSize;
+            $fontLineHeight = $fontSize / Pdf::POINTS_PER_MM;
+            $rowHeight = $this->rowOptions['height'] ?? $fontLineHeight;
+
             $subRows = $this->splitRowInMultibleSubRows($row, $rowOptions);
-            foreach ($subRows as $subRow) {
-                $lineHeight = $this->rowOptions['height'] ?? $fontSize / Pdf::POINTS_PER_MM;
-                $height += $lineHeight;
-            }
+            $tableHeight += $rowHeight * count($subRows);
         }
-        $this->getCalcedContainer()->containerBox->height->setValue($height);
+        $this->getCalcedContainer()->containerBox->height->setValue($tableHeight);
     }
 
     public function splitRowInMultibleSubRows($row, $rowOptions)
     {
         $maxLines = 0;
         foreach ($row as $index => $cell) {
-            $cell['width'] = $cell['width'] ?? $this->columnWidths[$index] ?? 0;
-            $fontWeight = $rowOptions['fontWeight'] ?? ''; // 'B'
-            $fontSize = $rowOptions['fontSize'] ?? 10; // 'B'
+            $content = $cell['content'];
+            $width = $cell['width'] ?? $this->columnWidths[$index] ?? 0;
+            $fontStyle = $rowOptions['fontWeight'] ?? $this->defualtFontStyle;
+            $fontSize = $rowOptions['fontSize'] ?? $this->defualtFontSize;
+            $fontFamily = $rowOptions['fontFamily'] ?? $this->defaultFontFamily;
 
             $stringSplitter = StringSplitter::getStringSplitter();
-            $lines[$index] = $stringSplitter->splitByLength($cell['content'], $cell['width'], $this->fontFamily, $fontWeight, $fontSize);
+            $lines[$index] = $stringSplitter->splitByLength($content, $width, $fontFamily, $fontStyle, $fontSize);
 
             if (count($lines[$index]) > $maxLines) {
                 $maxLines = count($lines[$index]);
