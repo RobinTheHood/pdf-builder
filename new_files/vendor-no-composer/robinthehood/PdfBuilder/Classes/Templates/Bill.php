@@ -185,6 +185,10 @@ class Bill
         }
         $contentArea->addChildContainer($orderTable);
 
+        // OrderTotalTable
+        $orderTotalTable = new OrderTotalTable();
+        $contentArea->addChildContainer($orderTotalTable);
+
         $section->addChildContainer($contentArea);
 
         $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
