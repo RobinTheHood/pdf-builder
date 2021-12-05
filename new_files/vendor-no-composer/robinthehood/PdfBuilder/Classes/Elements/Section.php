@@ -76,7 +76,17 @@ class Section extends Container
         }
 
         if ($this->pageDecorator) {
-            $this->pageDecorator->render($pdf);
+            //$this->pageDecorator->render($pdf);
+
+            /**
+             * @var Container $container
+             */
+            $container = $this->pageDecorator;
+
+            $container->calcAll();
+            $decoratorCanvas = new DecoratorCanvas($pdf);
+            $renderer = $container->getContainerRenderer();
+            $renderer->render($decoratorCanvas, $container);
         }
     }
 
@@ -96,7 +106,7 @@ class Section extends Container
             /**
              * @var Container $container
              */
-            $container = $this->footerDecorator;
+            $container = $this->headerDecorator;
 
             $container->calcAll();
             $decoratorCanvas = new DecoratorCanvas($pdf);

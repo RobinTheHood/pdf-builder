@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Components;
 
+use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
-class FoldMark implements ComponentInterface
+class FoldMark extends Container implements ComponentInterface
 {
     public function __construct()
     {

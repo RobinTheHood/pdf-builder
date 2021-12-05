@@ -103,8 +103,8 @@ class Bill
         $dinImage->setWidth(210);
 
         $pageDecorator = new PageDecorator();
-        //$pageDecorator->addChildComponent($dinImage);
-        $pageDecorator->addChildComponent(new FoldMark());
+        //$pageDecorator->addChildContainer($dinImage);
+        $pageDecorator->addChildContainer(new FoldMark());
 
         $tableFooter = new Table();
 
@@ -218,8 +218,8 @@ class Bill
         $dinImage->setWidth(210);
 
         $pageDecorator = new PageDecorator();
-        //$pageDecorator->addChildComponent($dinImage);
-        $pageDecorator->addChildComponent(new FoldMark());
+        //$pageDecorator->addChildContainer($dinImage);
+        $pageDecorator->addChildContainer(new FoldMark());
 
         $tableFooter = new Table();
 
