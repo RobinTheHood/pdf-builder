@@ -12,6 +12,8 @@ use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 
 class TableRenderer extends ContainerRenderer implements ContainerRendererInterface
 {
+    private $renderY = 0;
+
     public function render(ContainerRendererCanvasInterface $canvas, ContainerInterface $container): void
     {
         parent::render($canvas, $container);
@@ -31,15 +33,8 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
 
     private function renderTable(Pdf $pdf, Table $table): void
     {
-        $x = $table->getCalcedContainer()->containerBox->getContentBox()['x'];
+        //$x = $table->getCalcedContainer()->containerBox->getContentBox()['x'];
         $this->renderY = $table->getCalcedContainer()->containerBox->getContentBox()['y'];
-        //$y = $pdf->getYPositionOnPage($y);
-
-        //var_dump($y);
-        //$y %= (297 - 34);
-        //var_dump($y);
-        //$pdf->setXY($x, $y);
-
         $pdf->setFontToDo($table->fontFamily, Pdf::FONT_WEIGHT_BOLD, 10);
         foreach ($table->getRows() as $index => $row) {
             $this->renderRow($pdf, $table, $row, $table->getRowsOptions()[$index]);
@@ -58,7 +53,6 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         $fontSize = $rowOptions['fontSize'] ?? '10';
 
         $count = 0;
-        //$y = $table->getCalcedContainer()->containerBox->getContentBox()['y'];
         $height = $this->rowOptions['height'] ?? $fontSize / Pdf::POINTS_PER_MM;
         foreach ($subRows as $subRow) {
             if (++$count == count($subRows)) {
@@ -75,29 +69,14 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         $fontWeight = $rowOptions['fontWeight'] ?? '';
         $fontSize = $rowOptions['fontSize'] ?? '10';
 
-        //$height = $rowOptions['height'] ?? 5;
-        //$height = $this->rowOptions['height'] ?? $fontSize / Pdf::POINTS_PER_MM;
-
         $x = $table->getCalcedContainer()->containerBox->getContentBox()['x'];
-        //$pdf->setX($x);
         foreach ($subRow as $index => $cell) {
             $cell['width'] = $cell['width'] ?? $table->getColumnWidths()[$index];
             $cell['style'] = $cell['style'] ?? Pdf::FONT_WEIGHT_BOLD;
             $cell['alignment'] = $cell['alignment'] ?? 'L';
 
-
             $pdf->setFontToDo($table->fontFamily, $fontWeight, $fontSize);
-
             $pdf->drawText($cell['content'] ?? '', $x, $y, $cell['width'], $height);
-
-            // $pdf->Cell(
-            //     $cell['width'],
-            //     $height,
-            //     $cell['content'],
-            //     $border,
-            //     Pdf::CELL_NEW_LINE_OFF,
-            //     $cell['alignment']
-            // );
 
             if ($index == $table->columns - 1) {
                 break;
