@@ -166,7 +166,6 @@ class Bill
         // Content Area
         $contentArea = new ContentArea();
 
-
         // Heading
         $contentHeading = new TextArea();
         //$contentHeading->setBounds(25, 103.46, 175, 10);
@@ -188,7 +187,7 @@ class Bill
         $contentIntroText->setFontSize(10);
         $contentIntroText->setLineHeight(5); // Unit: mm
         $contentIntroText->setFontWeight(Pdf::FONT_WEIGHT_NORMAL);
-        $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.\nDiese Zeile ist zuviel.");
+        $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.");
         $contentArea->addChildComponent($contentIntroText);
 
         // use new container
@@ -210,111 +209,7 @@ class Bill
         //$section->addChildComponent($orderTable);
         $contentArea->addChildContainer($orderTable);
 
-        // OrderTable
-        $orderTable = new OrderTable();
-        for ($i = 0; $i < 20; $i++) {
-            $orderTable->addItem([
-                'quantity' => '19',
-                'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
-                'model' => 'ts001r',
-                'price' => '12.99',
-                'vat' => '19%',
-                'priceTotal' => ((string) (12.99 * 19)) . ' €'
-            ]);
-        }
-        //$section->addChildComponent($orderTable);
-        $contentArea->addChildContainer($orderTable);
-
-        // // OrderTable
-        // $orderTable = new OrderTable();
-        // for ($i = 0; $i < 20; $i++) {
-        //     $orderTable->addItem([
-        //         'quantity' => '19',
-        //         'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
-        //         'model' => 'ts001r',
-        //         'price' => '12.99',
-        //         'vat' => '19%',
-        //         'priceTotal' => ((string) (12.99 * 19)) . ' €'
-        //     ]);
-        // }
-        // //$section->addChildComponent($orderTable);
-        // $contentArea->addChildContainer($orderTable);
-
-        // // OrderTable
-        // $orderTable = new OrderTable();
-        // for ($i = 0; $i < 20; $i++) {
-        //     $orderTable->addItem([
-        //         'quantity' => '19',
-        //         'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
-        //         'model' => 'ts001r',
-        //         'price' => '12.99',
-        //         'vat' => '19%',
-        //         'priceTotal' => ((string) (12.99 * 19)) . ' €'
-        //     ]);
-        // }
-        // //$section->addChildComponent($orderTable);
-        // $contentArea->addChildContainer($orderTable);
-
-        // // OrderTable
-        // $orderTable = new OrderTable();
-        // for ($i = 0; $i < 20; $i++) {
-        //     $orderTable->addItem([
-        //         'quantity' => '19',
-        //         'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
-        //         'model' => 'ts001r',
-        //         'price' => '12.99',
-        //         'vat' => '19%',
-        //         'priceTotal' => ((string) (12.99 * 19)) . ' €'
-        //     ]);
-        // }
-        // //$section->addChildComponent($orderTable);
-        // $contentArea->addChildContainer($orderTable);
-
-        // // OrderTable
-        // $orderTable = new OrderTable();
-        // for ($i = 0; $i < 20; $i++) {
-        //     $orderTable->addItem([
-        //         'quantity' => '19',
-        //         'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
-        //         'model' => 'ts001r',
-        //         'price' => '12.99',
-        //         'vat' => '19%',
-        //         'priceTotal' => ((string) (12.99 * 19)) . ' €'
-        //     ]);
-        // }
-        // //$section->addChildComponent($orderTable);
-        // $contentArea->addChildContainer($orderTable);
-
-        // // OrderTable
-        // $orderTable = new OrderTable();
-        // for ($i = 0; $i < 20; $i++) {
-        //     $orderTable->addItem([
-        //         'quantity' => '19',
-        //         'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",
-        //         'model' => 'ts001r',
-        //         'price' => '12.99',
-        //         'vat' => '19%',
-        //         'priceTotal' => ((string) (12.99 * 19)) . ' €'
-        //     ]);
-        // }
-        // //$section->addChildComponent($orderTable);
-        // $contentArea->addChildContainer($orderTable);
-        // //$section->addChildComponent($contentArea);
         $section->addChildContainer($contentArea);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
         //$dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rechnung_demo_1.png');
