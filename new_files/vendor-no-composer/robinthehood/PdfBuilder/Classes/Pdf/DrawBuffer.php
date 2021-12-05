@@ -45,7 +45,7 @@ class DrawBuffer
         $this->fontSize = $fontSize;
     }
 
-    public function addDrawText(int $pageNo, string $text, float $x, float $y, float $width, float $height): void
+    public function drawText(int $pageNo, string $text, float $x, float $y, float $width, float $height): void
     {
         $this->buffer[$pageNo][] = [
             'function' => 'drawText',
@@ -78,7 +78,7 @@ class DrawBuffer
         foreach ($this->buffer as $relativPageNo => $functions) {
             foreach ($functions as $function) {
                 if ($function['function'] == 'drawText') {
-                    $this->drawText(
+                    $this->renderText(
                         $function['text'],
                         $function['x'],
                         $function['y'],
@@ -103,7 +103,7 @@ class DrawBuffer
         }
     }
 
-    private function drawText(string $text, float $x, float $y, float $width, float $height, string $fontFamily, string $fontStyle, float $fontSize): void
+    private function renderText(string $text, float $x, float $y, float $width, float $height, string $fontFamily, string $fontStyle, float $fontSize): void
     {
         $this->pdf->SetFont($fontFamily, $fontStyle, $fontSize);
         $this->pdf->SetXY($x, $y);

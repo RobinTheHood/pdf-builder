@@ -86,11 +86,13 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
         $this->drawBuffer->setColor((int) $r, (int) $g, (int) $b);
     }
 
+    // Cant rename setFontSizeToDo() -> setFontSize()
     public function setFontSizeToDo(float $size): void
     {
         $this->drawBuffer->setFontSize($size);
     }
 
+    // Cant rename setFontToDo() -> setFont()
     public function setFontToDo(string $fontFamily, string $fontStyle, float $fontSize): void
     {
         $this->drawBuffer->setFont($fontFamily, $fontStyle, $fontSize);
@@ -100,7 +102,7 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
     {
         $newY = $this->pageMapper->mapYOnPage($y, $height);
         $relativePageNo = $newY['relativPageNo'];
-        $this->drawBuffer->addDrawText($relativePageNo, $text, $x, $newY['yOnPage'], $width, $height);
+        $this->drawBuffer->drawText($relativePageNo, $text, $x, $newY['yOnPage'], $width, $height);
     }
 
     public function drawLine(float $x1, float $y1, float $x2, float $y2): void
