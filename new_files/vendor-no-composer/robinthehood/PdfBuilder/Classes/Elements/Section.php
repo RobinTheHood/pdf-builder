@@ -105,7 +105,17 @@ class Section extends Container
         }
 
         if ($this->footerDecorator) {
-            $this->footerDecorator->render($pdf);
+            //$this->footerDecorator->render($pdf);
+
+            /**
+             * @var Container $container
+             */
+            $container = $this->footerDecorator;
+
+            $container->calcAll();
+            $decoratorCanvas = new DecoratorCanvas($pdf);
+            $renderer = $container->getContainerRenderer();
+            $renderer->render($decoratorCanvas, $container);
         }
     }
 

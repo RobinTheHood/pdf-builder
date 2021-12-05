@@ -342,7 +342,8 @@ class Bill
         ], ['fontWeight' => Pdf::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
 
         $footer = new FooterDecorator();
-        $footer->addChildComponent($tableFooter);
+        //$footer->addChildComponent($tableFooter);
+        $footer->addChildContainer($tableFooter);
 
         $section->setPageDecorator($pageDecorator);
         $section->setFooterDecorator($footer);
