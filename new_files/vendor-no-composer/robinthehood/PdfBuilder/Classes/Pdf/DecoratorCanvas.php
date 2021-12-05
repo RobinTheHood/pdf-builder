@@ -14,19 +14,26 @@ class DecoratorCanvas implements ContainerRendererCanvasInterface
      */
     private $pdf = null;
 
+    /**
+     * @var array $color
+     */
+    private $color = [];
+
     public function __construct(Pdf $pdf)
     {
         $this->pdf = $pdf;
+        $color = ['r' => 0, 'g' => 0, 'b' => 0];
     }
 
     public function setColor(float $r, float $g, float $b, float $alpha = 1): void
     {
+        $this->color = ['r' => $r, 'g' => $g, 'b' => $b];
     }
 
     public function drawLine(float $x1, float $y1, float $x2, float $y2): void
     {
         //$this->pdf->SetDrawColor($color['r'], $color['g'], $color['b']);
-        $this->pdf->SetDrawColor(255, 0, 0);
+        $this->pdf->SetDrawColor($this->color['r'], $this->color['g'], $this->color['b']);
         $this->pdf->Line($x1, $y1, $x2, $y2);
     }
 
