@@ -66,9 +66,10 @@ class Table extends Container
             $fontSize = $rowOptions['fontSize'] ?? $this->defualtFontSize;
             $fontLineHeight = $fontSize / Pdf::POINTS_PER_MM;
             $rowHeight = $rowOptions['height'] ?? $fontLineHeight;
+            $paddingBottom = $rowOptions['paddingBottom'] ?? 0;
 
             $subRows = $this->splitRowInMultibleSubRows($row, $rowOptions);
-            $tableHeight += $rowHeight * count($subRows);
+            $tableHeight += $rowHeight * count($subRows) + $paddingBottom;
         }
         $this->getCalcedContainer()->containerBox->height->setValue($tableHeight);
     }

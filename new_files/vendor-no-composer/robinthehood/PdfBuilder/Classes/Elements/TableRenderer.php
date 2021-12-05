@@ -51,6 +51,7 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         $fontSize = $rowOptions['fontSize'] ?? $table->defualtFontSize;
         $fontLineHeight = $fontSize / Pdf::POINTS_PER_MM;
         $rowHeight = $rowOptions['height'] ?? $fontLineHeight;
+        $paddingBottom = $rowOptions['paddingBottom'] ?? 0;
 
         $count = 0;
         foreach ($subRows as $subRow) {
@@ -60,6 +61,7 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
             $this->renderSubRow($canvas, $table, $subRow, $rowOptions, $this->renderY, $rowHeight);
             $this->renderY += $rowHeight;
         }
+        $this->renderY += $paddingBottom;
     }
 
     private function renderSubRow(
