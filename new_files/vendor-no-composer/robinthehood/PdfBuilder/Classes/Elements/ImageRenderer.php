@@ -25,13 +25,13 @@ class ImageRenderer extends ContainerRenderer implements ContainerRendererInterf
 
     private function renderTextArea(ContainerRendererCanvasInterface $canvas, Image $image): void
     {
-        // $contentBox = $image->getCalcedContainer()->containerBox->getContentBox();
-        // $canvas->drawImage(
-        //     $image->imagePath,
-        //     $contentBox->positionX->getValue(),
-        //     $contentBox->positionY->getValue(),
-        //     $contentBox->width->getValue(),
-        //     $contentBox->height->getValue()
-        // );
+        $contentBox = $image->getCalcedContainer()->containerBox->getContentBox();
+        $canvas->drawImage(
+            $image->imagePath,
+            $contentBox['x'],
+            $contentBox['y'],
+            $contentBox['width'],
+            $contentBox['height']
+        );
     }
 }

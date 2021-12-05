@@ -72,13 +72,25 @@ class DrawBuffer
         ];
     }
 
+    public function drawImage(int $pageNo, string $imagePath, float $x, float $y, float $width, float $height): void
+    {
+        $this->buffer[$pageNo][] = [
+            'function' => 'drawImage',
+            'imagePath' => $imagePath,
+            'x' => $x,
+            'y' => $y,
+            'width' => $width,
+            'height' => $height,
+        ];
+    }
+
     public function renderBuffer()
     {
         //TODO: Buffer nach $relativPageNo sortieren
         foreach ($this->buffer as $relativPageNo => $functions) {
             foreach ($functions as $function) {
                 if ($function['function'] == 'drawText') {
-                    $this->renderText(
+                    $this->renderDrawText(
                         $function['text'],
                         $function['x'],
                         $function['y'],
@@ -96,6 +108,14 @@ class DrawBuffer
                         $function['y2'],
                         $function['color']
                     );
+                } elseif ($function['function'] == 'drawImage') {
+                    $this->renderDrawImage(
+                        $function['imagePath'],
+                        $function['x'],
+                        $function['y'],
+                        $function['width'],
+                        $function['height']
+                    );
                 }
             }
             $this->pdf->addPage();
@@ -103,7 +123,7 @@ class DrawBuffer
         }
     }
 
-    private function renderText(string $text, float $x, float $y, float $width, float $height, string $fontFamily, string $fontStyle, float $fontSize): void
+    private function renderDrawText(string $text, float $x, float $y, float $width, float $height, string $fontFamily, string $fontStyle, float $fontSize): void
     {
         $this->pdf->SetFont($fontFamily, $fontStyle, $fontSize);
         $this->pdf->SetXY($x, $y);
@@ -114,5 +134,10 @@ class DrawBuffer
     {
         $this->pdf->SetDrawColor($color['r'], $color['g'], $color['b']);
         $this->pdf->Line($x1, $y1, $x2, $y2);
+    }
+
+    private function renderDrawImage(string $imagePath, float $x, float $y, float $width, float $height): void
+    {
+        $this->pdf->Image($imagePath, $x, $y, $width, $height);
     }
 }

@@ -115,4 +115,11 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
             $this->drawBuffer->drawLine($line['page'], $line['x1'], $y1OnPage, $line['x2'], $y2OnPage);
         }
     }
+
+    public function drawImage(string $imagePath, float $x, float $y, float $width, float $height): void
+    {
+        $newY = $this->pageMapper->mapYOnPage($y, $height);
+        $relativePageNo = $newY['relativPageNo'];
+        $this->drawBuffer->drawImage($relativePageNo, $imagePath, $x, $newY['yOnPage'], $width, $height);
+    }
 }

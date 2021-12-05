@@ -46,4 +46,8 @@ class DecoratorCanvas implements ContainerRendererCanvasInterface
         $this->pdf->SetXY($x, $y);
         $this->pdf->Cell($width, $height, $text, Pdf::CELL_BORDER_NONE, Pdf::CELL_NEW_LINE_BELOW);
     }
+
+    public function drawImage(string $imagePath, float $x, float $y, float $width, float $height): void
+    {
+    }
 }
