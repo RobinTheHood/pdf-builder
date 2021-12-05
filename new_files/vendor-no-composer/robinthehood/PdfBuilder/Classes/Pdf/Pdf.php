@@ -87,6 +87,14 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
         //$this->SetDrawColor((int) $r, (int) $g, (int) $b);
     }
 
+    public function setFontSizeToDo(float $size): void
+    {
+        $this->drawBuffer->setFontSize($size);
+    }
+
+    public function setFontToDo(string $fontFamily, string $fontStyle, float $fontSize): void
+    {
+        $this->drawBuffer->setFont($fontFamily, $fontStyle, $fontSize);
     }
 
     public function drawText(string $text, float $x, float $y, float $width, float $height): void

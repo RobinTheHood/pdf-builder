@@ -40,7 +40,7 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         //var_dump($y);
         //$pdf->setXY($x, $y);
 
-        $pdf->SetFont($this->fontFamily, Pdf::FONT_WEIGHT_BOLD, 10);
+        $pdf->setFontToDo($table->fontFamily, Pdf::FONT_WEIGHT_BOLD, 10);
         foreach ($table->getRows() as $index => $row) {
             $this->renderRow($pdf, $table, $row, $table->getRowsOptions()[$index]);
         }
@@ -85,7 +85,8 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
             $cell['style'] = $cell['style'] ?? Pdf::FONT_WEIGHT_BOLD;
             $cell['alignment'] = $cell['alignment'] ?? 'L';
 
-            $pdf->SetFont($table->fontFamily, $fontWeight, $fontSize);
+
+            $pdf->setFontToDo($table->fontFamily, $fontWeight, $fontSize);
 
             $pdf->drawText($cell['content'] ?? '', $x, $y, $cell['width'], $height);
 

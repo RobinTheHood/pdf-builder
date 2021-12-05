@@ -10,6 +10,9 @@ class DrawBuffer
     private $buffer = [];
     private $pdf = null;
     private $drawColor = [];
+    private $fontFamily = 'DejaVu';
+    private $fontStyle = '';
+    private $fontSize = 10;
 
     public function __construct(Pdf $pdf)
     {
@@ -30,6 +33,18 @@ class DrawBuffer
         ];
     }
 
+    public function setFontSize(float $fontSize): void
+    {
+        $this->fontSize = $fontSize;
+    }
+
+    public function setFont(string $fontFamily, string $fontStyle, float $fontSize): void
+    {
+        $this->fontFamily = $fontFamily;
+        $this->fontStyle = $fontStyle;
+        $this->fontSize = $fontSize;
+    }
+
     public function addDrawText(int $pageNo, string $text, float $x, float $y, float $width, float $height): void
     {
         $this->buffer[$pageNo][] = [
@@ -38,7 +53,10 @@ class DrawBuffer
             'x' => $x,
             'y' => $y,
             'width' => $width,
-            'height' => $height
+            'height' => $height,
+            'fontFamily' => $this->fontFamily,
+            'fontStyle' => $this->fontStyle,
+            'fontSize' => $this->fontSize
         ];
     }
 
@@ -65,14 +83,18 @@ class DrawBuffer
                         $function['x'],
                         $function['y'],
                         $function['width'],
-                        $function['height']
+                        $function['height'],
+                        $function['fontFamily'],
+                        $function['fontStyle'],
+                        $function['fontSize']
                     );
                 } elseif ($function['function'] == 'drawLine') {
-                    $this->drawLine(
+                    $this->renderDrawLine(
                         $function['x1'],
                         $function['y1'],
                         $function['x2'],
                         $function['y2'],
+                        $function['color']
                     );
                 }
             }
@@ -81,8 +103,9 @@ class DrawBuffer
         }
     }
 
-    private function drawText(string $text, float $x, float $y, float $width, float $height): void
+    private function drawText(string $text, float $x, float $y, float $width, float $height, string $fontFamily, string $fontStyle, float $fontSize): void
     {
+        $this->pdf->SetFont($fontFamily, $fontStyle, $fontSize);
         $this->pdf->SetXY($x, $y);
         $this->pdf->Cell($width, $height, $text, Pdf::CELL_BORDER_NONE, Pdf::CELL_NEW_LINE_BELOW);
     }
