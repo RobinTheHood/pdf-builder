@@ -61,16 +61,17 @@ class Table extends Container implements ComponentInterface
             return;
         }
 
-        $pdf = new Pdf();
-        $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
-        $pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
-        $pdf->SetFont($this->fontFamily);
+        // //TODO
+        // $pdf = new Pdf();
+        // $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
+        // $pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
+        // $pdf->SetFont($this->fontFamily);
 
         $height = 0;
         foreach ($this->rows as $index => $row) {
             $rowOptions = $this->rowsOptions[$index];
             $fontSize = $rowOptions['fontSize'] ?? 10;
-            $subRows = $this->splitRowInMultibleSubRows($pdf, $row, $rowOptions);
+            $subRows = $this->splitRowInMultibleSubRows($row, $rowOptions);
             foreach ($subRows as $subRow) {
                 $lineHeight = $this->rowOptions['height'] ?? $fontSize / Pdf::POINTS_PER_MM;
                 $height += $lineHeight;
@@ -143,7 +144,7 @@ class Table extends Container implements ComponentInterface
         $pdf->SetX($x);
     }
 
-    public function splitRowInMultibleSubRows(Pdf $pdf, $row, $rowOptions)
+    public function splitRowInMultibleSubRows($row, $rowOptions)
     {
         $maxLines = 0;
         foreach ($row as $index => $cell) {
@@ -152,6 +153,11 @@ class Table extends Container implements ComponentInterface
             $fontWeight = $rowOptions['fontWeight'] ?? ''; // 'B'
             $fontSize = $rowOptions['fontSize'] ?? '10'; // 'B'
 
+            //TODO
+            $pdf = new Pdf();
+            $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
+            $pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
+            $pdf->SetFont($this->fontFamily);
             $pdf->SetFont($this->fontFamily, $fontWeight, $fontSize);
 
             $lines[$index] = StringSplitter::splitByLength($pdf, $cell['content'], $cell['width']);

@@ -43,14 +43,14 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
 
     private function renderRow(Pdf $pdf, Table $table, array $row, array $rowOptions): void
     {
-        $subRows = $table->splitRowInMultibleSubRows($pdf, $row, $rowOptions);
+        $subRows = $table->splitRowInMultibleSubRows($row, $rowOptions);
 
         if ($rowOptions['border'] == Table::ROW_BORDER_BOTTOM) {
             $rowOptions['border'] = '';
             $lastBorder = Table::ROW_BORDER_BOTTOM;
         }
 
-        $fontSize = $rowOptions['fontSize'] ?? '10';
+        $fontSize = $rowOptions['fontSize'] ?? 10;
 
         $count = 0;
         $height = $this->rowOptions['height'] ?? $fontSize / Pdf::POINTS_PER_MM;
@@ -67,7 +67,7 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
     {
         $border = $rowOptions['border'] ?? 0;
         $fontWeight = $rowOptions['fontWeight'] ?? '';
-        $fontSize = $rowOptions['fontSize'] ?? '10';
+        $fontSize = $rowOptions['fontSize'] ?? 10;
 
         $x = $table->getCalcedContainer()->containerBox->getContentBox()['x'];
         foreach ($subRow as $index => $cell) {
