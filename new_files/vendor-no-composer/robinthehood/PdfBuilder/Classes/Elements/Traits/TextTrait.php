@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Elements\Traits;
 
-use RobinTheHood\PdfBuilder\Classes\Container\ContainerValue;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Pdf\StringSplitter;
 
@@ -68,12 +67,15 @@ trait TextTrait
 
     public function splitTextInLines(float $maxWidth): array
     {
-        $pdf = new Pdf();
-        $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
-        $pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
-        $pdf->SetFont($this->fontFamily);
+        $stringSplitter = StringSplitter::getStringSplitter();
+        $lines = $stringSplitter->splitByLength(
+            $this->text,
+            $maxWidth,
+            $this->fontFamily,
+            $this->fontWeight,
+            $this->fontSize
+        );
 
-        $lines = StringSplitter::splitByLength($pdf, $this->text, $maxWidth);
         return $lines;
     }
 }

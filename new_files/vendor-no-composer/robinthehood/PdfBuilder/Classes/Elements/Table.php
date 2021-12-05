@@ -75,18 +75,11 @@ class Table extends Container
         $maxLines = 0;
         foreach ($row as $index => $cell) {
             $cell['width'] = $cell['width'] ?? $this->columnWidths[$index] ?? 0;
-
             $fontWeight = $rowOptions['fontWeight'] ?? ''; // 'B'
-            $fontSize = $rowOptions['fontSize'] ?? '10'; // 'B'
+            $fontSize = $rowOptions['fontSize'] ?? 10; // 'B'
 
-            //TODO
-            $pdf = new Pdf();
-            $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
-            $pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
-            $pdf->SetFont($this->fontFamily);
-            $pdf->SetFont($this->fontFamily, $fontWeight, $fontSize);
-
-            $lines[$index] = StringSplitter::splitByLength($pdf, $cell['content'], $cell['width']);
+            $stringSplitter = StringSplitter::getStringSplitter();
+            $lines[$index] = $stringSplitter->splitByLength($cell['content'], $cell['width'], $this->fontFamily, $fontWeight, $fontSize);
 
             if (count($lines[$index]) > $maxLines) {
                 $maxLines = count($lines[$index]);
