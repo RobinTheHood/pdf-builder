@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Components;
 
+use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
-use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\Table;
 
-class OrderTotalTable implements ComponentInterface
+class OrderTotalTable extends Container// implements ComponentInterface
 {
     //private $basePositionX = 25; // Unit: mm
     //private $basePositionY = 103.46 + 30; // Unit: mm
@@ -20,6 +20,9 @@ class OrderTotalTable implements ComponentInterface
     {
         $this->initTableVat();
         $this->initTableSum();
+
+        $this->addChildContainer($this->tableVat);
+        $this->addChildContainer($this->tableSum);
     }
 
     private function initTableVat(): void
@@ -84,11 +87,5 @@ class OrderTotalTable implements ComponentInterface
             ['content' => 'inkl. MwSt. 19%:', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
             ['content' => '2,08 EUR', 'alignment' => Pdf::CELL_ALIGN_RIGHT]
         ], ['fontWeight' => PDF::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_BOTTOM, 'fontSize' => 8]);
-    }
-
-    public function render(Pdf $pdf): void
-    {
-        $this->tableVat->render($pdf);
-        $this->tableSum->render($pdf);
     }
 }
