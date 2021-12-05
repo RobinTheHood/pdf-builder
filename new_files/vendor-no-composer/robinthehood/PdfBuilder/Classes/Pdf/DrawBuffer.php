@@ -15,6 +15,11 @@ class DrawBuffer
         $this->pdf = $pdf;
     }
 
+    public function reset()
+    {
+        $this->buffer = [];
+    }
+
     public function addDrawText(int $pageNo, string $text, float $x, float $y, float $width, float $height): void
     {
         $this->buffer[$pageNo][] = [
