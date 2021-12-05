@@ -118,8 +118,11 @@ class DrawBuffer
                     );
                 }
             }
-            $this->pdf->addPage();
-            $this->pdf->SetXY(0, 0);
+
+            if (next($this->buffer)) {
+                $this->pdf->addPage();
+                $this->pdf->SetXY(0, 0);
+            }
         }
     }
 
