@@ -102,13 +102,12 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
         $newY = $this->pageMapper->mapYOnPage($y, $height);
         $relativePageNo = $newY['relativPageNo'];
         $this->drawBuffer->addDrawText($relativePageNo, $text, $x, $newY['yOnPage'], $width, $height);
-        return;
 
-        $newY = $this->pageMapper->mapYOnPage($y, $height);
-        $this->pageMapper->doPageBreak($newY);
+        // $newY = $this->pageMapper->mapYOnPage($y, $height);
+        // $this->pageMapper->doPageBreak($newY);
 
-        $this->SetXY($x, $newY['yOnPage']);
-        $this->Cell($width, $height, $text, self::CELL_BORDER_NONE, self::CELL_NEW_LINE_BELOW);
+        // $this->SetXY($x, $newY['yOnPage']);
+        // $this->Cell($width, $height, $text, self::CELL_BORDER_NONE, self::CELL_NEW_LINE_BELOW);
     }
 
     public function drawLine(float $x1, float $y1, float $x2, float $y2): void
@@ -121,8 +120,6 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
             $this->drawBuffer->drawLine($line['page'], $line['x1'], $y1OnPage, $line['x2'], $y2OnPage);
         }
 
-        return;
-
         // foreach ($lines as $line) {
         //     $this->SetDrawColor(0, 255 * ($line['page'] % 2), 255 * (($line['page'] + 1) % 2));
         //     $this->Line($line['x1'], $line['y1'] + ($line['page'] - 2) * 20, $line['x1'], $line['y2'] + ($line['page'] - 2) * 20);
@@ -131,13 +128,13 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
         // $this->Line($x1, $y1, $x2, $y2);
 
         // return;
-        $height = $y2 - $y1;
-        $newY1 = $this->pageMapper->mapYOnPage($y1);
+        // $height = $y2 - $y1;
+        // $newY1 = $this->pageMapper->mapYOnPage($y1);
 
-        if ($newY1['relativPageNo'] != $this->pageMapper->getRelativPageNo()) {
-            return;
-        }
+        // if ($newY1['relativPageNo'] != $this->pageMapper->getRelativPageNo()) {
+        //     return;
+        // }
 
-        $this->Line($x1, $newY1['yOnPage'], $x2, $newY1['yOnPage'] + $height);
+        // $this->Line($x1, $newY1['yOnPage'], $x2, $newY1['yOnPage'] + $height);
     }
 }
