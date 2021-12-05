@@ -35,10 +35,12 @@ class Bill
 
         // Logo
         $logo = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rth_logo.png');
-        $logo->setPositionX(145);
-        $logo->setPositionY(9);
-        $logo->setWidth(40);
-        //$section->addChildContainer($logo);
+        $logo->position = Container::POSITION_ABSOLUT;
+        $logo->containerBox->positionX->setValue(145);
+        $logo->containerBox->positionY->setValue(9);
+        $logo->containerBox->width->setValue(40);
+        $logo->containerBox->height->setValue(13); // only needed for tests
+        $section->addChildContainer($logo);
 
         // Address
         $address = new Address();
@@ -133,12 +135,6 @@ class Bill
 
         // Logo
         $logo = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rth_logo.png');
-        $logo->setPositionX(145);
-        $logo->setPositionY(9);
-        $logo->setWidth(40);
-        //$section->addChildComponent($logo);
-
-        // use new container
         $logo->position = Container::POSITION_ABSOLUT;
         $logo->containerBox->positionX->setValue(145);
         $logo->containerBox->positionY->setValue(9);
@@ -193,9 +189,9 @@ class Bill
 
         $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
         //$dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rechnung_demo_1.png');
-        $dinImage->setPositionX(0);
-        $dinImage->setPositionY(0);
-        $dinImage->setWidth(210);
+        // $dinImage->setPositionX(0);
+        // $dinImage->setPositionY(0);
+        // $dinImage->setWidth(210);
 
         $pageDecorator = new PageDecorator();
         //$pageDecorator->addChildContainer($dinImage);
