@@ -9,6 +9,12 @@ use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 
 class FoldMark implements ComponentInterface
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setContainerRenderer(new FoldMarkRenderer());
+    }
+
     public function render(Pdf $pdf): void
     {
         $foldMark1PosY = 87; // Unit: mm
