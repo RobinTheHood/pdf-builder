@@ -13,7 +13,14 @@ class OrderTotalTable extends Container// implements ComponentInterface
     //private $basePositionX = 25; // Unit: mm
     //private $basePositionY = 103.46 + 30; // Unit: mm
 
+    /**
+     * @var Table $tableVat
+     */
     private $tableVat;
+
+    /**
+     * @var Table $tableSum
+     */
     private $tableSum;
 
     public function __construct()

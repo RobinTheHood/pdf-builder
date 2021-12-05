@@ -14,7 +14,14 @@ class Address extends Container
     private $baseWidth = 85; // Unit: mm
     private $baseHeight = 45; // Unit: mm
 
+    /**
+     * @var TextArea $address
+     */
     private $address = null;
+
+    /**
+     * @var TextArea $sender
+     */
     private $sender = null;
 
     public function __construct()

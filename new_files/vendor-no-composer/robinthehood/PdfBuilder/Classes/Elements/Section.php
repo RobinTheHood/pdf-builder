@@ -11,8 +11,19 @@ use RobinTheHood\PdfBuilder\Classes\Pdf\DecoratorCanvas;
 
 class Section extends Container
 {
+    /**
+     * @var PageDecorator $pageDecorator
+     */
     private $pageDecorator;
+
+    /**
+     * @var HeaderDecorator $headerDecorator
+     */
     private $headerDecorator;
+
+    /**
+     * @var FeaderDecorator $footerDecorator
+     */
     private $footerDecorator;
 
     private $pageMode = DecoratorInterface::DECORATION_MODE_ALWAYS;

@@ -10,7 +10,9 @@ use RobinTheHood\PdfBuilder\Classes\Elements\Table;
 
 class OrderTable extends Container
 {
-
+    /**
+     * @var Table $table
+     */
     private $table;
 
     public function __construct()

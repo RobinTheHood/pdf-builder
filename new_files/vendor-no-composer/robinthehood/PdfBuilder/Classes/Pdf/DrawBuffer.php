@@ -8,7 +8,12 @@ class DrawBuffer
 {
 
     private $buffer = [];
+
+    /**
+     * @var Pdf $pdf
+     */
     private $pdf = null;
+
     private $drawColor = [];
     private $fontFamily = 'DejaVu';
     private $fontStyle = '';

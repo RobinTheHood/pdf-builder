@@ -6,7 +6,11 @@ namespace RobinTheHood\PdfBuilder\Classes\Pdf;
 
 class PageMapper
 {
+    /**
+     * @var Pdf $pdf;
+     */
     private $pdf = null;
+
     private $lastResetPageNo = 0;
 
     public function __construct(Pdf $pdf)
