@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
 use RobinTheHood\PdfBuilder\Classes\Container\Container;
-use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
 
 class FooterDecorator extends Container implements DecoratorInterface
@@ -20,10 +19,5 @@ class FooterDecorator extends Container implements DecoratorInterface
         $this->containerBox->width->setValue(190);
         $this->containerBox->height->setValue(35);
         $this->containerBox->paddingLeft->setValue(20);
-    }
-
-    // Todo: remove
-    public function render(Pdf $pdf): void
-    {
     }
 }
