@@ -83,7 +83,10 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
 
     public function setColor(float $r, float $g, float $b, float $alpha = 1): void
     {
-        $this->SetDrawColor((int) $r, (int) $g, (int) $b);
+        $this->drawBuffer->setColor((int) $r, (int) $g, (int) $b);
+        //$this->SetDrawColor((int) $r, (int) $g, (int) $b);
+    }
+
     }
 
     public function drawText(string $text, float $x, float $y, float $width, float $height): void

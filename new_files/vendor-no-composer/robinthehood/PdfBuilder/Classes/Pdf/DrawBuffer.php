@@ -9,6 +9,7 @@ class DrawBuffer
 
     private $buffer = [];
     private $pdf = null;
+    private $drawColor = [];
 
     public function __construct(Pdf $pdf)
     {
@@ -18,6 +19,15 @@ class DrawBuffer
     public function reset()
     {
         $this->buffer = [];
+    }
+
+    public function setColor($r, $g, $b): void
+    {
+        $this->drawColor = [
+            'r' => $r,
+            'g' => $g,
+            'b' => $b,
+        ];
     }
 
     public function addDrawText(int $pageNo, string $text, float $x, float $y, float $width, float $height): void
@@ -39,7 +49,8 @@ class DrawBuffer
             'x1' => $x1,
             'y1' => $y1,
             'x2' => $x2,
-            'y2' => $y2
+            'y2' => $y2,
+            'color' => $this->drawColor
         ];
     }
 
@@ -78,6 +89,7 @@ class DrawBuffer
 
     private function renderDrawLine(float $x1, float $y1, float $x2, float $y2, array $color): void
     {
+        $this->pdf->SetDrawColor($color['r'], $color['g'], $color['b']);
         $this->pdf->Line($x1, $y1, $x2, $y2);
     }
 }
