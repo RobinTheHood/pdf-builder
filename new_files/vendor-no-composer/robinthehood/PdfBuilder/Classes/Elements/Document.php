@@ -42,8 +42,8 @@ class Document
     private function initPdf()
     {
         $pdf = new Pdf();
-        $pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
-        $pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
+        $pdf->AddFont($this->fontFamily, Pdf::FONT_STYLE_NORMAL, 'DejaVuSansCondensed.ttf', true);
+        $pdf->AddFont($this->fontFamily, Pdf::FONT_STYLE_BOLD, 'DejaVuSansCondensed-Bold.ttf', true);
 
         //$pdf->SetAutoPageBreak(true, $this->footerY);
         $pdf->SetAutoPageBreak(false, 0);

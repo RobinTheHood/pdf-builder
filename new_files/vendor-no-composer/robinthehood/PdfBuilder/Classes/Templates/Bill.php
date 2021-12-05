@@ -55,7 +55,7 @@ class Bill
         // Heading
         $contentHeading = new TextArea();
         $contentHeading->setFontSize(18);
-        $contentHeading->setFontWeight(PDF::FONT_WEIGHT_BOLD);
+        $contentHeading->setFontWeight(Pdf::FONT_STYLE_BOLD);
         $contentHeading->setText('Rechnung');
         $section->addChildContainer($contentHeading);
 
@@ -63,7 +63,7 @@ class Bill
         $contentIntroText = new TextArea();
         $contentIntroText->setFontSize(10);
         $contentIntroText->setLineHeight(5); // Unit: mm
-        $contentIntroText->setFontWeight(PDF::FONT_WEIGHT_NORMAL);
+        $contentIntroText->setFontWeight(Pdf::FONT_STYLE_NORMAL);
         $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.\nDiese Zeile ist zuviel.");
         $section->addChildContainer($contentIntroText);
 
@@ -89,7 +89,7 @@ class Bill
         $contentOutoText = new TextArea();
         $contentOutoText->setFontSize(10);
         $contentOutoText->setLineHeight(5); // Unit: mm
-        $contentOutoText->setFontWeight(PDF::FONT_WEIGHT_NORMAL);
+        $contentOutoText->setFontWeight(Pdf::FONT_STYLE_NORMAL);
         $contentOutoText->setText("Vielen Dank für Ihren Auftrag. Besuchen Sie uns wieder unter online-shop.de. Leistungsdatum entspricht Rechnungsdatum. Es gelten unsere Allgemeinen Geschäftsbedingungen.");
         $section->addChildContainer($contentOutoText);
 
@@ -116,7 +116,7 @@ class Bill
             ['content' => "MAX MUSTERFIRMA\nMustermann Straße 1\n12345 Musterstadt", 'alignment' => Pdf::CELL_ALIGN_LEFT],
             ['content' => "www.musterfirma.de\ninfo@musterfirma.de\n+49 1234 1111-0", 'alignment' => Pdf::CELL_ALIGN_LEFT],
             ['content' => "BLZ: 123456789\nIBAN: DE123456789123456789\nUSt-ID: DE123456789", 'alignment' => Pdf::CELL_ALIGN_LEFT],
-        ], ['fontWeight' => Pdf::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
+        ], ['fontWeight' => Pdf::FONT_STYLE_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
 
         $footer = new FooterDecorator();
         //$footer->addChildComponent($tableFooter);
@@ -158,7 +158,7 @@ class Bill
         // Heading
         $contentHeading = new TextArea();
         $contentHeading->setFontSize(18);
-        $contentHeading->setFontWeight(Pdf::FONT_WEIGHT_BOLD);
+        $contentHeading->setFontWeight(Pdf::FONT_STYLE_BOLD);
         $contentHeading->setText('Rechnung');
         $contentHeading->containerBox->marginBottom->setValue(2);
         $contentArea->addChildContainer($contentHeading);
@@ -167,7 +167,7 @@ class Bill
         $contentIntroText = new TextArea();
         $contentIntroText->setFontSize(10);
         $contentIntroText->setLineHeight(5); // Unit: mm
-        $contentIntroText->setFontWeight(Pdf::FONT_WEIGHT_NORMAL);
+        $contentIntroText->setFontWeight(Pdf::FONT_STYLE_NORMAL);
         $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.");
         $contentArea->addChildContainer($contentIntroText);
 
@@ -210,7 +210,7 @@ class Bill
             ['content' => "MAX MUSTERFIRMA\nMustermann Straße 1\n12345 Musterstadt", 'alignment' => Pdf::CELL_ALIGN_LEFT],
             ['content' => "www.musterfirma.de\ninfo@musterfirma.de\n+49 1234 1111-0", 'alignment' => Pdf::CELL_ALIGN_LEFT],
             ['content' => "BLZ: 123456789\nIBAN: DE123456789123456789\nUSt-ID: DE123456789", 'alignment' => Pdf::CELL_ALIGN_LEFT],
-        ], ['fontWeight' => Pdf::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
+        ], ['fontWeight' => Pdf::FONT_STYLE_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
 
         $footer = new FooterDecorator();
         $footer->addChildContainer($tableFooter);

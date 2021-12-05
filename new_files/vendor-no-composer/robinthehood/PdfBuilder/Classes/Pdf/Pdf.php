@@ -26,8 +26,8 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
     public const CELL_BORDER_ON = 1;
     public const CELL_BORDER_TOP = 'T';
 
-    public const FONT_WEIGHT_NORMAL = '';
-    public const FONT_WEIGHT_BOLD = 'B';
+    public const FONT_STYLE_NORMAL = '';
+    public const FONT_STYLE_BOLD = 'B';
 
     private $pageFunction;
     private $headerFunction;

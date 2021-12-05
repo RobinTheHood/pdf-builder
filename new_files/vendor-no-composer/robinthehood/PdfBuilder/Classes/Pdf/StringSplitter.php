@@ -24,8 +24,8 @@ class StringSplitter
     private function __construct()
     {
         $this->pdf = new Pdf();
-        $this->pdf->AddFont($this->fontFamily, '', 'DejaVuSansCondensed.ttf', true);
-        $this->pdf->AddFont($this->fontFamily, 'B', 'DejaVuSansCondensed-Bold.ttf', true);
+        $this->pdf->AddFont($this->fontFamily, Pdf::FONT_STYLE_NORMAL, 'DejaVuSansCondensed.ttf', true);
+        $this->pdf->AddFont($this->fontFamily, Pdf::FONT_STYLE_BOLD, 'DejaVuSansCondensed-Bold.ttf', true);
     }
 
     public static function getStringSplitter(): StringSplitter
