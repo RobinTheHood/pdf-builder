@@ -107,7 +107,7 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
         foreach ($lines as $line) {
             $y1OnPage = $this->pageMapper->yOnPage($line['y1'], $line['page']);
             $y2OnPage = $this->pageMapper->yOnPage($line['y2'], $line['page']);
-            $this->drawBuffer->addDrawLine($line['page'], $line['x1'], $y1OnPage, $line['x2'], $y2OnPage);
+            $this->drawBuffer->drawLine($line['page'], $line['x1'], $y1OnPage, $line['x2'], $y2OnPage);
         }
 
         return;

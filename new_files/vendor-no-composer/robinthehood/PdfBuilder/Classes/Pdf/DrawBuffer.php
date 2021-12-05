@@ -32,7 +32,7 @@ class DrawBuffer
         ];
     }
 
-    public function addDrawLine(int $pageNo, float $x1, float $y1, float $x2, float $y2): void
+    public function drawLine(int $pageNo, float $x1, float $y1, float $x2, float $y2): void
     {
         $this->buffer[$pageNo][] = [
             'function' => 'drawLine',
@@ -76,7 +76,7 @@ class DrawBuffer
         $this->pdf->Cell($width, $height, $text, Pdf::CELL_BORDER_NONE, Pdf::CELL_NEW_LINE_BELOW);
     }
 
-    private function drawLine(float $x1, float $y1, float $x2, float $y2): void
+    private function renderDrawLine(float $x1, float $y1, float $x2, float $y2, array $color): void
     {
         $this->pdf->Line($x1, $y1, $x2, $y2);
     }
