@@ -6,15 +6,15 @@ namespace RobinTheHood\PdfBuilder\Classes\Pdf;
 
 class PageLineSplitter
 {
-    private $lastOffset = 0;
-    private $lastPageNo = 1;
-    private $missedLines = [];
+    // private $lastOffset = 0;
+    // private $lastPageNo = 1;
+    // private $missedLines = [];
 
-    private $pdf = null;
+    // private $pdf = null;
 
 
     // TODO: Calculate X1 and X2, for now only vertical and horizontal are possible
-    public function cutLineNew(float $x1, float $y1, float $x2, float $y2, PageMapper $pageMapper): array
+    public function cutLine(float $x1, float $y1, float $x2, float $y2, PageMapper $pageMapper): array
     {
         $mappedY1 = $pageMapper->mapY($y1);
         $mappedY2 = $pageMapper->mapY($y2);
@@ -56,7 +56,8 @@ class PageLineSplitter
         return $lines;
     }
 
-    public function cutLine(float $x1, float $y1, float $x2, float $y2, float $pageSize): array
+    //TODO: do not delete becuase it has code for the new method
+    private function cutLineOld(float $x1, float $y1, float $x2, float $y2, float $pageSize): array
     {
         $lines = [];
 
