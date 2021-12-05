@@ -36,8 +36,13 @@ class StringSplitter
         return self::$stringSplitter;
     }
 
-    public function splitByLength(string $string, float $maxLength, string $fontFamily, string $fontStyle, float $fontSize): array
-    {
+    public function splitByLength(
+        string $string,
+        float $maxLength,
+        string $fontFamily,
+        string $fontStyle,
+        float $fontSize
+    ): array {
         $this->pdf->SetFont($fontFamily, $fontStyle, $fontSize);
 
         preg_match_all("/[\S]+|\n/", $string, $words);

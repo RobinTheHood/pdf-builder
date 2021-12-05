@@ -10,7 +10,6 @@ class Image extends Container
 {
     public function __construct(string $path)
     {
-        // Use new Container
         parent::__construct();
         $this->setContainerRenderer(new ImageRenderer());
         $this->imagePath = $path;

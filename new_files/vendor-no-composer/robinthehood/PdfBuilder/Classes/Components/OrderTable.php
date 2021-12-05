@@ -46,7 +46,12 @@ class OrderTable extends Container
         $widthProductTotalPrice = 28; // Unit: mm
         $widthProductVat = 14; // Unit: mm
 
-        $widthProductName = $widthSum - $widthQuantity - $widthProductModel - $widthProductPrice - $widthProductTotalPrice - $widthProductVat;
+        $widthProductName = $widthSum
+            - $widthQuantity
+            - $widthProductModel
+            - $widthProductPrice
+            - $widthProductTotalPrice
+            - $widthProductVat;
 
         $this->table->setColumnWidths([
             $widthQuantity,
@@ -64,6 +69,6 @@ class OrderTable extends Container
             ['content' => 'Einzelpreis', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
             ['content' => 'MwSt.', 'alignment' => Pdf::CELL_ALIGN_RIGHT],
             ['content' => 'Gesamtpreis', 'alignment' => Pdf::CELL_ALIGN_RIGHT]
-        ], ['fontWeight' => Pdf::FONT_STYLE_BOLD, 'border' => Table::ROW_BORDER_BOTTOM, 'fontSize' => 10]);
+        ], ['fontWeight' => Pdf::FONT_STYLE_BOLD, 'border' => Table::ROW_BORDER_BOTTOM, 'fontSize' => 10, 'height' => 20]);
     }
 }
