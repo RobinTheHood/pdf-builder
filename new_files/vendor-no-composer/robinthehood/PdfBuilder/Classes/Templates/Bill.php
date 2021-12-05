@@ -38,34 +38,32 @@ class Bill
         $logo->setPositionX(145);
         $logo->setPositionY(9);
         $logo->setWidth(40);
-        $section->addChildComponent($logo);
+        //$section->addChildContainer($logo);
 
         // Address
         $address = new Address();
         $address->setAddress("Musterfirma GmbH\nz.H. Max Mustermann\nHauptstraße 999\n12345 Neustadt\nDeutschland");
         $address->setSender("Max Mustermann - 12345 Neustadt 1\n");
-        $section->addChildComponent($address);
+        $section->addChildContainer($address);
 
         // Infoblock
         $infoblock = new Infoblock();
-        $section->addChildComponent($infoblock);
+        $section->addChildContainer($infoblock);
 
         // Heading
         $contentHeading = new TextArea();
-        $contentHeading->setBounds(25, 103.46, 175, 10);
         $contentHeading->setFontSize(18);
         $contentHeading->setFontWeight(PDF::FONT_WEIGHT_BOLD);
         $contentHeading->setText('Rechnung');
-        $section->addChildComponent($contentHeading);
+        $section->addChildContainer($contentHeading);
 
         // Content Intro Text
         $contentIntroText = new TextArea();
-        $contentIntroText->setBounds(25, 103.46 + 10, 175, 10);
         $contentIntroText->setFontSize(10);
         $contentIntroText->setLineHeight(5); // Unit: mm
         $contentIntroText->setFontWeight(PDF::FONT_WEIGHT_NORMAL);
         $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.\nDiese Zeile ist zuviel.");
-        $section->addChildComponent($contentIntroText);
+        $section->addChildContainer($contentIntroText);
 
         // OrderTable
         $orderTable = new OrderTable();
@@ -79,22 +77,19 @@ class Bill
                 'priceTotal' => ((string) (12.99 * 19)) . ' €'
             ]);
         }
-        $section->addChildComponent($orderTable);
+        $section->addChildContainer($orderTable);
 
         // OrderTotalTable
         $orderTotalTable = new OrderTotalTable();
-        $section->addChildComponent($orderTotalTable);
+        //$section->addChildContainer($orderTotalTable);
 
         // Content Outro Text
         $contentOutoText = new TextArea();
-        //$contentOutoText->setBounds(25, 103.46 + 10, 175, 10);
-        $contentOutoText->setPositionX(25);
-        $contentOutoText->setDimention(175, 10);
         $contentOutoText->setFontSize(10);
         $contentOutoText->setLineHeight(5); // Unit: mm
         $contentOutoText->setFontWeight(PDF::FONT_WEIGHT_NORMAL);
         $contentOutoText->setText("Vielen Dank für Ihren Auftrag. Besuchen Sie uns wieder unter online-shop.de. Leistungsdatum entspricht Rechnungsdatum. Es gelten unsere Allgemeinen Geschäftsbedingungen.");
-        $section->addChildComponent($contentOutoText);
+        $section->addChildContainer($contentOutoText);
 
         $dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/din_5008_a.png');
         //$dinImage = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rechnung_demo_1.png');
@@ -122,7 +117,7 @@ class Bill
         ], ['fontWeight' => Pdf::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
 
         $footer = new FooterDecorator();
-        $footer->addChildComponent($tableFooter);
+        //$footer->addChildComponent($tableFooter);
 
         $section->setPageDecorator($pageDecorator);
         $section->setFooterDecorator($footer);
@@ -155,12 +150,10 @@ class Bill
         $address = new Address();
         $address->setAddress("Musterfirma GmbH\nz.H. Max Mustermann\nHauptstraße 999\n12345 Neustadt\nDeutschland");
         $address->setSender("Max Mustermann - 12345 Neustadt 1\n");
-        //$section->addChildComponent($address);
         $section->addChildContainer($address);
 
         // Infoblock
         $infoblock = new Infoblock();
-        //$section->addChildComponent($infoblock);
         $section->addChildContainer($infoblock);
 
         // Content Area
@@ -168,30 +161,18 @@ class Bill
 
         // Heading
         $contentHeading = new TextArea();
-        //$contentHeading->setBounds(25, 103.46, 175, 10);
-        //$contentHeading->setDimention(175, 10);
         $contentHeading->setFontSize(18);
         $contentHeading->setFontWeight(Pdf::FONT_WEIGHT_BOLD);
         $contentHeading->setText('Rechnung');
         $contentHeading->containerBox->marginBottom->setValue(2);
-        $contentArea->addChildComponent($contentHeading);
-
-        // use new container
-        //$contentHeading->containerBox->height->setValue(30 / (72 / 25.4)); // only needed for tests
         $contentArea->addChildContainer($contentHeading);
 
         // Content Intro Text
         $contentIntroText = new TextArea();
-        //$contentIntroText->setBounds(25, 103.46 + 10, 175, 10);
-        $contentIntroText->setDimention(175, 10);
         $contentIntroText->setFontSize(10);
         $contentIntroText->setLineHeight(5); // Unit: mm
         $contentIntroText->setFontWeight(Pdf::FONT_WEIGHT_NORMAL);
         $contentIntroText->setText("Sehr geehrte Frau Lena Musterfrau,\nwir freuen uns, dass Sie bei online-shop.de bestellt haben.");
-        $contentArea->addChildComponent($contentIntroText);
-
-        // use new container
-        //$contentIntroText->containerBox->height->setValue(15); // only needed for tests
         $contentArea->addChildContainer($contentIntroText);
 
         // OrderTable
@@ -206,7 +187,6 @@ class Bill
                 'priceTotal' => ((string) (12.99 * 19)) . ' €'
             ]);
         }
-        //$section->addChildComponent($orderTable);
         $contentArea->addChildContainer($orderTable);
 
         $section->addChildContainer($contentArea);
@@ -237,7 +217,6 @@ class Bill
         ], ['fontWeight' => Pdf::FONT_WEIGHT_NORMAL, 'border' => Table::ROW_BORDER_NONE]);
 
         $footer = new FooterDecorator();
-        //$footer->addChildComponent($tableFooter);
         $footer->addChildContainer($tableFooter);
 
         $section->setPageDecorator($pageDecorator);

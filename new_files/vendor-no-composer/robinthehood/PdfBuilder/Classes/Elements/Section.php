@@ -8,7 +8,6 @@ use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentChildTrait;
-use RobinTheHood\PdfBuilder\Classes\Pdf\ContainerPdfRenderer;
 use RobinTheHood\PdfBuilder\Classes\Pdf\DecoratorCanvas;
 
 class Section extends Container
@@ -43,18 +42,6 @@ class Section extends Container
         $this->footerDecorator = $footerDecorator;
     }
 
-    public function calcComponents()
-    {
-        foreach ($this->components as $component) {
-            $component->setCalcedPositionX(0 + $component->getPositionX());
-            $component->setCalcedPositionY(0 + $component->getPositionY());
-        }
-
-        foreach ($this->components as $component) {
-            $component->calcComponents();
-        }
-    }
-
     public function render(Pdf $pdf, Section $lastFooterSection): void
     {
         $pdf->setPageFunction([$this, 'renderPageDecorator']);
@@ -62,7 +49,7 @@ class Section extends Container
         $pdf->setFooterFunction([$lastFooterSection, 'renderFooterDecorator']);
         $pdf->addPage();
         $pdf->setFooterFunction([$this, 'renderFooterDecorator']);
-        $this->renderComponents($pdf);
+        $this->renderContainers($pdf);
     }
 
     public function renderPageDecorator(Pdf $pdf): void
@@ -76,8 +63,6 @@ class Section extends Container
         }
 
         if ($this->pageDecorator) {
-            //$this->pageDecorator->render($pdf);
-
             /**
              * @var Container $container
              */
@@ -101,8 +86,6 @@ class Section extends Container
         }
 
         if ($this->headerDecorator) {
-            //$this->headerDecorator->render($pdf);
-
             /**
              * @var Container $container
              */
@@ -126,8 +109,6 @@ class Section extends Container
         }
 
         if ($this->footerDecorator) {
-            //$this->footerDecorator->render($pdf);
-
             /**
              * @var Container $container
              */
@@ -140,9 +121,8 @@ class Section extends Container
         }
     }
 
-    private function renderComponents(Pdf $pdf): void
+    private function renderContainers(Pdf $pdf): void
     {
-        // New Render Container
         $this->calcAll();
         $canvas = $pdf;
         $canvas->pageMapper->reset();
@@ -152,11 +132,5 @@ class Section extends Container
         $renderer->render($canvas, $this);
 
         $canvas->drawBuffer->renderBuffer();
-        return;
-
-        // Render Old
-        foreach ($this->childComponents as $childComponent) {
-            $childComponent->render($pdf);
-        }
     }
 }

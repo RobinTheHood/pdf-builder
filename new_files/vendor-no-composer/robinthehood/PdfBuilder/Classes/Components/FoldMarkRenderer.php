@@ -13,7 +13,7 @@ class FoldMarkRenderer extends ContainerRenderer implements ContainerRendererInt
 {
     public function render(ContainerRendererCanvasInterface $canvas, ContainerInterface $container): void
     {
-        //parent::render($canvas, $container);
+        parent::render($canvas, $container);
 
         $foldMark1PosY = 87; // Unit: mm
         $foldMark2PosY = 192; // Unit: mm

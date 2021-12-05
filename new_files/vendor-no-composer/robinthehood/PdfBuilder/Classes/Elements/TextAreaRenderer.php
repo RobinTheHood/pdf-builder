@@ -8,7 +8,6 @@ use RobinTheHood\PdfBuilder\Classes\Container\ContainerRenderer;
 use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerInterface;
 use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerRendererInterface;
 use RobinTheHood\PdfBuilder\Classes\Container\Interfaces\ContainerRendererCanvasInterface;
-use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 
 class TextAreaRenderer extends ContainerRenderer implements ContainerRendererInterface
 {
@@ -21,15 +20,10 @@ class TextAreaRenderer extends ContainerRenderer implements ContainerRendererInt
          */
         $textArea = $container;
 
-        /**
-         * @var Pdf $pdf
-         */
-        $pdf = $canvas;
-
-        $this->renderTextArea($pdf, $textArea);
+        $this->renderTextArea($canvas, $textArea);
     }
 
-    private function renderTextArea(Pdf $pdf, TextArea $textArea): void
+    private function renderTextArea(ContainerRendererCanvasInterface $canvas, TextArea $textArea): void
     {
         $contentBox = $textArea->getCalcedContainer()->containerBox->getContentBox();
         $lines = $textArea->splitTextInLines($contentBox['width']);
@@ -41,9 +35,9 @@ class TextAreaRenderer extends ContainerRenderer implements ContainerRendererInt
             $lineHeight = $textArea->getFontHeight();
         }
 
-        $pdf->setFontToDo($textArea->getFontFamily(), $textArea->getFontWeight(), $textArea->getFontSize());
+        $canvas->setFontToDo($textArea->getFontFamily(), $textArea->getFontWeight(), $textArea->getFontSize());
         foreach ($lines as $line) {
-            $pdf->drawText($line, $x, $y, $contentBox['width'], $lineHeight);
+            $canvas->drawText($line, $x, $y, $contentBox['width'], $lineHeight);
             $y += $lineHeight;
         }
     }

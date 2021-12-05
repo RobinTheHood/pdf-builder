@@ -23,25 +23,19 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
          */
         $table = $container;
 
-        // /**
-        //  * @var Pdf $pdf
-        //  */
-        $pdf = $canvas;
-
-        $this->renderTable($pdf, $table);
+        $this->renderTable($canvas, $table);
     }
 
-    private function renderTable(ContainerRendererCanvasInterface $pdf, Table $table): void
+    private function renderTable(ContainerRendererCanvasInterface $canvas, Table $table): void
     {
-        //$x = $table->getCalcedContainer()->containerBox->getContentBox()['x'];
         $this->renderY = $table->getCalcedContainer()->containerBox->getContentBox()['y'];
-        $pdf->setFontToDo($table->fontFamily, Pdf::FONT_WEIGHT_BOLD, 10);
+        $canvas->setFontToDo($table->fontFamily, Pdf::FONT_WEIGHT_BOLD, 10);
         foreach ($table->getRows() as $index => $row) {
-            $this->renderRow($pdf, $table, $row, $table->getRowsOptions()[$index]);
+            $this->renderRow($canvas, $table, $row, $table->getRowsOptions()[$index]);
         }
     }
 
-    private function renderRow(ContainerRendererCanvasInterface $pdf, Table $table, array $row, array $rowOptions): void
+    private function renderRow(ContainerRendererCanvasInterface $canvas, Table $table, array $row, array $rowOptions): void
     {
         $subRows = $table->splitRowInMultibleSubRows($row, $rowOptions);
 
@@ -58,12 +52,12 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
             if (++$count == count($subRows)) {
                 $rowOptions['border'] = $lastBorder;
             }
-            $this->renderSubRow($pdf, $table, $subRow, $rowOptions, $this->renderY, $height);
+            $this->renderSubRow($canvas, $table, $subRow, $rowOptions, $this->renderY, $height);
             $this->renderY += $height;
         }
     }
 
-    private function renderSubRow(ContainerRendererCanvasInterface $pdf, Table $table, array $subRow, array $rowOptions, float $y, float $height): void
+    private function renderSubRow(ContainerRendererCanvasInterface $canvas, Table $table, array $subRow, array $rowOptions, float $y, float $height): void
     {
         $border = $rowOptions['border'] ?? 0;
         $fontWeight = $rowOptions['fontWeight'] ?? '';
@@ -75,8 +69,8 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
             $cell['style'] = $cell['style'] ?? Pdf::FONT_WEIGHT_BOLD;
             $cell['alignment'] = $cell['alignment'] ?? 'L';
 
-            $pdf->setFontToDo($table->fontFamily, $fontWeight, $fontSize);
-            $pdf->drawText($cell['content'] ?? '', $x, $y, $cell['width'], $height);
+            $canvas->setFontToDo($table->fontFamily, $fontWeight, $fontSize);
+            $canvas->drawText($cell['content'] ?? '', $x, $y, $cell['width'], $height);
 
             if ($index == $table->columns - 1) {
                 break;

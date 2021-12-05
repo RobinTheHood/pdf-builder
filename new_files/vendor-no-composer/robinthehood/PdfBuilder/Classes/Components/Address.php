@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Components;
 
-use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Container\Container;
-use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\ComponentInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\TextArea;
 
-class Address extends Container implements ComponentInterface
+class Address extends Container
 {
     private $basePositionX = 20; // Unit: mm
     private $basePositionY = 27; // Unit: mm
@@ -21,22 +19,16 @@ class Address extends Container implements ComponentInterface
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->address = new TextArea();
-        $this->address->setPosition($this->basePositionX + 4, $this->basePositionY + 17.7);
-        $this->address->setDimention(85 - 4, 27.3);
         $this->address->setFontSize(10);
         $this->address->setLineHeight(4.55);
 
         $this->sender = new TextArea();
-        $this->sender->setPosition($this->basePositionX + 4, $this->basePositionY);
-        $this->sender->setDimention(85 - 4, 17.7);
         $this->sender->setFontSize(7);
         $this->sender->setLineHeight(3.5);
         $this->sender->setVerticalAlign(TextArea::VERTICAL_ALIGN_BOTTOM);
-
-
-        // Use new Container
-        parent::__construct();
 
         $this->position = Container::POSITION_ABSOLUT;
         $this->containerBox->positionX->setValue($this->basePositionX);
@@ -69,30 +61,4 @@ class Address extends Container implements ComponentInterface
     {
         $this->sender->setText($sender);
     }
-
-    public function render(Pdf $pdf): void
-    {
-        // $this->renderBounds($pdf);
-
-        // Sender Zone
-        $pdf->SetXY($this->basePositionX, $this->basePositionY); // Unit: mm
-        $this->sender->render($pdf);
-
-        // Address Zone
-        $this->address->calcBefore($pdf);
-        $this->address->setCalcedPositionX($this->basePositionX + 4); // Unit: mm
-        $this->address->setCalcedPositionY($this->basePositionY + 17.7); // Unit: mm
-        $this->address->render($pdf);
-    }
-
-    // private function renderBounds(PDF $pdf): void
-    // {
-    //     // Hole Component Area
-    //     $width = 85; // Unit: mm
-    //     $height = 45; // Unit: mm
-
-    //     $pdf->SetDrawColor(255, 0, 0);
-    //     $pdf->SetXY($this->basePositionX, $this->basePositionY); // Unit: mm
-    //     $pdf->Cell($width, $height, '', PDF::CELL_BORDER_ON);
-    // }
 }

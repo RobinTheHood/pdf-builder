@@ -7,14 +7,9 @@ namespace RobinTheHood\PdfBuilder\Classes\Elements;
 use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
-use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentChildTrait;
 
 class FooterDecorator extends Container implements DecoratorInterface
 {
-    // use ComponentChildTrait;
-
-    // private $posY = -35;
-
     public function __construct()
     {
         parent::__construct();
@@ -27,11 +22,8 @@ class FooterDecorator extends Container implements DecoratorInterface
         $this->containerBox->paddingLeft->setValue(20);
     }
 
-    // public function render(Pdf $pdf): void
-    // {
-    //     $pdf->SetY($this->posY);
-    //     foreach ($this->childComponents as $childComponent) {
-    //         $childComponent->render($pdf);
-    //     }
-    // }
+    // Todo: remove
+    public function render(Pdf $pdf): void
+    {
+    }
 }
