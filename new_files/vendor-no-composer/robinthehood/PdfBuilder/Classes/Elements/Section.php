@@ -9,6 +9,7 @@ use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentChildTrait;
 use RobinTheHood\PdfBuilder\Classes\Pdf\ContainerPdfRenderer;
+use RobinTheHood\PdfBuilder\Classes\Pdf\DecoratorCanvas;
 
 class Section extends Container
 {
@@ -90,7 +91,17 @@ class Section extends Container
         }
 
         if ($this->headerDecorator) {
-            $this->headerDecorator->render($pdf);
+            //$this->headerDecorator->render($pdf);
+
+            /**
+             * @var Container $container
+             */
+            $container = $this->footerDecorator;
+
+            $container->calcAll();
+            $decoratorCanvas = new DecoratorCanvas($pdf);
+            $renderer = $container->getContainerRenderer();
+            $renderer->render($decoratorCanvas, $container);
         }
     }
 

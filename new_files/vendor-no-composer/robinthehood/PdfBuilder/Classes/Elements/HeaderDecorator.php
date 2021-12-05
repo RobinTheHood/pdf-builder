@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace RobinTheHood\PdfBuilder\Classes\Elements;
 
+use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
 use RobinTheHood\PdfBuilder\Classes\Elements\Traits\ComponentChildTrait;
 
-class HeaderDecorator implements DecoratorInterface
+class HeaderDecorator extends Container implements DecoratorInterface
 {
     use ComponentChildTrait;
 
