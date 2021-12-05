@@ -98,11 +98,17 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
         $this->drawBuffer->setFont($fontFamily, $fontStyle, $fontSize);
     }
 
-    public function drawText(string $text, float $x, float $y, float $width, float $height): void
-    {
+    public function drawText(
+        string $text,
+        float $x,
+        float $y,
+        float $width,
+        float $height,
+        string $alignment = Pdf::CELL_ALIGN_LEFT
+    ): void {
         $newY = $this->pageMapper->mapYOnPage($y, $height);
         $relativePageNo = $newY['relativPageNo'];
-        $this->drawBuffer->drawText($relativePageNo, $text, $x, $newY['yOnPage'], $width, $height);
+        $this->drawBuffer->drawText($relativePageNo, $text, $x, $newY['yOnPage'], $width, $height, $alignment);
     }
 
     public function drawLine(float $x1, float $y1, float $x2, float $y2): void

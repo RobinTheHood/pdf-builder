@@ -45,8 +45,15 @@ class DrawBuffer
         $this->fontSize = $fontSize;
     }
 
-    public function drawText(int $pageNo, string $text, float $x, float $y, float $width, float $height): void
-    {
+    public function drawText(
+        int $pageNo,
+        string $text,
+        float $x,
+        float $y,
+        float $width,
+        float $height,
+        string $alignment = Pdf::CELL_ALIGN_LEFT
+    ): void {
         $this->buffer[$pageNo][] = [
             'function' => 'drawText',
             'text' => $text,
@@ -54,6 +61,7 @@ class DrawBuffer
             'y' => $y,
             'width' => $width,
             'height' => $height,
+            'alignment' => $alignment,
             'fontFamily' => $this->fontFamily,
             'fontStyle' => $this->fontStyle,
             'fontSize' => $this->fontSize
@@ -96,6 +104,7 @@ class DrawBuffer
                         $function['y'],
                         $function['width'],
                         $function['height'],
+                        $function['alignment'],
                         $function['fontFamily'],
                         $function['fontStyle'],
                         $function['fontSize']
@@ -126,11 +135,20 @@ class DrawBuffer
         }
     }
 
-    private function renderDrawText(string $text, float $x, float $y, float $width, float $height, string $fontFamily, string $fontStyle, float $fontSize): void
-    {
+    private function renderDrawText(
+        string $text,
+        float $x,
+        float $y,
+        float $width,
+        float $height,
+        string $alignment,
+        string $fontFamily,
+        string $fontStyle,
+        float $fontSize
+    ): void {
         $this->pdf->SetFont($fontFamily, $fontStyle, $fontSize);
         $this->pdf->SetXY($x, $y);
-        $this->pdf->Cell($width, $height, $text, Pdf::CELL_BORDER_NONE, Pdf::CELL_NEW_LINE_BELOW);
+        $this->pdf->Cell($width, $height, $text, Pdf::CELL_BORDER_NONE, Pdf::CELL_NEW_LINE_BELOW, $alignment);
     }
 
     private function renderDrawLine(float $x1, float $y1, float $x2, float $y2, array $color): void

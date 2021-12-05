@@ -35,8 +35,12 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         }
     }
 
-    private function renderRow(ContainerRendererCanvasInterface $canvas, Table $table, array $row, array $rowOptions): void
-    {
+    private function renderRow(
+        ContainerRendererCanvasInterface $canvas,
+        Table $table,
+        array $row,
+        array $rowOptions
+    ): void {
         $subRows = $table->splitRowInMultibleSubRows($row, $rowOptions);
 
         if ($rowOptions['border'] == Table::ROW_BORDER_BOTTOM) {
@@ -46,7 +50,7 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
 
         $fontSize = $rowOptions['fontSize'] ?? $table->defualtFontSize;
         $fontLineHeight = $fontSize / Pdf::POINTS_PER_MM;
-        $rowHeight = $this->rowOptions['height'] ?? $fontLineHeight;
+        $rowHeight = $rowOptions['height'] ?? $fontLineHeight;
 
         $count = 0;
         foreach ($subRows as $subRow) {
@@ -58,23 +62,29 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         }
     }
 
-    private function renderSubRow(ContainerRendererCanvasInterface $canvas, Table $table, array $subRow, array $rowOptions, float $y, float $rowHeight): void
-    {
+    private function renderSubRow(
+        ContainerRendererCanvasInterface $canvas,
+        Table $table,
+        array $subRow,
+        array $rowOptions,
+        float $y,
+        float $rowHeight
+    ): void {
         //$border = $rowOptions['border'] ?? 0;
         $fontFamily = $rowOptions['fontFamily'] ?? $table->defaultFontFamily;
-        $fontWeight = $rowOptions['fontWeight'] ?? $table->defualtFontStyle;
+        $fontStyle = $rowOptions['fontWeight'] ?? $table->defualtFontStyle;
         $fontSize = $rowOptions['fontSize'] ?? $table->defualtFontSize;
 
         $x = $table->getCalcedContainer()->containerBox->getContentBox()['x'];
         foreach ($subRow as $index => $cell) {
             $content = $cell['content'] ?? '';
             $width = $cell['width'] ?? $table->getColumnWidths()[$index];
-
+            $textAlignment = $cell['alignment'] ?? $table->defaultAlignment;
             //$cell['style'] = $cell['style'] ?? Pdf::FONT_STYLE_BOLD;
             //$cell['alignment'] = $cell['alignment'] ?? 'L';
 
-            $canvas->setFontToDo($fontFamily, $fontWeight, $fontSize);
-            $canvas->drawText($content, $x, $y, $width, $rowHeight);
+            $canvas->setFontToDo($fontFamily, $fontStyle, $fontSize);
+            $canvas->drawText($content, $x, $y, $width, $rowHeight, $textAlignment);
 
             // if ($index == $table->columns - 1) {
             //     break;

@@ -19,10 +19,25 @@ class DecoratorCanvas implements ContainerRendererCanvasInterface
      */
     private $color = [];
 
+    /**
+     * @var string $fontFamily
+     */
+    private $fontFamily;
+
+    /**
+     * @var string $fontStyle
+     */
+    private $fontStyle;
+
+    /**
+     * @var float $fontSize
+     */
+    private $fontSize;
+
     public function __construct(Pdf $pdf)
     {
         $this->pdf = $pdf;
-        $color = ['r' => 0, 'g' => 0, 'b' => 0];
+        $this->color = ['r' => 0, 'g' => 0, 'b' => 0];
     }
 
     public function setColor(float $r, float $g, float $b, float $alpha = 1): void
@@ -32,7 +47,6 @@ class DecoratorCanvas implements ContainerRendererCanvasInterface
 
     public function drawLine(float $x1, float $y1, float $x2, float $y2): void
     {
-        //$this->pdf->SetDrawColor($color['r'], $color['g'], $color['b']);
         $this->pdf->SetDrawColor($this->color['r'], $this->color['g'], $this->color['b']);
         $this->pdf->Line($x1, $y1, $x2, $y2);
     }
@@ -45,13 +59,22 @@ class DecoratorCanvas implements ContainerRendererCanvasInterface
     // Cant rename setFontToDo() -> setFont() in Pdf
     public function setFontToDo(string $fontFamily, string $fontStyle, float $fontSize): void
     {
+        $this->fontFamily = $fontFamily;
+        $this->fontStyle = $fontStyle;
+        $this->fontSize = $fontSize;
     }
 
-    public function drawText(string $text, float $x, float $y, float $width, float $height): void
-    {
-        //$this->pdf->SetFont($fontFamily, $fontStyle, $fontSize);
+    public function drawText(
+        string $text,
+        float $x,
+        float $y,
+        float $width,
+        float $height,
+        string $alignment = Pdf::CELL_ALIGN_LEFT
+    ): void {
+        $this->pdf->SetFont($this->fontFamily, $this->fontStyle, $this->fontSize);
         $this->pdf->SetXY($x, $y);
-        $this->pdf->Cell($width, $height, $text, Pdf::CELL_BORDER_NONE, Pdf::CELL_NEW_LINE_BELOW);
+        $this->pdf->Cell($width, $height, $text, Pdf::CELL_BORDER_NONE, Pdf::CELL_NEW_LINE_BELOW, $alignment);
     }
 
     public function drawImage(string $imagePath, float $x, float $y, float $width, float $height): void

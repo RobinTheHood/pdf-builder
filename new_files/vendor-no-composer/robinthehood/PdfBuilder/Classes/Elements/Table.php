@@ -16,6 +16,7 @@ class Table extends Container
     public $defaultFontFamily = 'DejaVu';
     public $defualtFontStyle = Pdf::FONT_STYLE_NORMAL;
     public $defualtFontSize = 10;
+    public $defaultAlignment = Pdf::CELL_ALIGN_LEFT;
 
     private $columnWidths = [];
     private $rows = [];
@@ -64,7 +65,7 @@ class Table extends Container
             $rowOptions = $this->rowsOptions[$index];
             $fontSize = $rowOptions['fontSize'] ?? $this->defualtFontSize;
             $fontLineHeight = $fontSize / Pdf::POINTS_PER_MM;
-            $rowHeight = $this->rowOptions['height'] ?? $fontLineHeight;
+            $rowHeight = $rowOptions['height'] ?? $fontLineHeight;
 
             $subRows = $this->splitRowInMultibleSubRows($row, $rowOptions);
             $tableHeight += $rowHeight * count($subRows);
