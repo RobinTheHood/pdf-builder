@@ -27,7 +27,7 @@ class ImageRenderer extends ContainerRenderer implements ContainerRendererInterf
     {
         $contentBox = $image->getCalcedContainer()->containerBox->getContentBox();
         $canvas->drawImage(
-            $image->imagePath,
+            $image->getImagePath(),
             $contentBox['x'],
             $contentBox['y'],
             $contentBox['width'],
