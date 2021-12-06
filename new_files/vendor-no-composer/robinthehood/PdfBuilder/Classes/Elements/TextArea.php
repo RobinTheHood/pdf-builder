@@ -16,8 +16,14 @@ class TextArea extends Container
     public const OVERFLOW_Y_VISIBLE = 1;
     public const OVERFLOW_Y_HIDDEN = 0;
 
+    /**
+     * @var int $verticalAlign
+     */
     private $verticalAlign = self::VERTICAL_ALIGN_TOP;
 
+    /**
+     * @var int $overflowY
+     */
     private $overflowY = self::OVERFLOW_Y_VISIBLE;
 
     public function __construct()

@@ -8,12 +8,24 @@ use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 
 class Document
 {
-    private $sections = [];
-
-    //private $footerY = 35;
+    /**
+     * @var int $leftMargin
+     */
     private $leftMargin = 20;
+
+    /**
+     * @var string $fontFamily
+     */
     private $fontFamily = 'DejaVu';
 
+    /**
+     * @var Section[] $sections
+     */
+    private $sections = [];
+
+    /**
+     * @var Pdf $pdf
+     */
     private $pdf = null;
 
     public function addSection(Section $section): void

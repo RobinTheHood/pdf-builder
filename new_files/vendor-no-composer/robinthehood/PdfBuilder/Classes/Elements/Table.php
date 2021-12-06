@@ -13,13 +13,39 @@ class Table extends Container
     public const ROW_BORDER_BOTTOM = 'B';
     public const ROW_BORDER_NONE = '';
 
+    /**
+     * @var string $defaultFontFamily
+     */
     public $defaultFontFamily = 'DejaVu';
+
+    /**
+     * @var string $defualtFontStyle
+     */
     public $defualtFontStyle = Pdf::FONT_STYLE_NORMAL;
+
+    /**
+     * @var int $defualtFontSize
+     */
     public $defualtFontSize = 10;
+
+    /**
+     * @var string $defaultAlignment
+     */
     public $defaultAlignment = Pdf::CELL_ALIGN_LEFT;
 
+    /**
+     * @var array $columnWidths
+     */
     private $columnWidths = [];
+
+    /**
+     * @var array $rows
+     */
     private $rows = [];
+
+    /**
+     * @var array $rowsOptions
+     */
     private $rowsOptions = [];
 
     public function __construct()

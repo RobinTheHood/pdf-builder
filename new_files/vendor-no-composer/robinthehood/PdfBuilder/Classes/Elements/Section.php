@@ -26,13 +26,34 @@ class Section extends Container
      */
     private $footerDecorator;
 
+    /**
+     * @var int $pageMode
+     */
     private $pageMode = DecoratorInterface::DECORATION_MODE_ALWAYS;
+
+    /**
+     * @var int $headerMode
+     */
     private $headerMode = DecoratorInterface::DECORATION_MODE_ALWAYS;
+
+    /**
+     * @var int $footerMode
+     */
     private $footerMode = DecoratorInterface::DECORATION_MODE_ALWAYS;
 
+    /**
+     * @var int $headerDrawCount
+     */
     private $headerDrawCount = 0;
+
+    /**
+     * @var int $footerDrawCount
+     */
     private $footerDrawCount = 0;
 
+    /**
+     * @var string $fontFamily
+     */
     protected $fontFamily = 'DejaVu';
 
     public function setPageDecorator(DecoratorInterface $pageDecorator)

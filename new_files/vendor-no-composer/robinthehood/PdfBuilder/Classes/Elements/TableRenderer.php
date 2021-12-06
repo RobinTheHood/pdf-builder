@@ -12,6 +12,9 @@ use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 
 class TableRenderer extends ContainerRenderer implements ContainerRendererInterface
 {
+    /**
+     * @var int $renderY
+     */
     private $renderY = 0;
 
     public function render(ContainerRendererCanvasInterface $canvas, ContainerInterface $container): void
@@ -19,7 +22,7 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         parent::render($canvas, $container);
 
         /**
-         * @var Talbe $textArea
+         * @var Table $textArea
          */
         $table = $container;
 
