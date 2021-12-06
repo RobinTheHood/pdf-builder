@@ -32,6 +32,11 @@ class TextArea extends Container
         $this->setContainerRenderer(new TextAreaRenderer());
     }
 
+    public function getVerticalAlign(): int
+    {
+        return $this->verticalAlign;
+    }
+
     public function setVerticalAlign(int $verticalAlign): void
     {
         $this->verticalAlign = $verticalAlign;

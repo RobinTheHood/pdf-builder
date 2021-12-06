@@ -25,6 +25,15 @@ class TextAreaRenderer extends ContainerRenderer implements ContainerRendererInt
 
     private function renderTextArea(ContainerRendererCanvasInterface $canvas, TextArea $textArea): void
     {
+        if ($textArea->getVerticalAlign() == TextArea::VERTICAL_ALIGN_TOP) {
+            $this->renderTop($canvas, $textArea);
+        } elseif ($textArea->getVerticalAlign() == TextArea::VERTICAL_ALIGN_BOTTOM) {
+            $this->renderBottom($canvas, $textArea);
+        }
+    }
+
+    private function renderTop(ContainerRendererCanvasInterface $canvas, TextArea $textArea): void
+    {
         $contentBox = $textArea->getCalcedContainer()->containerBox->getContentBox();
         $lines = $textArea->splitTextInLines($contentBox['width']);
         $x = $contentBox['x'];
@@ -39,6 +48,27 @@ class TextAreaRenderer extends ContainerRenderer implements ContainerRendererInt
         foreach ($lines as $line) {
             $canvas->drawText($line, $x, $y, $contentBox['width'], $lineHeight);
             $y += $lineHeight;
+        }
+    }
+
+    private function renderBottom(ContainerRendererCanvasInterface $canvas, TextArea $textArea): void
+    {
+        $contentBox = $textArea->getCalcedContainer()->containerBox->getContentBox();
+        $lines = $textArea->splitTextInLines($contentBox['width']);
+        $lines = array_reverse($lines);
+
+        $x = $contentBox['x'];
+        $y = $contentBox['y'] + $contentBox['height'];
+
+        $lineHeight = $textArea->getLineHeight();
+        if ($lineHeight === null) {
+            $lineHeight = $textArea->getFontHeight();
+        }
+
+        $canvas->setFontToDo($textArea->getFontFamily(), $textArea->getFontWeight(), $textArea->getFontSize());
+        foreach ($lines as $line) {
+            $y -= $lineHeight;
+            $canvas->drawText($line, $x, $y, $contentBox['width'], $lineHeight);
         }
     }
 }
