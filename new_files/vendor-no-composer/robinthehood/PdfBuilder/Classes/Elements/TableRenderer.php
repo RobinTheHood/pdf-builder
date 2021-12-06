@@ -84,15 +84,9 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
             $content = $cell['content'] ?? '';
             $width = $cell['width'] ?? $table->getColumnWidths()[$index];
             $textAlignment = $cell['alignment'] ?? $table->defaultAlignment;
-            //$cell['style'] = $cell['style'] ?? Pdf::FONT_STYLE_BOLD;
-            //$cell['alignment'] = $cell['alignment'] ?? 'L';
 
             $canvas->setFontToDo($fontFamily, $fontStyle, $fontSize);
             $canvas->drawText($content, $x, $y, $width, $rowHeight, $textAlignment);
-
-            // if ($index == $table->columns - 1) {
-            //     break;
-            // }
 
             $x += $width;
         }
