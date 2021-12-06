@@ -9,11 +9,6 @@ use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 class Document
 {
     /**
-     * @var int $leftMargin
-     */
-    private $leftMargin = 20;
-
-    /**
      * @var string $fontFamily
      */
     private $fontFamily = 'DejaVu';
@@ -54,7 +49,7 @@ class Document
         $pdf->SetFillColor(255, 255, 255);
         $pdf->SetDisplayMode('fullwidth');
         $pdf->SetTitle('Pdf Builder Test');
-        $pdf->SetLeftMargin($this->leftMargin);
+        $pdf->SetLeftMargin(0);
         $this->pdf = $pdf;
     }
 }
