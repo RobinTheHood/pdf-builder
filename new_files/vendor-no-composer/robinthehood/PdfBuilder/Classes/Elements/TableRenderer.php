@@ -32,7 +32,6 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
     private function renderTable(ContainerRendererCanvasInterface $canvas, Table $table): void
     {
         $this->renderY = $table->getCalcedContainer()->containerBox->getContentBox()['y'];
-        //$canvas->setFontToDo($table->defaultFontFamily, $table->defualtFontStyle, $table->defualtFontSize);
         foreach ($table->getRows() as $index => $row) {
             $this->renderRow($canvas, $table, $row, $table->getRowsOptions()[$index]);
         }

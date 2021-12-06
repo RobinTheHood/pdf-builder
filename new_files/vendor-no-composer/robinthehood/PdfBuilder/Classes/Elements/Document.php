@@ -33,13 +33,6 @@ class Document
         $this->sections[] = $section;
     }
 
-    public function calcComponents()
-    {
-        foreach ($this->sections as $section) {
-            $section->calcComponents();
-        }
-    }
-
     public function render(): void
     {
         $this->initPdf();
@@ -51,22 +44,17 @@ class Document
         $this->pdf->Output();
     }
 
-    private function initPdf()
+    private function initPdf(): void
     {
         $pdf = new Pdf();
         $pdf->AddFont($this->fontFamily, Pdf::FONT_STYLE_NORMAL, 'DejaVuSansCondensed.ttf', true);
         $pdf->AddFont($this->fontFamily, Pdf::FONT_STYLE_BOLD, 'DejaVuSansCondensed-Bold.ttf', true);
-
-        //$pdf->SetAutoPageBreak(true, $this->footerY);
         $pdf->SetAutoPageBreak(false, 0);
         $pdf->SetCreator("PdfBuilder (c) 2021 Robin Wieschendorf");
-        //$pdf->AliasNbPages();
-
         $pdf->SetFillColor(255, 255, 255);
         $pdf->SetDisplayMode('fullwidth');
         $pdf->SetTitle('Pdf Builder Test');
         $pdf->SetLeftMargin($this->leftMargin);
-
         $this->pdf = $pdf;
     }
 }
