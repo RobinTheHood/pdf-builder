@@ -32,6 +32,8 @@ class Bill
     private function createBill1(): void
     {
         $section = new Section();
+        $section->setDefaultPageMargin(10, 40);
+        $section->addPageMargin(0, 100);
 
         // Logo
         $logo = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rth_logo.png');

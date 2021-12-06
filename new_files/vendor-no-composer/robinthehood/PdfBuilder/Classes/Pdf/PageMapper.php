@@ -6,6 +6,8 @@ namespace RobinTheHood\PdfBuilder\Classes\Pdf;
 
 class PageMapper
 {
+    use PageMarginTrait;
+
     /**
      * @var Pdf $pdf;
      */
@@ -26,14 +28,13 @@ class PageMapper
     public function mapYOnPage(float $globalY, float $height = 0): array
     {
         $y = $this->mapY($globalY, $height);
-        $pageMargin = $this->getPageMargin($y['relativPageNo']);
         $y['yOnPage'] = $this->yOnPage($y['y'], $y['relativPageNo']);
         return $y;
     }
 
-    public function yOnPage(float $y, int $page): float
+    public function yOnPage(float $y, int $relativPageNo): float
     {
-        $pageMargin = $this->getPageMargin($page);
+        $pageMargin = $this->getPageMargin($relativPageNo - 1);
         return $y + $pageMargin['top'];
     }
 
@@ -52,19 +53,9 @@ class PageMapper
         return $this->pdf->PageNo() - $this->lastResetPageNo;
     }
 
-    private function getPageMargin(int $relativPageNo): array
-    {
-        $marginFirstPage = ['top' => 0, 'bottom' => '45'];
-        $marginDefault = ['top' => 10, 'bottom' => '45'];
-        if ($relativPageNo == 1) {
-            return $marginFirstPage;
-        }
-        return $marginDefault;
-    }
-
     public function getPageContentHeight(int $relativPageNo): float
     {
-        $pageMargin = $this->getPageMargin($relativPageNo);
+        $pageMargin = $this->getPageMargin($relativPageNo - 1);
         return Pdf::PAGE_DIN_A4_HEIGHT - $pageMargin['top'] - $pageMargin['bottom'];
     }
 

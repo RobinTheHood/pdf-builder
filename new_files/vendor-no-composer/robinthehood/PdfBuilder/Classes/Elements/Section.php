@@ -8,9 +8,12 @@ use RobinTheHood\PdfBuilder\Classes\Container\Container;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 use RobinTheHood\PdfBuilder\Classes\Elements\Interfaces\DecoratorInterface;
 use RobinTheHood\PdfBuilder\Classes\Pdf\DecoratorCanvas;
+use RobinTheHood\PdfBuilder\Classes\Pdf\PageMarginTrait;
 
 class Section extends Container
 {
+    use PageMarginTrait;
+
     /**
      * @var PageDecorator $pageDecorator
      */
@@ -155,6 +158,8 @@ class Section extends Container
         $this->calcAll();
         $canvas = $pdf;
         $canvas->pageMapper->reset();
+        $canvas->pageMapper->setDefaultPageMargin($this->defaultPageMargin['top'], $this->defaultPageMargin['bottom']);
+        $canvas->pageMapper->setPageMargins($this->pageMargins);
         $canvas->drawBuffer->reset();
 
         $renderer = $this->getContainerRenderer();
