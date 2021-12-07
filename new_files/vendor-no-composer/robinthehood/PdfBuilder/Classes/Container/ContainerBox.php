@@ -23,6 +23,7 @@ class ContainerBox
     public $borderRight;
     public $borderBottom;
     public $borderLeft;
+    public $borderColor;
 
     public $paddingTop;
     public $paddingRight;
@@ -46,6 +47,7 @@ class ContainerBox
         $this->borderRight = new ContainerValue();
         $this->borderBottom = new ContainerValue();
         $this->borderLeft = new ContainerValue();
+        $this->borderColor = ['r' => 0, 'g' => 0 , 'b' => 0];
 
         $this->paddingTop = new ContainerValue();
         $this->paddingRight = new ContainerValue();
@@ -71,6 +73,7 @@ class ContainerBox
         $containerBox->borderRight = $this->borderRight->copy();
         $containerBox->borderBottom = $this->borderBottom->copy();
         $containerBox->borderLeft = $this->borderLeft->copy();
+        $containerBox->borderColor = $this->borderColor;
 
         $containerBox->paddingTop = $this->paddingTop->copy();
         $containerBox->paddingRight = $this->paddingRight->copy();
