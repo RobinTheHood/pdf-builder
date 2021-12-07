@@ -75,7 +75,8 @@ class OrderTable extends Container
             ['content' => 'Gesamtpreis', 'alignment' => Pdf::CELL_ALIGN_RIGHT]
         ], [
             'fontWeight' => Pdf::FONT_STYLE_BOLD,
-            'border' => Table::ROW_BORDER_BOTTOM,
+            'borderBottom' => Table::ROW_BORDER_BOTTOM,
+            'borderBottomLineWidth' => 0.2,
             'fontSize' => 10,
             'paddingBottom' => 2
         ]);

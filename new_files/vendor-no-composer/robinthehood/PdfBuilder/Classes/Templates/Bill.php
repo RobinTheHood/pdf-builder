@@ -75,7 +75,7 @@ class Bill
 
         // OrderTable
         $orderTable = new OrderTable();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $orderTable->addItem([
                 'quantity' => '19',
                 'name' => "Ein grünes T-Shirt\n- mit roten Punkten\n- mit gelben Streifen",

@@ -29,12 +29,12 @@ class Infoblock extends Container
 
         $table->setColumnWidths([
             30,
-            20
+            50
         ]);
 
         $rowSettings = [
             'fontWeight' => Pdf::FONT_STYLE_NORMAL,
-            'border' => Table::ROW_BORDER_BOTTOM,
+            'borderBottom' => Table::ROW_BORDER_BOTTOM,
             'fontSize' => 10,
             'paddingBottom' => 2
         ];
@@ -56,7 +56,7 @@ class Infoblock extends Container
         ], $rowSettings);
 
         $table->addRow([
-            ['content' => 'Zahnungsart'], ['content' => 'Vorkasse']
+            ['content' => 'Zahnungsart'], ['content' => 'Vorkasse und PayPal Plus']
         ], $rowSettings);
 
         $this->addChildContainer($table);

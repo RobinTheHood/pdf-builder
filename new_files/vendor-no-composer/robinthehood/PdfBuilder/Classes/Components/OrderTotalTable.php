@@ -37,6 +37,9 @@ class OrderTotalTable extends Container// implements ComponentInterface
     private function initTableVat(): void
     {
         $this->tableVat = new Table();
+        $this->tableVat->containerBox->borderTop->setValue(0.2);
+        $this->tableVat->containerBox->paddingTop->setValue(1);
+
 
         $widthSum = 175; // Unit: mm
         $widthVat = 14; // Unit: mm
@@ -52,7 +55,7 @@ class OrderTotalTable extends Container// implements ComponentInterface
 
         $rowOptions = [
             'fontWeight' => PDF::FONT_STYLE_NORMAL,
-            'border' => Table::ROW_BORDER_BOTTOM,
+            //'borderBottom' => Table::ROW_BORDER_BOTTOM,
             'fontSize' => 8,
             'paddingBottom' => 1
         ];
@@ -73,7 +76,9 @@ class OrderTotalTable extends Container// implements ComponentInterface
     private function initTableSum(): void
     {
         $this->tableSum = new Table();
-        $this->tableSum->containerBox->marginTop->setValue(2);
+        $this->tableSum->containerBox->marginTop->setValue(1);
+        $this->tableSum->containerBox->borderTop->setValue(0.2);
+        $this->tableSum->containerBox->paddingTop->setValue(1);
 
         $widthSum = 175; // Unit: mm
         $widthTotal = 28 + 14; // Unit: mm
@@ -87,7 +92,7 @@ class OrderTotalTable extends Container// implements ComponentInterface
 
         $rowOptions = [
             'fontWeight' => PDF::FONT_STYLE_NORMAL,
-            'border' => Table::ROW_BORDER_BOTTOM,
+            //'borderBottom' => Table::ROW_BORDER_BOTTOM,
             'fontSize' => 8,
             'paddingBottom' => 1
         ];
