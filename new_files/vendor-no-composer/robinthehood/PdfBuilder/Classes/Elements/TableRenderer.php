@@ -49,13 +49,14 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         $fontLineHeight = $fontSize / Pdf::POINTS_PER_MM;
         $rowHeight = $rowOptions['height'] ?? $fontLineHeight;
         $paddingBottom = $rowOptions['paddingBottom'] ?? 0;
+        $marginBottom = $rowOptions['marginBottom'] ?? 0;
 
         foreach ($subRows as $subRow) {
             $this->renderSubRow($canvas, $table, $subRow, $rowOptions, $this->renderY, $rowHeight);
             $this->renderY += $rowHeight;
         }
 
-        //$this->renderY += $table->getCalcedContainer()->containerBox->borderTop->getValue();
+        $this->renderY += $paddingBottom;
 
         // Draw Border
         $borderBottom = $rowOptions['borderBottom'] ?? Table::ROW_BORDER_NONE;
@@ -72,8 +73,9 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
                 $this->renderY + $borderBottomLineWidth / 2
             );
         }
+        $this->renderY += $borderBottomLineWidth;
 
-        $this->renderY += $paddingBottom + $borderBottomLineWidth;
+        $this->renderY += $marginBottom;
     }
 
     private function renderSubRow(

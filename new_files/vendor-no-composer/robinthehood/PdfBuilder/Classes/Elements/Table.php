@@ -95,13 +95,14 @@ class Table extends Container
             $paddingBottom = $rowOptions['paddingBottom'] ?? 0;
             $borderBottom = $rowOptions['borderBottom'] ?? self::ROW_BORDER_NONE;
             $borderBottomLineWidth = $rowOptions['borderBottomLineWidth'] ?? 0.2;
+            $marginBottom = $rowOptions['marginBottom'] ?? 0;
 
             if ($borderBottom == self::ROW_BORDER_BOTTOM) {
                 $rowHeight += $borderBottomLineWidth;
             }
 
             $subRows = $this->splitRowInMultibleSubRows($row, $rowOptions);
-            $tableHeight += $rowHeight * count($subRows) + $paddingBottom;
+            $tableHeight += $rowHeight * count($subRows) + $paddingBottom + $marginBottom;
         }
         $this->getCalcedContainer()->containerBox->height->setValue($tableHeight);
     }
