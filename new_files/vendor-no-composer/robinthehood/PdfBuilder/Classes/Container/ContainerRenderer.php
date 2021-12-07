@@ -14,27 +14,27 @@ class ContainerRenderer implements ContainerRendererInterface
     {
         $renderContainer = $container->getCalcedContainer();
 
-        // Draw Margin Box
-        $box = $renderContainer->containerBox->getMarginBox();
-        $color = $this->createColor(255, 0, 0);
-        $this->drawBox($canvas, $box, $color);
+        // // Draw Margin Box
+        // $box = $renderContainer->containerBox->getMarginBox();
+        // $color = $this->createColor(255, 0, 0);
+        // $this->drawBox($canvas, $box, $color);
 
-        if (true) {
-            // Draw Border Box
-            $box = $renderContainer->containerBox->getBorderBox();
-            $color = $this->createColor(0, 255, 0);
-            $this->drawBox($canvas, $box, $color);
+        // if (true) {
+        //     // Draw Border Box
+        //     $box = $renderContainer->containerBox->getBorderBox();
+        //     $color = $this->createColor(0, 255, 0);
+        //     $this->drawBox($canvas, $box, $color);
 
-            // Draw Padding Box
-            $box = $renderContainer->containerBox->getPaddingBox();
-            $color = $this->createColor(0, 0, 255);
-            $this->drawBox($canvas, $box, $color);
+        //     // Draw Padding Box
+        //     $box = $renderContainer->containerBox->getPaddingBox();
+        //     $color = $this->createColor(0, 0, 255);
+        //     $this->drawBox($canvas, $box, $color);
 
-            // Draw Content Box
-            $box = $renderContainer->containerBox->getContentBox();
-            $colorBlue = $this->createColor(0, 255, 255);
-            $this->drawBox($canvas, $box, $colorBlue);
-        }
+        //     // Draw Content Box
+        //     $box = $renderContainer->containerBox->getContentBox();
+        //     $colorBlue = $this->createColor(0, 255, 255);
+        //     $this->drawBox($canvas, $box, $colorBlue);
+        // }
 
         $this->renderChilds($canvas, $container);
     }

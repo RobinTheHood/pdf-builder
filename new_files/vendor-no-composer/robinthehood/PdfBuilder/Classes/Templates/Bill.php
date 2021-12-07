@@ -33,7 +33,7 @@ class Bill
     {
         $section = new Section();
         $section->setDefaultPageMargin(10, 40);
-        $section->addPageMargin(0, 100);
+        $section->addPageMargin(0, 40);
 
         // Logo
         $logo = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rth_logo.png');
@@ -61,7 +61,7 @@ class Bill
         $contentHeading = new TextArea();
         $contentHeading->setFontSize(18);
         $contentHeading->setFontWeight(Pdf::FONT_STYLE_BOLD);
-        $contentHeading->setText('Rechnung');
+        $contentHeading->setText('Rechnung R-123456');
         $contentHeading->containerBox->marginBottom->setValue(2);
         $contentArea->addChildContainer($contentHeading);
 

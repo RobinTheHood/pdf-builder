@@ -36,7 +36,6 @@ class OrderTable extends Container
             ['content' => $item['priceTotal'], 'alignment' => Pdf::CELL_ALIGN_RIGHT]
         ], [
             'fontWeight' => Pdf::FONT_STYLE_NORMAL,
-            'border' => Table::ROW_BORDER_BOTTOM,
             'fontSize' => 8,
             'paddingBottom' => 3
         ]);
