@@ -55,14 +55,22 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
             $this->renderY += $rowHeight;
         }
 
+        //$this->renderY += $table->getCalcedContainer()->containerBox->borderTop->getValue();
+
         // Draw Border
-        $borderBottom = $rowOptions['border'] ?? Table::ROW_BORDER_NONE;
+        $borderBottom = $rowOptions['borderBottom'] ?? Table::ROW_BORDER_NONE;
         $borderBottomLineWidth = 0;
         if ($borderBottom == Table::ROW_BORDER_BOTTOM) {
-            $borderBottomLineWidth = 0.2; // Unit: mm;
+            $borderBottomLineWidth = $rowOptions['borderBottomLineWidth'] ?? 0.2;
             $x1 = $table->getCalcedContainer()->containerBox->getContentBox()['boxLines']['top']['x1'];
             $x2 = $table->getCalcedContainer()->containerBox->getContentBox()['boxLines']['top']['x2'];
-            $canvas->drawLine($x1, $this->renderY, $x2, $this->renderY);
+            $canvas->setLineWidthToDo($borderBottomLineWidth);
+            $canvas->drawLine(
+                $x1,
+                $this->renderY + $borderBottomLineWidth / 2,
+                $x2,
+                $this->renderY + $borderBottomLineWidth / 2
+            );
         }
 
         $this->renderY += $paddingBottom + $borderBottomLineWidth;
