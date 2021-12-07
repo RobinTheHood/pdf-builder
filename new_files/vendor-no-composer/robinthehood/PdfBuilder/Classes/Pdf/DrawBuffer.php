@@ -19,6 +19,11 @@ class DrawBuffer
     private $fontStyle = '';
     private $fontSize = 10;
 
+    /**
+     * @var float $lineWidth
+     */
+    private $lineWidth = 0.2;
+
     public function __construct(Pdf $pdf)
     {
         $this->pdf = $pdf;
@@ -48,6 +53,11 @@ class DrawBuffer
         $this->fontFamily = $fontFamily;
         $this->fontStyle = $fontStyle;
         $this->fontSize = $fontSize;
+    }
+
+    public function setLineWidth(float $lineWidth)
+    {
+        $this->lineWidth = $lineWidth;
     }
 
     public function drawText(
@@ -81,7 +91,8 @@ class DrawBuffer
             'y1' => $y1,
             'x2' => $x2,
             'y2' => $y2,
-            'color' => $this->drawColor
+            'color' => $this->drawColor,
+            'lineWidth' => $this->lineWidth
         ];
     }
 
@@ -120,7 +131,8 @@ class DrawBuffer
                         $function['y1'],
                         $function['x2'],
                         $function['y2'],
-                        $function['color']
+                        $function['color'],
+                        $function['lineWidth']
                     );
                 } elseif ($function['function'] == 'drawImage') {
                     $this->renderDrawImage(
@@ -156,8 +168,9 @@ class DrawBuffer
         $this->pdf->Cell($width, $height, $text, Pdf::CELL_BORDER_NONE, Pdf::CELL_NEW_LINE_BELOW, $alignment);
     }
 
-    private function renderDrawLine(float $x1, float $y1, float $x2, float $y2, array $color): void
+    private function renderDrawLine(float $x1, float $y1, float $x2, float $y2, array $color, float $lineWidth): void
     {
+        $this->pdf->SetLineWidth($lineWidth);
         $this->pdf->SetDrawColor($color['r'], $color['g'], $color['b']);
         $this->pdf->Line($x1, $y1, $x2, $y2);
     }

@@ -15,6 +15,9 @@ interface ContainerRendererCanvasInterface
     // Cant rename setFontToDo() -> setFont() in Pdf
     public function setFontToDo(string $fontFamily, string $fontStyle, float $fontSize): void;
 
+    // Cant rename setLineWidthToDo() -> setLineWidth() in Pdf
+    public function setLineWidthToDo(float $lineWidth): void;
+
     public function drawText(string $text, float $x, float $y, float $width, float $height): void;
 
     public function drawImage(string $imagePath, float $x, float $y, float $width, float $height): void;

@@ -98,6 +98,12 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
         $this->drawBuffer->setFont($fontFamily, $fontStyle, $fontSize);
     }
 
+    // Cant rename setLineWidthToDo() -> setLineWidth()
+    public function setLineWidthToDo(float $lineWidth): void
+    {
+        $this->drawBuffer->setLineWidth($lineWidth);
+    }
+
     public function drawText(
         string $text,
         float $x,

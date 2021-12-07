@@ -34,6 +34,11 @@ class DecoratorCanvas implements ContainerRendererCanvasInterface
      */
     private $fontSize;
 
+    /**
+     * @var float $lineWidth
+     */
+    private $lineWidth = 0.2;
+
     public function __construct(Pdf $pdf)
     {
         $this->pdf = $pdf;
@@ -45,8 +50,14 @@ class DecoratorCanvas implements ContainerRendererCanvasInterface
         $this->color = ['r' => $r, 'g' => $g, 'b' => $b];
     }
 
+    public function setLineWidthToDo(float $lineWidth): void
+    {
+        $this->lineWidth = $lineWidth;
+    }
+
     public function drawLine(float $x1, float $y1, float $x2, float $y2): void
     {
+        $this->pdf->SetLineWidth($this->lineWidth);
         $this->pdf->SetDrawColor($this->color['r'], $this->color['g'], $this->color['b']);
         $this->pdf->Line($x1, $y1, $x2, $y2);
     }
