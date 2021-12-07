@@ -78,7 +78,8 @@ class OrderTable extends Container
             'borderBottom' => Table::ROW_BORDER_BOTTOM,
             'borderBottomLineWidth' => 0.2,
             'fontSize' => 10,
-            'paddingBottom' => 2
+            'paddingBottom' => 1,
+            'marginBottom' => 1
         ]);
     }
 }

@@ -36,7 +36,8 @@ class Infoblock extends Container
             'fontWeight' => Pdf::FONT_STYLE_NORMAL,
             'borderBottom' => Table::ROW_BORDER_BOTTOM,
             'fontSize' => 10,
-            'paddingBottom' => 2
+            'paddingBottom' => 1,
+            'marginBottom' => 1
         ];
 
         $table->addRow([
