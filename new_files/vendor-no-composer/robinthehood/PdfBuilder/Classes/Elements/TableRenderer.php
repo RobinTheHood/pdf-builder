@@ -45,25 +45,27 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
     ): void {
         $subRows = $table->splitRowInMultibleSubRows($row, $rowOptions);
 
-        if ($rowOptions['border'] == Table::ROW_BORDER_BOTTOM) {
-            $rowOptions['border'] = '';
-            $lastBorder = Table::ROW_BORDER_BOTTOM;
-        }
-
         $fontSize = $rowOptions['fontSize'] ?? $table->defualtFontSize;
         $fontLineHeight = $fontSize / Pdf::POINTS_PER_MM;
         $rowHeight = $rowOptions['height'] ?? $fontLineHeight;
         $paddingBottom = $rowOptions['paddingBottom'] ?? 0;
 
-        $count = 0;
         foreach ($subRows as $subRow) {
-            if (++$count == count($subRows)) {
-                $rowOptions['border'] = $lastBorder;
-            }
             $this->renderSubRow($canvas, $table, $subRow, $rowOptions, $this->renderY, $rowHeight);
             $this->renderY += $rowHeight;
         }
-        $this->renderY += $paddingBottom;
+
+        // Draw Border
+        $borderBottom = $rowOptions['border'] ?? Table::ROW_BORDER_NONE;
+        $borderBottomLineWidth = 0;
+        if ($borderBottom == Table::ROW_BORDER_BOTTOM) {
+            $borderBottomLineWidth = 0.2; // Unit: mm;
+            $x1 = $table->getCalcedContainer()->containerBox->getContentBox()['boxLines']['top']['x1'];
+            $x2 = $table->getCalcedContainer()->containerBox->getContentBox()['boxLines']['top']['x2'];
+            $canvas->drawLine($x1, $this->renderY, $x2, $this->renderY);
+        }
+
+        $this->renderY += $paddingBottom + $borderBottomLineWidth;
     }
 
     private function renderSubRow(
@@ -74,7 +76,6 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         float $y,
         float $rowHeight
     ): void {
-        //$border = $rowOptions['border'] ?? 0;
         $fontFamily = $rowOptions['fontFamily'] ?? $table->defaultFontFamily;
         $fontStyle = $rowOptions['fontWeight'] ?? $table->defualtFontStyle;
         $fontSize = $rowOptions['fontSize'] ?? $table->defualtFontSize;

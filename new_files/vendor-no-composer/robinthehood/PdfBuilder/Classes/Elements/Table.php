@@ -93,6 +93,12 @@ class Table extends Container
             $fontLineHeight = $fontSize / Pdf::POINTS_PER_MM;
             $rowHeight = $rowOptions['height'] ?? $fontLineHeight;
             $paddingBottom = $rowOptions['paddingBottom'] ?? 0;
+            $borderBottom = $rowOptions['border'] ?? self::ROW_BORDER_NONE;
+
+            if ($borderBottom == self::ROW_BORDER_BOTTOM) {
+                $borderBottomLineWidth = 0.2; // Unit: mm;
+                $rowHeight += $borderBottomLineWidth;
+            }
 
             $subRows = $this->splitRowInMultibleSubRows($row, $rowOptions);
             $tableHeight += $rowHeight * count($subRows) + $paddingBottom;
