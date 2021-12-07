@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RobinTheHood\PdfBuilder\Classes\Components;
 
 use RobinTheHood\PdfBuilder\Classes\Container\Container;
+use RobinTheHood\PdfBuilder\Classes\Elements\Barcode;
 use RobinTheHood\PdfBuilder\Classes\Elements\Table;
 use RobinTheHood\PdfBuilder\Classes\Pdf\Pdf;
 
@@ -61,5 +62,10 @@ class Infoblock extends Container
         ], $rowSettings);
 
         $this->addChildContainer($table);
+
+        $barcode = new Barcode();
+        $barcode->containerBox->height->setValue(15);
+        $barcode->setData('R-123456 / K-123456');
+        $this->addChildContainer($barcode);
     }
 }
