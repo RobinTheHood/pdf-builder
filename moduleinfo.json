@@ -12,7 +12,7 @@
     "website": "https://robinwieschendorf.de",
 
     "require": {
-        "robinthehood/tfpdf": "^0.3.0"
+        "robinthehood/tfpdf": "^1.0.0"
     },
 
     "category": "library",

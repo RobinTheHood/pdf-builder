@@ -58,9 +58,9 @@ class Pdf extends Tfpdf implements ContainerRendererCanvasInterface
         $this->footerFunction = $callable;
     }
 
-    public function addPage($orientation = '', $size = ''): void
+    public function addPage($orientation = '', $size = '', $rotation = 0): void
     {
-        parent::addPage($orientation, $size);
+        parent::addPage($orientation, $size, $rotation);
 
         if (\is_callable($this->pageFunction)) {
             call_user_func($this->pageFunction, $this);
