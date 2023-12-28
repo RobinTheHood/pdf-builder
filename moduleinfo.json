@@ -1,7 +1,7 @@
 {
     "name": "Pdf Builder",
     "archiveName": "robinthehood/pdf-builder",
-    "sourceDir": "new_files",
+    "sourceDir": "src",
     "version": "auto",
 
     "shortDescription": "",
@@ -34,7 +34,7 @@
 
     "autoload": {
         "psr-4": {
-            "RobinTheHood\\": "/vendor-no-composer/robinthehood"
+            "RobinTheHood\\PdfBuilder\\": "src-mmlc"
         }
     }
 }

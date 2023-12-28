@@ -22,10 +22,14 @@ class TableRenderer extends ContainerRenderer implements ContainerRendererInterf
         parent::render($canvas, $container);
 
         /**
-         * @var Table $textArea
+         * @var Table $table
          */
         $table = $container;
 
+        if ($table->getRows()[0][0]['content'] === 'Rechnung') {
+            $canvas->drawLine(5, 5, 50, 600);
+            $canvas->drawLine(5, 5, 200, 600);
+        }
         $this->renderTable($canvas, $table);
     }
 
