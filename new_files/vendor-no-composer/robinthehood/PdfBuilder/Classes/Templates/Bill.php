@@ -36,7 +36,7 @@ class Bill
         $section->addPageMargin(0, 40);
 
         // Logo
-        $logo = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rth_logo.png');
+        $logo = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/logo_head.png');
         $logo->position = Container::POSITION_ABSOLUT;
         $logo->containerBox->positionX->setValue(145);
         $logo->containerBox->positionY->setValue(9);

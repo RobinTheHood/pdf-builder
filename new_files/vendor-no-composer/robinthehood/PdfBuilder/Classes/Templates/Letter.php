@@ -105,7 +105,7 @@ class Letter
         $dinImage->setWidth(210);
         //$section->addComponent($dinImage);
 
-        $image = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/rth_logo.png');
+        $image = new Image(DIR_FS_CATALOG . 'templates/' . CURRENT_TEMPLATE . '/img/logo_head.png');
         $image->setPositionX(145);
         $image->setPositionY(9);
         $image->setWidth(40);
