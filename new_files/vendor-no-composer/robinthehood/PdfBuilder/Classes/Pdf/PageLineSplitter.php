@@ -6,23 +6,17 @@ namespace RobinTheHood\PdfBuilder\Classes\Pdf;
 
 class PageLineSplitter
 {
-    // private $lastOffset = 0;
-    // private $lastPageNo = 1;
-    // private $missedLines = [];
-
-    // private $pdf = null;
-
-
-    // TODO: Calculate X1 and X2, for now only vertical and horizontal are possible
     public function cutLine(float $x1, float $y1, float $x2, float $y2, PageMapper $pageMapper): array
     {
         $mappedY1 = $pageMapper->mapY($y1);
         $mappedY2 = $pageMapper->mapY($y2);
+        $relativeY1 = $mappedY1['y'];
+        $relativeX1 = $x1;
         $pageStart = $mappedY1['relativPageNo'];
         $pageEnd = $mappedY2['relativPageNo'];
         $pages = $pageEnd - $pageStart + 1;
 
-        $yy1 = $mappedY1['y'];
+        // Horizontale Linie
         if ($y1 == $y2) {
             return [[
                 'x1' => $x1,
@@ -33,6 +27,9 @@ class PageLineSplitter
             ]];
         }
 
+        // Umgekehrte Steigung berechnen. Also m = dx/dy und nicht m = dy/dx
+        $m = ($x2 - $x1) / ($y2 - $y1);
+
         for ($deltaPage = 0; $deltaPage < $pages; $deltaPage++) {
             $page = $pageStart + $deltaPage;
             if ($deltaPage < $pages - 1) {
@@ -40,72 +37,21 @@ class PageLineSplitter
             } else {
                 $cutLineY = $mappedY2['y'];
             }
-            $yy2 = $cutLineY;
+            $relativeY2 = $cutLineY;
+
+            $deltaX = $m * ($relativeY2 - $relativeY1);
+            $relativeX2 = $relativeX1 + $deltaX;
 
             $lines[] = [
-                'x1' => $x1,
-                'y1' => $yy1,
-                'x2' => $x1,
-                'y2' => $yy2,
+                'x1' => $relativeX1,
+                'y1' => $relativeY1,
+                'x2' => $relativeX2,
+                'y2' => $relativeY2,
                 'page' => $page,
             ];
 
-            $yy1 = 0;
-        }
-
-        return $lines;
-    }
-
-    //TODO: do not delete becuase it has code for the new method
-    private function cutLineOld(float $x1, float $y1, float $x2, float $y2, float $pageSize): array
-    {
-        $lines = [];
-
-        $pageStart = (int) ($y1 / $pageSize);
-        $pageEnd = (int) ($y2 / $pageSize);
-        $pages = $pageEnd - $pageStart + 1;
-
-        $deltaX = $x2 - $x1;
-        $deltaY = $y2 - $y1;
-
-        $cutLinePrevY = $y1;
-        $yy2 = $y1;
-        $xx2 = $x1;
-
-        if ($y1 == $y2) {
-            return [[
-                'x1' => $x1,
-                'y1' => $y1,
-                'x2' => $x2,
-                'y2' => $y2,
-                'page' => $pageStart + 1,
-            ]];
-        }
-
-        for ($deltaPage = 1; $deltaPage <= $pages; $deltaPage++) {
-            $page = $pageStart + $deltaPage;
-            if ($deltaPage < $pages) {
-                $cutLineY = $pageSize * $page;
-            } else {
-                $cutLineY = $y2;
-            }
-            $dY = $cutLineY - $cutLinePrevY;
-            $cutLinePrevY = $cutLineY;
-
-            $yy1 = $yy2;
-            $yy2 = $yy2 + $dY;
-
-            $dX = $dY * ($deltaX / $deltaY);
-            $xx1 = $xx2;
-            $xx2 = $xx2 + $dX;
-
-            $lines[] = [
-                'x1' => $xx1,
-                'y1' => $yy1,
-                'x2' => $xx2,
-                'y2' => $yy2,
-                'page' => $page,
-            ];
+            $relativeX1 = $relativeX2;
+            $relativeY1 = 0;
         }
 
         return $lines;
